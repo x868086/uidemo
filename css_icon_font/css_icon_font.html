@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+        @font-face {/*第一步引入字体文件*/
+            font-family: 'iconfont';
+            src: url('./icon_font/iconfont.eot');
+            src: url('./icon_font/iconfont.eot?#iefix') format('embedded-opentype'),
+            url('./icon_font/iconfont.woff') format('woff'),
+            url('./icon_font/iconfont.ttf') format('truetype'),
+            url('./icon_font/iconfont.svg#iconfont') format('svg');
+            }
+
+        .iconfont{/*第二步定义字体样式*/
+            font-family:"iconfont" !important;
+            font-size:16px;font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+            }
+
+        .iconfont.lable{
+          font-size:90px;
+          color:#ccc;
+        }
+
+        .iconfont.lable:hover{
+            color:green;
+        }
+        </style>
+    </head>
+    <body>
+    <i class="iconfont lable">&#xe607;</i><!--第三步使用字体样式，用unicode编码显示-->
+    </body>
+</html>
