@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            #container{
+                width:600px;
+                margin:0 auto;
+            }
+
+            .tab_first,.tab_sec{
+                margin:0 auto;
+                text-align:left;
+                border-collapse:collapse;
+                margin-bottom:30px;
+            }
+
+            .tab_first{
+                border:1px solid #eee;
+            }
+
+
+            tr{
+                height:30px;
+                font:15px/30px "微软雅黑";
+            }
+
+            .tab_first_head,.tab_sec_head{
+                background-color:#4CAF50;
+                font:bold 15px/30px "微软雅黑"; 
+                color:white;
+            }
+
+            tr:nth-child(2n){/*间隔行背景效果*/
+                background-color:#eee;
+            }
+
+            td{
+                padding-left:10px;
+                padding-right:90px;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div id="container">
+        <table class="tab_first">
+            <tr class="tab_first_head">
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Points</td>
+            </tr>
+            <tr>
+                <td>Jill</td>
+                <td>Smith</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Eve</td>
+                <td>Jackson</td>
+                <td>94</td>
+            </tr>
+            <tr>
+                <td>Adam</td>
+                <td>Johnson</td>
+                <td>67</td>
+            </tr>
+            <tr>
+                <td>Bo</td>
+                <td>Nilsson</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Mike</td>
+                <td>Ross</td>
+                <td>35</td>
+            </tr>
+        </table>
+        <table class="tab_sec">
+            <tr class="tab_sec_head">
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Points</td>
+            </tr>
+            <tr>
+                <td>Jill</td>
+                <td>Smith</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Eve</td>
+                <td>Jackson</td>
+                <td>94</td>
+            </tr>
+            <tr>
+                <td>Adam</td>
+                <td>Johnson</td>
+                <td>67</td>
+            </tr>
+            <tr>
+                <td>Bo</td>
+                <td>Nilsson</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Mike</td>
+                <td>Ross</td>
+                <td>35</td>
+            </tr>
+        </table>
+    </div>
+    </body>
+</html>
