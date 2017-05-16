@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+        .ct1{
+            width:500px;
+            height:500px;
+            background:yellowgreen;
+            position:relative;/*父元素相对定位*/
+        }
+
+        .ct2{
+            width:100px;
+            height:100px;
+            background:pink;
+            position:absolute;
+            left:50%;
+            top:50%;/*子元素绝对定位相对父元素XY轴移动50%*/
+            margin-left:-50px;
+            margin-top:-50px;/*子元素相对于自身移动一半,前提是子元素已知宽高*/
+        }
+
+        .ct3{
+            width:500px;
+            height:500px;
+            background:goldenrod;
+            position:relative;/*父元素相对定位*/
+        }
+
+        .ct4{
+            background:pink;
+            position:absolute;
+            left:50%;
+            top:50%;/*子元素绝对定位相对父元素XY轴移动50%，适用于子元素未知宽高*/
+            transform:translate(-50%,-50%)/*相对于自身XY移动50%*/
+        }
+
+        .ct5{
+            width:500px;
+            height:500px;
+            background:gray;
+            position:relative;
+        }
+
+        .ct6{
+            background:pink;
+            position:absolute;
+            width:100px;
+            height:100px;
+            margin:auto;
+            left:0;
+            bottom:0;
+            right:0;
+            top:0;
+        }
+
+        .ct7{
+            width:500px;
+            height:500px;
+            background:goldenrod;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .ct8{
+            width:100px;
+            background:pink;
+            height:100px;
+        }
+
+        .ct9{
+            width:500px;
+            height:500px;
+            background:greenyellow;
+            display:table-cell;
+            text-align:center;
+            vertical-align:middle;
+        }
+
+        .ct9 span{
+            background:pink;
+        }
+
+        .ct10{
+            width:500px;
+            height:500px;
+            background-color: gold;
+            display:table-cell;
+            text-align:center;
+            vertical-align:middle;
+        }
+
+        .ct11{/*父元素前后加伪inline-block元素，设置高度100%，子元素参考vertical:middle*/
+            width:500px;
+            height:500px;
+            background:lightgreen;
+            text-align:center;
+        }
+
+        .ct11:before{
+            content:"";
+            display:inline-block;
+            height:100%;
+            vertical-align:middle;
+        }
+
+        .ct11:after{
+            content:"";
+            display:inline-block;
+            height:100%;
+            vertical-align:middle;
+        }
+
+        .ct11 img{
+            vertical-align:middle;
+        }
+
+        </style>
+    </head>
+    <body>
+        <div class="ct1">子元素有固定宽高，absolute+负margin
+            <div class="ct2">目标元素有固定宽高，使用负margin
+            </div>
+        </div>
+        <br>
+        <div class="ct3">子元素无固定宽高，absolute+transform:translate
+            <div class="ct4">目标元素不定宽高，要使用css3 transform
+            </div>
+        </div>
+        <br>
+        <div class="ct5">子元素有固定宽高，还可使用margin:auto+4方向定位0实现绝对居中
+            <div class="ct6">目标元素有固定宽高，margin:auto;
+            </div>
+        </div>
+        <br>
+        <div class="ct7">
+            <div class="ct8">父元素设置成flex,justify-content/align-items都设置成center;
+            </div>
+        </div>
+        <br>
+        <div class="ct9">
+        <span>父元素设置成table-cell，设置text-align,设置vertical实现绝对居中</span>
+    </div>
+        <br>
+        <div class="ct10">父元素设置成table-cell,设置text-align,设置vertical
+            <img src="https://support.apple.com/content/dam/edam/applecare/images/en_US/homepage/homepage_productnav_apple_watch_2x.png" alt="">
+        </div>
+        <br>
+        <div class="ct11">
+            <img src="https://support.apple.com/content/dam/edam/applecare/images/en_US/homepage/homepage_productnav_apple_watch_2x.png" alt="">
+        </div>
+    </body>
+</html>
