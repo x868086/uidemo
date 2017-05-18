@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            body,html,ul,li{
+                margin:0;
+                padding:0;
+            }
+
+            .clearfix:after{
+                content:"";
+                display:block;
+                clear:both;
+            }
+
+            li{
+                list-style:none;
+                float:left;
+            }
+
+            li a{
+                display:block;
+                text-decoration:none;
+                color:black;
+                padding:8px 16px;
+            }
+
+            .nav{
+                width:600px;
+                margin:0 auto;
+                background:#F1F1F1;
+                box-shadow:0 3px 6px 0 rgba(0, 0, 0, 0.1),
+                0 6px 12px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            .list{
+                position:relative;
+            }
+
+            .list_cont{
+                display:none;
+                min-width:150px;
+                background:white;
+                box-shadow:2px 2px 5px gray;
+                position:absolute;
+                left:0px;
+                top:100%;/*相对于父容器高度,不用计算*/
+            }
+
+            li a:hover{
+                background:gray;
+            }
+
+            .list:hover .list_cont{/*list在hover状态的时候，将list中的list_cont设置为block*/
+                display:block;
+            }
+
+        </style>
+    </head>
+    <body>
+         <div class="nav clearfix">
+             <ul>
+                 <li><a href="">首页</a></li>
+                 <li><a href="">作品</a></li>
+                 <li class="list">
+                     <a href="">更多</a>
+                     <div class="list_cont">
+                        <a href="">Github</a>
+                        <a href="">博客</a>
+                        <a href="">知乎</a>
+                     </div>
+                 </li>
+             </ul>
+         </div>
+    </body>
+</html>
