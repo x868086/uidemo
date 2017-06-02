@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<meta name="robots" content="noindex">
+  <title>JS Bin</title>
+
+<style id="jsbin-css">
+
+.grid{
+  background:#ddd;
+  max-width:1000px;
+  min-width:300px;
+  margin:auto;
+}
+
+.grid_cell1{
+  display:flex;
+}
+
+.c1_item1,.c1_item2{
+  margin:5px;
+  height:50px;
+  line-height:50px;
+  text-align:center;
+  background: #eee;
+  flex:1;
+}
+
+
+
+.grid_cell2{
+  display:flex;
+}
+
+.c2_item1,.c2_item2,.c2_item3{
+  margin:5px;
+  height:50px;
+  line-height:50px;
+  text-align:center;
+  background: #eee;
+  flex:1;
+}
+
+
+.grid_cell3{
+  display:flex;
+}
+
+.c3_item1,.c3_item2,.c3_item3,.c3_item4{
+  margin:5px;
+  height:50pxp;
+  line-height:50px;
+  text-align:center;
+  background: #eee;
+  flex:1;
+}
+
+.grid_cell4{
+  display:flex;
+}
+
+.c4_item1,.c4_item2{
+  margin:5px;
+  line-height:20px;
+  text-align:center;
+  background: #eee;
+  flex:1;
+}
+
+
+
+/* grid2 */
+.grid2{
+  min-width:400px;
+  max-width:1000px;
+  margin:auto;
+  background: #ccc;
+}
+
+.grid2_cell1{
+  display:flex;
+}
+
+.g1_item1,.g1_item2,.g1_item3{
+  height:50px;
+  line-height:50px;
+  background: #eee;
+  margin:5px;
+  text-align:center;
+}
+
+.g1_item1{
+  flex:0 0 50%;
+}
+
+.g1_item2,.g1_item3{
+  flex:1
+}
+
+.grid2_cell2{
+  display:flex;
+}
+
+.g2_item1,.g2_item2{
+  height:50px;
+  line-height:50px;
+  background: #eee;
+  margin:5px;
+  text-align:center;
+}
+
+.g2_item1{
+  flex:1
+}
+
+.g2_item2{
+  flex:0 0 33.333%/*指定固定值占33.3%*/
+}
+
+.grid2_cell3{
+  display:flex;
+}
+
+.g3_item1,.g3_item2,.g3_item3{
+  height:50px;
+  line-height:50px;
+  background: #eee;
+  margin:5px;
+  text-align:center;
+}
+
+.g3_item1{
+  flex:0 0 25%
+}
+
+.g3_item3{
+  flex:0 0 33.33%
+}
+
+.g3_item2{
+  flex:1
+}
+
+.grid2_cell4{
+  display:flex;
+}
+
+.g4_item1,.g4_item2{
+  background: #eee;
+  margin:5px;
+  text-align:center;
+  flex:1;
+}
+
+
+/* 响应式栅格系统 */
+.grid3{
+  background:#ddd;
+  max-width:1000px;
+  margin:auto;
+}
+
+.grid3_cell1{
+  display:flex;
+}
+
+.m1_item1,.m1_item2{
+  background: #eee;
+  margin:5px;
+  text-align:center;
+  height:50px;
+  line-height:50px;
+  flex:1;
+}
+
+.grid3_cell2{
+  display:flex;
+}
+
+.m2_item1,.m2_item2,.m2_item3{
+  background: #eee;
+  margin:5px;
+  text-align:center;
+  height:50px;
+  line-height:50px;
+  flex:1;
+}
+
+.grid3_cell3{
+  display:flex;
+}
+
+.m3_item1,.m3_item2,.m3_item3,.m3_item4{
+  background: #eee;
+  margin:5px;
+  text-align:center;
+  height:50px;
+  line-height:50px;
+  flex:1;
+}
+
+@media (max-width: 500px){ 
+  .grid3_cell1,.grid3_cell2,.grid3_cell3{
+    flex:1;/*屏幕缩小后空间都占1份*/
+    flex-wrap:wrap;/*屏幕缩小后设置换行*/
+    justify-content:space-around;
+  }
+  
+  .m1_item1,.m1_item2{
+    flex:0 0 95%;/*屏幕缩小后占总宽度95%，多余宽度justify-content:space-around*/
+  }
+  .m2_item1,.m2_item2,.m2_item3{
+    flex:0 0 95%;
+  }
+  .m3_item1,.m3_item2,.m3_item3,.m3_item3,.m3_item4{
+    flex:0 0 95%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+<body>
+  <span>基础栅格系统</span>
+  <div class="grid">
+          <div class="grid_cell1">
+              <div class="c1_item1">1/2</div>
+              <div class="c1_item2">1/2</div>
+          </div>
+          <div class="grid_cell2">
+              <div class="c2_item1">1/3</div>
+              <div class="c2_item2">1/3</div>
+              <div class="c2_item3">1/3</div>
+          </div>
+          <div class="grid_cell3">
+              <div class="c3_item1">1/4</div>
+              <div class="c3_item2">1/4</div>
+              <div class="c3_item3">1/4</div>
+              <div class="c3_item4">1/4</div>
+          </div>
+          <div class="grid_cell4">
+              <div class="c4_item1">高度自动撑满，即使没有内容</div>
+              <div class="c4_item2"><span>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mollis velit non gravida venenatis. Praesent consequat lectus purus, ut scelerisque velit condimentum eu. Maecenas sagittis ante ut turpis varius interdum. Quisque tellus ipsum, eleifend non ipsum id, suscipit ultricies neque.
+              </span></div>
+          </div>
+  </div>
+  
+  <br>
+  
+    <span>栅格系统-指定尺寸</span>
+  <div class="grid2">
+          <div class="grid2_cell1">
+              <div class="g1_item1">1/2</div>
+              <div class="g1_item2">auto</div>
+              <div class="g1_item3">auto</div>
+          </div>
+          <div class="grid2_cell2">
+              <div class="g2_item1">auto</div>
+              <div class="g2_item2">1/3</div>
+          </div>
+          <div class="grid2_cell3">
+              <div class="g3_item1">1/4</div>
+              <div class="g3_item2">auto</div>
+              <div class="g3_item3">1/3</div>
+          </div>
+          <div class="grid2_cell4">
+              <div class="g4_item1">高度自动撑满，即使没有内容</div>
+              <div class="g4_item2"><span>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mollis velit non gravida venenatis. Praesent consequat lectus purus, ut scelerisque velit condimentum eu. Maecenas sagittis ante ut turpis varius interdum. Quisque tellus ipsum, eleifend non ipsum id, suscipit ultricies neque.
+              </span></div>
+          </div>
+  </div>
+  
+  <br>
+  
+    <span>响应式-栅格系统</span>
+   <div class="grid3">
+          <div class="grid3_cell1">
+              <div class="m1_item1">full/half</div>
+              <div class="m1_item2">full/half</div>
+          </div>
+          <div class="grid3_cell2">
+              <div class="m2_item1">full/ 1/3</div>
+              <div class="m2_item2">full/ 1/3</div>
+              <div class="m2_item3">full/ 1/3</div>
+          </div>
+          <div class="grid3_cell3">
+              <div class="m3_item1">full/ 1/4</div>
+              <div class="m3_item2">full/ 1/4</div>
+              <div class="m3_item3">full/ 1/4</div>
+              <div class="m3_item4">full/ 1/4</div>
+          </div>
+  </div>
+</body>
+</html>

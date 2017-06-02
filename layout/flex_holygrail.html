@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/qiqe/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="flex圣杯布局" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+
+#container{
+  color:white;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;/*浏览器视窗可视高度*/
+}
+
+
+
+.head{
+  height:50px;
+  background: #33CC66;
+}
+
+.footer{
+  height:30px;
+  background: #3399CC;
+}
+
+.main{
+  margin:10px 0px;
+  flex:1;/*有剩余空间(column)main独占，让foot粘贴到底部*/
+  display:flex;
+}
+
+span{
+  color:black;
+}
+
+.nav{
+  width:60px;
+  max-height:300px;
+  background: #FFCC66;
+  order:-1;
+}
+
+.aside{
+  width:50px;
+  max-height:350px;
+  background: #006699;
+}
+
+.cont{
+  margin:0px 10px;
+  background: #FFFFCC;
+  flex:1
+}
+</style>
+</head>
+<body>
+  <div id="container">
+    <div class="head">head</div>
+      <div class="main">
+        <div class="cont">
+          <span>
+            圣杯布局 是典型的 CSS 布局问题，有着众多的解决方案。如果你不熟悉圣杯布局的历史，这篇文章 能够提供很好的总结，并连接了几个众所周知的解决方案。
+
+圣杯布局由页头 (header)，中间部分 (center)，页脚 (footer)，和三栏组成。中间的一栏是主要内容，左边和右边提供如广告、导航的链接。
+
+大部分的 CSS 解决方案都是以下列为目标：
+
+边栏应流动居中，定宽。
+中间一栏 (主要内容) 在 HTML 源码中应该首先元素出现。
+所有栏同高，忽略实际高度。
+使用的 HTML 标记尽量少。
+当页面内容不够充满页面时，页脚应“粘”在底部。
+不幸的是，这些自然的需求由于原生css的限制，当前经典的圣杯布局的解决方案都不能完美满足以上所有的要点。
+
+有了 Flexbox 布局，终极的解决方案终于成为可能。
+          </span>
+        </div>
+        <div class="nav">nav</div>
+        <div class="aside">aside</div>
+      </div>
+    <div class="footer">footer</div>
+  </div>
+
+</body>
+</html>
