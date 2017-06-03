@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/wecev/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="layout_three_column" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+.container{
+  width:900px;
+margin:0 auto;
+  height:100vh;
+}
+
+.clearfix:after{
+  content:"";
+  display:block;
+  clear:both;
+}
+
+.nav{
+  width:90px;
+  background: #6699FF;
+  float:left;
+  height:100%
+}
+
+.aside{
+  width:90px;
+  background: #6666FF;
+  float:right;
+  height:100%
+}
+
+.main{
+  background: #00FF99;
+  margin:0 10px;
+  height:100%;
+  float:left;
+  width:700px;
+}
+</style>
+</head>
+<body>
+  <div class="container clearfix">
+    <div class="nav">nav</div>
+    <div class="main">main</div>
+    <div class="aside">aside</div>
+  </div>
+</body>
+</html>
