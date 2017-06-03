@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style>
+body,html,div,span{
+  margin:0;
+  padding:0;
+  font-family:Consolas;
+  color:#666;
+}
+
+a{
+  text-decoration:none;
+  color:#666;
+}
+
+#container{
+  margin:auto;
+}
+
+@font-face {/*第一步引入线上地址*/
+  font-family: 'iconfont';  /* project id 316827 */
+  src: url('http://at.alicdn.com/t/font_vyrhucpg1glow29.eot');
+  src: url('http://at.alicdn.com/t/font_vyrhucpg1glow29.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_vyrhucpg1glow29.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_vyrhucpg1glow29.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_vyrhucpg1glow29.svg#iconfont') format('svg');
+}
+
+.iconfont{/*第二步定义字体样式*/
+            font-family:"iconfont" !important;
+            font-size:16px;font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+            }
+.inputon{
+  width:400px;
+  border:1px solid #ddd;
+  display:flex;
+  border-radius:2px;
+}
+
+a{
+ padding:10px;
+ text-align:center;
+ background: #eee;
+ border-right:1px solid #ddd
+}
+
+input{
+  flex:1;
+  border:none;
+  font-size:15px;
+  padding:10px;
+}
+input:focus{outline:none}
+</style>
+</head>
+<body>
+<div id="container">
+  <div class="inputon">
+    <a href="#">Amount</a>
+    <input type="text">
+  </div>
+  <br>
+  
+  <div class="inputon">
+    <input type="text">
+    <a href="#">Go</a>
+  </div>
+  <br>
+  
+  <div class="inputon">
+    <a href="#"><i class="iconfont">&#xe86e;</i></a>
+    <input type="text">
+  </div>
+  <br>
+  
+  <div class="inputon">
+    <input type="text">
+    <a href="#"><i class="iconfont">&#xe86d;</i></a>
+  </div>
+  <br>
+  
+  <div class="inputon">
+    <a href="#"><i class="iconfont">&#xe888;</i></a>
+    <input type="text" placeholder="Example One">
+    <a href="">Send</a>
+  </div>
+  <br>
+  
+  <div class="inputon">
+    <a href="#"><i class="iconfont">&#xe652;</i></a>
+    <input type="text" placeholder="Example One">
+    <a href="">Send</a>
+  </div>
+  <br>
+</div>
+</body>
+</html>

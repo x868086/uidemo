@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/tati/3/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="flex-media" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+body,html,img,h4,p,a{
+  margin:0;
+  padding:0;
+}
+
+a{
+  text-decoration:none;
+  color:#666;
+}
+
+#container{
+  max-width:600px;
+  margin:0 auto;
+}
+
+@font-face {
+  font-family: 'iconfont';  /* project id 316998 */
+  src: url('http://at.alicdn.com/t/font_9w1qu9280g5mte29.eot');
+  src: url('http://at.alicdn.com/t/font_9w1qu9280g5mte29.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_9w1qu9280g5mte29.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_9w1qu9280g5mte29.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_9w1qu9280g5mte29.svg#iconfont') format('svg');
+}
+
+
+.iconfont{/*第二步定义字体样式*/
+            font-family:"iconfont" !important;
+            font-size:16px;font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+            }
+
+
+
+img{
+  width:60px;
+  height:60px;
+}
+
+p{
+  padding-top:10px;
+  line-height:20px;
+  word-break:break-all;
+}
+
+/*infor1*/
+.infor1{
+  background:#eee;
+  padding:20px;
+  display:flex;
+  flex:1;
+}
+
+.infor1 img{
+  flex:0 0 15%;
+}
+
+.ct1{
+  margin-left:20px;
+  flex:1;
+}
+
+/* infor2 */
+.infor2{
+  background:#eee;
+  padding:20px;
+  display:flex;
+  flex:1;
+}
+
+.infor2 img{
+  margin-left:20px;
+  flex:0 0 15%;
+  order:2
+}
+
+.ct2{
+  flex:1;
+}
+
+/* infor3 */
+
+.infor3{
+  background:#eee;
+  padding:20px;
+  display:flex;
+  flex:1;
+  align-items:flex-start;/*顶对齐*/
+  /* align-items:flex-end; */
+}
+
+.infor3 i{
+  font-size:30px;
+}
+
+.ct3{
+  flex:1;
+  margin-left:20px;
+}
+
+/* infor4 */
+
+.infor4{
+  background:#eee;
+  padding:20px;
+  display:flex;
+  flex:1;
+  align-items:center;/*居中对齐*/
+}
+
+.infor4 i{
+  font-size:40px;
+}
+
+.ct4{
+  flex:1;
+  margin-left:20px;
+}
+
+
+/* infor5 */
+.infor5{
+  background:#eee;
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  align-items:flex-end;
+}
+
+.ct5_main{
+  flex:0 0 100%;
+  display:flex;
+}
+
+.ct5{
+  flex:0 0 1;
+  margin-left:10px;
+}
+
+.ct5_c1{
+  max-width:360px;
+  display:flex;
+  background: #ddd;
+  padding:10px;
+  align-items:flex-start;
+}
+
+.ct5_c1 img{
+  height:40px;
+  width:40px;
+}
+
+.ct5_c2{
+  margin-left:10px;
+  font-size:12px;
+}
+
+.ct5_c2 p{
+  padding-top:0px;
+}
+
+
+
+
+
+
+</style>
+</head>
+<body>
+  <div id="container">
+    <div class="infor1">
+    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496992553&di=4a10cfe4ab4e2ce9226685eb6768eb1b&imgtype=jpg&er=1&src=http%3A%2F%2Fphoto.renwen.com%2F1%2F234%2F123482_1353453730255842.jpg" alt="">
+    <div class="ct1">
+      <h4>标准媒体对象</h4>
+      <p>The Apollo program, also known as Project Apollo, was the third United States human spaceflight program carried out by the National Aeronautics and Space Administration (NASA), which accomplished landing the first humans on the Moon from 1969 to 1972.</p>
+    </div>
+  </div>
+  <br>
+    
+  <div class="infor2">
+    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496992553&di=4a10cfe4ab4e2ce9226685eb6768eb1b&imgtype=jpg&er=1&src=http%3A%2F%2Fphoto.renwen.com%2F1%2F234%2F123482_1353453730255842.jpg" alt="">
+    <div class="ct2">
+      <h4>逆序媒体对象</h4>
+      <p>The Apollo program, also known as Project Apollo, was the third United States human spaceflight program carried out by the National Aeronautics and Space Administration (NASA), which accomplished landing the first humans on the Moon from 1969 to 1972.</p>
+    </div>
+  </div>
+  <br>
+    
+  <div class="infor3">
+    <a href="#"><i class="iconfont">&#xe62d;</i></a>
+    <div class="ct3">
+      <h4>图标顶对齐媒体对象</h4>
+          <p>The Apollo program, also known as Project Apollo, was the third United States human spaceflight program carried out by the National Aeronautics and Space Administration (NASA), which accomplished landing the first humans on the Moon from 1969 to 1972.</p>
+     </div> 
+  </div>
+    <br>
+    
+    <div class="infor4">
+    <a href="#"><i class="iconfont">&#xe604;</i></a>
+    <div class="ct4">
+      <h4>图标居中对齐媒体对象</h4>
+          <p>The Apollo program, also known as Project Apollo, was the third United States human spaceflight program carried out by the National Aeronautics and Space Administration (NASA), which accomplished landing the first humans on the Moon from 1969 to 1972.</p>
+     </div> 
+  </div>
+    <br>
+    
+    <div class="infor5">
+      <div class="ct5_main">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496992553&di=4a10cfe4ab4e2ce9226685eb6768eb1b&imgtype=jpg&er=1&src=http%3A%2F%2Fphoto.renwen.com%2F1%2F234%2F123482_1353453730255842.jpg" alt="">
+    <div class="ct5">
+      <h4>嵌套媒体对象</h4>
+      <p>The Apollo program, also known as Project Apollo, was the third United States human spaceflight program carried out by the National Aeronautics and Space Administration (NASA), which accomplished landing the first humans on the Moon from 1969 to 1972.</p>
+    </div>
+      </div>
+        
+    
+  <div class="ct5_c1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/John_Houbolt_and_LOR2.jpg/220px-John_Houbolt_and_LOR2.jpg" alt="">
+    <div class="ct5_c2">
+      <p>
+        The spacecraft would be launched as a unit and travel directly to the Moon and land.
+      </p>
+    </div>
+  </div>
+  </div>
+  <br>
+
+</body>
+</html>
