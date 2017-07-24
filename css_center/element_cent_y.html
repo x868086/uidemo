@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+        .cont1{
+            padding-top:50px;
+            padding-bottom:50px;
+            width:300px;
+            border:1px solid lightseagreen;
+        }
+
+        .inner1{
+            width:200px;
+            height:200px;
+            background-color:cadetblue;
+        }
+
+        .cont2{
+            width:300px;
+            height:300px;
+            border:1px solid lightseagreen;
+            display:table-cell;
+            vertical-align: middle;
+        }
+
+        .inner3{
+            width:200px;
+            height:200px;
+            background-color:cadetblue;
+        }
+
+        .inner4{
+            background-color:cadetblue;
+        }
+
+        .cont3{
+            width:300px;
+            height:300px;
+            border:1px solid lightseagreen; 
+        }
+
+        .cont3:before{/*一前一后before after都要加这个空元素，因为before、after元素会和目标元素产生间隙，只用一个，会有细微间隙导致不能绝对居中，必须用一前一后两个才能限制绝对居中。*/
+            content:"";
+            display:inline-block;
+            height:100%;
+            vertical-align:middle;
+        }
+
+        .cont3:after{/*一前一后before after都要加这个空元素，因为before、after元素会和目标元素产生间隙，只用一个，会有细微间隙导致不能绝对居中，必须用一前一后两个才能限制绝对居中。*/
+            content:"";
+            display:inline-block;
+            height:100%;
+            vertical-align:middle;
+        }
+
+        .inner5{
+            display:inline-block;/*子元素为块元素时需转换成inline-block元素*/
+            vertical-align:middle;
+        }
+
+        .inner6{
+            vertical-align:middle;
+        }
+
+        .cont4{
+            width:300px;
+            height:300px;
+            border:1px solid lightseagreen;
+            position:relative;
+        }
+
+        .inner7{
+            width:200px;
+            height:200px;
+            background-color:cadetblue;
+            position:absolute;
+            top:50%;
+            /*left:50%;*/
+            margin-top:-100px;/*垂直居中元素宽高已知情况下用负margin*/
+            /*transform:translate(-50%,-50%);垂直居中元素宽高未知情况下用transform：translate(-X%,-Y%)*/
+
+        }
+
+        .inner8{
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);/*垂直居中元素宽高未知情况下用transform：translate(-X%,-Y%)或者transform:translateX/Y:-50%*/
+        }
+
+        .cont5{
+            width:300px;
+            height:300px;
+            border:1px solid lightseagreen;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .inner9{
+            width:200px;
+            height:200px;
+            background-color:cadetblue; 
+        }
+
+        
+        </style>
+    </head>
+    <body>
+    <p>1.padding方法</p>
+    <div class="cont1">
+        <div class="inner1">block元素垂直居中(父元素高度不定，使用padding实现)</div>
+    </div>
+    <br>
+     <div class="cont1">
+         <span class="inner2">inline元素垂直居中(父元素高度不定，使用padding实现)</span>
+    </div>
+    <p>2.父元素display:table-cell;vertical-align:middle;方法</p>
+    <div class="cont2">
+        <div class="inner3">block元素垂直居中(父元素display:table-cell;vertical-align:middle;)</div>
+    </div>
+    <br>
+    <div class="cont2">
+        <span class="inner4">inline元素垂直居中(父元素display:table-cell;vertical-align:middle;)</span>
+    </div>
+    <p>3.伪元素模拟inline-block方法</p>
+    <div class="cont3">
+        <div class="inner5">block元素模拟inline-block方法</div>
+    </div>
+    <br>
+    <div class="cont3">
+        <span class="inner6">inline元素模拟inline-block方法</span>
+    </div>
+    <p>4.position定位实现垂直居中</p>
+    <div class="cont4">
+        <div class="inner7">block元素position定位实现垂直居中,负margin</div>
+    </div>
+    <br>
+    <div class="cont4">
+        <span class="inner8">inline元素position定位实现垂直居中,transform</span>
+    </div>
+<p>5.flex布局实现子元素垂直居中</p>
+<div class="cont5">
+    <div class="inner9">block元素flex实现垂直居中</div>
+</div>
+<div class="cont5">
+    <span class="inner10">inline元素flex实现垂直居中</span>
+</div>
+    </body>
+</html>
