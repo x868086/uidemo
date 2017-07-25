@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            .container{
+                width: 200px;
+                height: 100px;
+                border: 1px solid #ccc;
+                margin: 30px;
+            }
+
+            .tips1{
+                width: 0px;
+                height: 0px;
+                border-left:10px solid transparent;
+                border-right:10px solid transparent;
+                border-top:10px solid transparent;
+                border-bottom: 10px solid #ccc;
+                position:relative;
+                margin-top:-20px;
+                left:5px;
+            }
+
+            .tips2{
+                width: 0px;
+                height: 0px;
+                border-left:10px solid transparent;
+                border-right:10px solid red;
+                border-top:10px solid red;
+                border-bottom: 10px solid transparent;
+                position:relative;
+                right:-180px;
+            }
+
+            .tips3{
+                width: 0px;
+                height: 0px;
+                border-left:10px solid transparent;
+                border-right:10px solid transparent;
+                border-top:10px solid transparent;
+                border-bottom: 10px solid #ccc;
+                position:relative;
+                margin-top:-20px;
+                left:5px;
+            }
+
+            body .container:nth-of-type(3):after{
+                content:"";
+                display:block;
+                width: 0px;
+                height: 0px;
+                border-left:10px solid transparent;
+                border-right:10px solid transparent;
+                border-top:10px solid transparent;
+                border-bottom: 10px solid #fff;
+                position:relative;
+                left:5px;
+                top:-19px;
+
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <div class="tips1"></div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="tips2"></div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="tips3"></div>
+    </div>
+    </body>
+</html>
