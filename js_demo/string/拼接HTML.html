@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/zuyut/8/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="拼接HTML" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<dl class=\"product\">
+  <dt>女装</dt>
+  <dd>短款</dd>
+  <dd>冬季</dd>
+  <dd>春装</dd>
+  <dd>夏装</dd>
+</dl>
+<script>
+  var prod = {
+    name: '女装',
+    styles: ['短款', '冬季', '春装','夏装']
+};
+  
+  function getTpl(obj){
+    var prdHtml=[];
+    prdHtml.push('<dl class="product">\n');
+    prdHtml.push('\t<dt>'+obj['name']+'</dt>');
+    obj['styles'].map(function (e,i,a){
+       prdHtml.push('\n\t<dd>'+e+'</dd>');
+    })
+    prdHtml.push('\n</dl>')
+    return prdHtml.join("")
+  }
+</script>
+</body>
+</html>

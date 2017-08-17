@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/yodom/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="数组方法" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  var arr=['a','b','5',0,'tell',1,2,5,-1];
+arr.push('a')//数组尾部增加一个元素a
+console.log(arr)
+
+arr.pop()//取出数组最尾部的元素
+console.log(arr)
+
+arr.shift()//取出数组头部第一个元素
+console.log(arr)
+
+arr.unshift('string') //数组头部增加一个元素string
+console.log(arr)
+
+arr.join('-') //将数组成员转成字符串用“-”连接
+console.log(arr)
+
+arr.splice(arr.length,0,-1)//数组尾部增加1个元素-1，模拟push
+console.log(arr)
+
+arr.splice(arr.length-1,1) //删除1个数组尾部元素，模拟pop
+console.log(arr)
+
+arr.splice(arr[0],0,'a') //数组头部增加1个元素'a'，模拟unshift
+console.log(arr)
+
+arr.splice(arr[0],1) //数组头部删除1个元素，模拟shift
+console.log(arr)
+
+</script>
+</body>
+</html>

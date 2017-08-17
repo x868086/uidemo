@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/wofiy/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="生成随机16进制颜色" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function getRandColor(){
+    var colorDict='0123456789abcdef';
+    var color='#'
+    for(var i=0;i<6;i++){
+      var index=Math.floor(Math.random()*16);
+      color=color+colorDict[index];
+    }
+    return color;
+  }
+  
+</script>
+</body>
+</html>

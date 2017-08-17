@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/lexuv/5/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="字符串分割成驼峰" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  var str='background-color'
+  function rep(e){
+    var newarr=e.split("-");
+    var newstr=[];
+    for(var i=0;i<newarr.length;i++){
+      newstr.push(newarr[i][0].toUpperCase()//每个数组成员的首字母大写
+      +newarr[i].substr(1))//每个数组成员首字母大写后和数组成员的1到最后一位拼接
+    }
+    return newstr.join("")//数组转化成字符串
+  }
+  
+</script>
+</body>
+</html>

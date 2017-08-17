@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/memiz/13/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="检测字符串中出现频率最高的字符" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  var str='aabbasdfasfdasaaaaaadeaaadaaab'
+  
+  function check(e){
+    var strarr=[];
+    var strobj={};
+    strarr=e.split("");
+    for(var i=0;i<strarr.length;i++){
+        var key=strarr[i];
+        if(strobj[key]){
+          strobj[key]++
+        } else{
+          strobj[key]=1
+        }
+    }
+
+   var count=0;
+   var maxkey;
+  for(var key in strobj){
+    if(strobj[key]>count){
+      count=strobj[key];
+      maxkey=key;
+    }
+  }
+        return maxkey +":" +count
+  }
+
+  
+  
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/sowec/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="filter返回数组元素中的正数，原数组不变" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  var arr=[-1,0,'a','b',3,-5]
+  function filterPositive(arr){
+    var newarr=arr.filter(function (value){
+      return value>=0;
+    })
+    return newarr;
+  }
+  
+</script>
+</body>
+</html>

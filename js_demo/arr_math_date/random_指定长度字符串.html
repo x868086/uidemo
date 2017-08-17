@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/telaz/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="返回指定长度随机字符串" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function getRandStr(len){
+    var dict='abcdefghijklmnopqrstuvwxyz'
+    +'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'/*定义字典*/
+    var str='';
+    for(var i=0;i<len;i++){
+        var index=Math.floor(Math.random()*62) /*dict字典文件总长度为62个字符，不是63因为str.length从0开始*/
+        str=str+dict[index];
+    }
+    return str;
+  }
+</script>
+</body>
+</html>

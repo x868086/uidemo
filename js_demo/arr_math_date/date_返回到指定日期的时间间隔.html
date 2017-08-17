@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/ramit/3/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="获取当前时间到指定日期的时间间隔" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function getChItv(str){
+    var tarTime,realTime,offset,
+        secs,totalMinutes,minutes,
+        totalHours,hours,totalDays
+    tarTime=Date.parse(new Date(str));/*将字符串时间转成标准时间，再用parse转成毫秒数*/
+    realTime=Date.now();
+    offset=tarTime-realTime;
+    secs=Math.floor(offset/1000)%60;
+    totalMinutes=Math.floor(offset/1000)/60;
+    minutes=Math.floor(totalMinutes%60);
+    totalHours=Math.floor(totalMinutes/60);
+    hours=Math.floor(totalHours%24);
+    totalDays=Math.floor(totalHours/24);
+    
+      return totalDays + '天'
+            + hours + '小时'
+            + minutes + '分钟'
+      + secs + '秒'
+
+  }
+  getChItv('2017-11-11');
+</script>
+</body>
+</html>
