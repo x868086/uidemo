@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/faji/6/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="返回指定日期的中文日期" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function getChsDate(str){
+    var dict={"0":"零","1": "一", "2": "二", "3": "三","4": "四","5": "五","6": "六","7": "七", "8": "八", "9": "九", "10": "十", "11": "十一", "12": "十二","13": "十三", "14": "十四",  "15": "十五", "16": "十六", "17": "十七", "18": "十八", "19": "十九","20": "二十","21": "二十一", "22": "二十二", "23": "二十三", "24": "二十四",  "25": "二十五","26": "二十六", "27": "二十七", "28": "二十八", "29": "二十九", "30": "三十", "31": "三十一"}
+  var chDate=str.split('-'),
+      year=chDate[0],
+      month=chDate[1],
+      date=chDate[2],
+      finalDate='';
+   finalDate=finalDate
+  + dict[year[0]]/*年字符串第0位*/
+  + dict[year[1]]/*年字符串第1位*/
+  + dict[year[2]]/*年字符串第2位*/
+  + dict[year[3]]/*年字符串第3位*/
+  + '年'
+  + dict[parseInt(month)]/*将月转换成数字，避免08月这种字符串匹配不上*/
+  + '月'
+  + dict[parseInt(date)]
+  + '日'
+  return finalDate
+  }
+  
+</script>
+</body>
+</html>
