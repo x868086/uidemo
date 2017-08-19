@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/xizej/6/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="返回距离指定时间的友好提示" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function friendlyTime(strsec){
+    var realTime=Date.now(),
+        t=Math.abs(realTime-strsec),
+        offset=Math.floor(t/1000)
+    switch (true){
+      case offset<60:
+        return '刚刚';
+        break;
+        
+      case offset>=60 && offset<60*60:
+        return Math.floor(offset/60) + '分钟前';
+        break;
+        
+      case offset>=60*60 && offset<60*60*24:
+        return Math.floor(offset/60/60) + '小时前';
+        break;
+        
+      case offset>=60*60*24 && offset<60*60*24*30:
+        return Math.floor(offset/60/60/24) + '天前';
+        break;
+        
+      case offset>=60*60*24*30 && offset<60*60*24*30*12:
+        return Math.floor(offset/60/60/24/30) + '个月前';
+        break;
+        
+      case offset>=60*60*24*30*12:
+        return Math.floor(offset/60/60/24/30/12) + '年前';
+        break;
+    } 
+  }
+</script>
+</body>
+</html>
