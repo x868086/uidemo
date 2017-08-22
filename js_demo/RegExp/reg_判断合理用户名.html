@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/kedig/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="正则表达式-判断是否合理用户名" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function isValidUser(str){
+    var reg=/^\w{6,20}$/gi;//匹配数字、字母、下划线开头或结尾，且长度为6-20个字符
+    return reg.test(str);
+  }
+  
+</script>
+</body>
+</html>

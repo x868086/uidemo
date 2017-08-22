@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/copag/4/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="正则表达式-去除字符串两边空白字符" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+  <script>
+    function trimStr(str){
+      var reg=/\s+/g; //空格出现1次或多次
+      return str.replace(reg,'')
+    }
+    
+  </script>
+  
+</body>
+</html>

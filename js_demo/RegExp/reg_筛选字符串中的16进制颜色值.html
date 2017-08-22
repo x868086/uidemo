@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/yanix/3/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="正则表达式-获取字符串中的16进制颜色" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function getColorStr(str){
+    var reg=/#[a-fA-F0-9]{6}/gi;//第一位#且a-f范围6位
+    return str.match(reg)
+  }
+  
+</script>
+</body>
+</html>

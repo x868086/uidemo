@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/fobag/4/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="正则表达式-判断用户是否为邮箱" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+  <script>
+    function isEmail(str){
+      var reg=/\w+@\w+\.\w{2,3}/ig //@前出现1次或多次，@后出现1次或多次，.后出现2次或3次
+      return reg.test(str)
+    }
+    
+  </script>
+
+</body>
+</html>

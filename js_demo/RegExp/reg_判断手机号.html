@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/qucal/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="正则表达式-判断手机号" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function isPhoneNum(str){
+    var reg = /^1\d{10}$/g //以1开头，组合10位数字,且10位数字结尾的字符串
+    return reg.test(str)
+  }
+  
+</script>
+</body>
+</html>
