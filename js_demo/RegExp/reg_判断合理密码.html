@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/xeked/7/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="正则表达式-判断合理密码" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+  function isValidPw(str){
+    switch(true){
+      case str.length<5||str.length>20:/*长度小于5或大于20返回false*/
+        return false;
+        break;
+       
+      case (/[^a-zA-Z0-9_]/g).test(str)===true:/*非字母数字下划线返回false*/
+        return false;
+        break;
+    
+    case (/^[a-z]+$|^[A-Z]+$|^_+$|^\d+$/g).test(str)===true:/*全为数字，全为大写字母，全为小写字母，全为_返回false*/
+    return false;
+    break;
+      default:
+        return true;
+    }
+  }
+</script>
+</body>
+</html>
