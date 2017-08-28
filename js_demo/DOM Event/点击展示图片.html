@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/nejub/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="DOM事件-鼠标点击li展示图片" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<ul class="ct">
+    <li data-img="http://cdn.jirengu.com/book.jirengu.com/img/7.jpg">鼠标放置查看图片1</li>
+    <li data-img="http://cdn.jirengu.com/book.jirengu.com/img/8.jpg">鼠标放置查看图片2</li>
+    <li data-img="http://cdn.jirengu.com/book.jirengu.com/img/9.jpg">鼠标放置查看图片3</li>
+</ul>
+<div class="img-preview"></div>
+  <script>
+    var nodeUl=document.querySelector('.ct'),
+        imgWrap=document.querySelector('.img-preview'),
+        newNode=document.createElement('img')
+        imgWrap.appendChild(newNode)
+    nodeUl.addEventListener('click',function(event){
+      var src=event.target.getAttribute('data-img')
+          newNode.setAttribute('src',src)
+    },false)
+  </script>
+</body>
+</html>

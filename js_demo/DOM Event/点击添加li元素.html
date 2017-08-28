@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/bobay/4/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="DOM事件-点击在ul中添加元素" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<ul class="ct">
+    <li>这里是</li>
+    <li>饥人谷</li>
+    <li>任务班</li>
+</ul>
+<input class="ipt-add-content" placeholder="添加内容"/>
+<button id="btn-add-start">开头添加</button>
+<button id="btn-add-end">结尾添加</button>
+<script>
+    var btnStart=document.querySelector('#btn-add-start'),
+        btnEnd=document.querySelector('#btn-add-end'),
+        nodeUl=document.querySelector('.ct'),
+        inputContent=document.querySelector('.ipt-add-content')
+        
+    function addNodeStart(){
+      if(inputContent.value){/*输入内容非空*/
+        var newNode=document.createElement('li')
+          newNode.innerText=inputContent.value
+          nodeUl.insertBefore(newNode,nodeUl.firstChild)
+        }
+      }
+  
+    function addNodeEnd(){
+      if(inputContent.value){
+        var newNode=document.createElement('li')
+        newNode.innerText=inputContent.value
+        nodeUl.appendChild(newNode)
+      }
+    }
+      
+
+
+btnStart.addEventListener('click',addNodeStart,false)
+btnEnd.addEventListener('click',addNodeEnd,false)
+nodeUl.addEventListener('click',function(event){/*事件代理在ul上添加事件处理程序*/
+  if(event.target.tagName.toLowerCase()==='li'){
+    console.log(event.target.innerText)
+  }
+},false)
+</script>
+</body>
+</html>
+
+
