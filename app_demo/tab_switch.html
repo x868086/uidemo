@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>tab_switch</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+        ul,li{
+            list-style:none;
+        }
+
+        div,ul,li{
+            padding:0px;
+            margin:0px;
+            text-align:center;
+        }
+        .tab_head li{
+            border:1px solid #ccc;
+            border-right:none;
+            width:200px;
+            height:50px;
+            line-height:50px;
+            float:left;
+            cursor:pointer;
+        }
+        .tab_body li{
+            border:1px solid #ccc;
+            width:600px;
+            height:600px;
+        }
+
+        .tab_head .active{
+            background-color:#ddd;
+        }
+
+        .tab_body li{
+            display:none;
+        }
+
+        .tab_body .active{
+            display:block;
+        }
+        </style>
+    </head>
+    <body>
+    <ul class="tab_head">
+        <li class='active'>tab1</li>
+        <li>tab2</li>
+        <li>tab3</li>
+    </ul>
+    <ul class="tab_body">
+        <li class='active'>ct1</li>
+        <li>ct2</li>
+        <li>ct3</li>
+    </ul>
+    <script>
+        var headNode=document.querySelector('.tab_head'),
+        liNode=headNode.querySelectorAll('li'),
+        bodyNode=document.querySelector('.tab_body'),
+        liBodyNode=bodyNode.querySelectorAll('li')
+
+        function showNode(event){
+            for(var i=0;i<liNode.length;i++){
+                liNode[i].classList.remove('active')
+                liBodyNode[i].classList.remove('active')
+            }
+            var targetNode=event.target
+            var index=[].indexOf.call(liNode,targetNode)/*查看索引*/
+            console.log(index)
+            targetNode.setAttribute('class','active');
+            liBodyNode[index].setAttribute('class','active')
+        }
+        headNode.addEventListener('click',showNode,false)
+    </script>
+    </body>
+</html>
