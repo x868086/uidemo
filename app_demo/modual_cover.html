@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+        div,p{
+            margin:0px;
+            padding:0px;
+        }
+
+        .clearfix:after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+
+        .modual{
+            position:absolute;
+            left:0;
+            right:0;
+            bottom:0;
+            top:0;
+            background: #aaa;
+        }
+
+        .mod-tips{
+            width:450px;
+            height:300px;
+            position:absolute;
+            left:50%;
+            top:50%;
+            transform:translate(-50%,-50%);
+            background: #fff;
+        }
+
+        .mod-head{
+            padding:15px 0px 15px;
+            border-bottom:1px solid #ccc;
+        }
+
+        .mod-head span:nth-child(1){
+            margin-left:40px;
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .mod-head span:nth-child(2){
+            font-size:20px;
+            margin-left:290px;
+            cursor:pointer;
+        }
+
+        .mod-body{
+            height:200px;
+            border-bottom:1px solid #eee;
+            font-size:20px;
+            line-height:40px;
+            padding-left:20px;
+        }
+
+        .mod-footer{
+            padding:15px 0px 15px;
+        }
+
+        .mod-footer span{
+            float:right;
+            padding-right:15px;
+            cursor:pointer;
+        }
+
+        .active{
+            display:none;
+        }
+
+
+
+
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <button>点我</button>
+        <div class="modual active cancel-con">
+            <div class="mod-tips">
+                <div class="mod-head">
+                    <span>我是标题</span>
+                    <span class="cancel">×</span>
+                </div>  
+                <div class="mod-body">
+                    <p>我是内容1</p>
+                    <p>我是内容2</p>
+                </div>
+                <div class="mod-footer clearfix">
+                    <span class="cancel">确定</span>
+                    <span class="cancel">取消</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var clickBtn=document.querySelector('.container button'),
+        modDiv=document.querySelector('.modual'),
+        cancelDiv=document.querySelectorAll('.cancel')
+
+        clickBtn.addEventListener('click',function(event){
+            modDiv.classList.remove('active')
+        },false)
+
+        cancelDiv.forEach(function(e,i,a){
+            e.addEventListener('click',function(event){
+                modDiv.classList.add('active')
+            },false)
+        })
+
+        var cancelCon=document.querySelector('.cancel-con');/*获取模态框div*/
+        cancelCon.addEventListener('click',function(event){/*确认是否点击的是class包含modual属性的节点*/
+            if(event.target.classList.contains('modual')){
+                modDiv.classList.add('active')
+            }
+        },false)
+
+
+    </script>
+    </body>
+</html>
