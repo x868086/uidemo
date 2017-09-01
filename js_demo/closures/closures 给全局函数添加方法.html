@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/jales/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="closures" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+function getLive(){/*先在全局环境下定义一个getLive函数*/
+}
+  !function liveShow(){/*立即执行函数，执行后给getLive添加两个方法*/
+    var lives=50
+    getLive.addLives=function (){/*getLive添加的方法引用着liveShow函数声明的变量lives=50，即运行getLive函数时内部引用着liveShow函数中的变量，此时形成了闭包*/
+      lives += 1;
+      console.log(lives)
+    }
+    getLive.mLives=function (){
+      lives -= 1;
+      console.log(lives)
+    }
+  }()
+  
+
+</script>
+</body>
+</html>
