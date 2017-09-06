@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2017 by x868086 (http://js.jirengu.com/yasuk/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="闭包封装局部变量，供外部调用" />
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+<script>
+var Car = (function(){
+   var speed = 0;
+   function setSpeed(s){
+       speed = s
+   }
+  
+  function getSpeed(){
+      return speed
+  }
+  
+  function accelerate(){
+      speed += 10;
+  }
+  
+  function decelerate(){
+    speed -= 10;
+  }
+  
+  function getStatus(){
+    if(speed<=0){
+      return 'stop'
+    } else {
+      return 'running'
+    }
+  }
+
+   return {
+       setSpeed: setSpeed,
+       getSpeed:getSpeed,
+       accelerate:accelerate,
+       decelerate:decelerate,
+       getStatus:getStatus
+   }
+})()
+
+</script>
+</body>
+</html>
