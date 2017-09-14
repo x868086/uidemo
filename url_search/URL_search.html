@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+        button{
+            display: block;
+            margin:20px;
+        }
+        </style>
+    </head>
+    <body>
+    <button class="sendsearch">发起请求</button>
+    <button class="addsearch">增加查询字符串</button>
+    <button class="getsearch">获取查询字符串</button>
+    <button class="restsearch">重设查询字符串</button>
+    <div class="contentDis">先用anywhere开启一个静态服务器 地址为http://192.168.1.101:8000</div>
+
+
+    <script>
+        !function(){
+            window.$=function(){
+
+            }
+        }()
+
+        var nodeSend=document.querySelector('.sendsearch'),
+            nodeAddSearch=document.querySelector('.addsearch'),
+            nodeGetSearch=document.querySelector('.getsearch'),
+            nodeResetSearch=document.querySelector('.restsearch'),
+            nodeDis=document.querySelector('.contentDis')
+
+        $.dom={
+            sendSearch:function(){
+                window.location.assign('http://192.168.1.101:8000/URL_search.html?value1=abc&value2=def&value3=hij&total=3')
+            },
+
+            getSearch:function(){
+                var searchValue=window.location.search.substr(1),/*去掉问号*/
+                    searchArr=searchValue.match(/\w*=\w*[^&]/g)
+                var searchArr2=[]
+                var searchObj={}
+                    searchArr.forEach(function(e,i,a){
+                        searchArr2[i]=e.split("=")
+                    })
+
+                    searchArr2.forEach(function(e,i,a){
+                        searchObj[e[0]]=e[1]
+                        // console.log(searchObj)
+                    })
+                    nodeDis.innerText=JSON.stringify(searchObj)
+                    return searchValue
+            },
+
+            addSearch:function(){
+                var dit='abcdefghijklmnopqrstuvwxyz01234567890',
+                searchKey="",
+                searchValue=""
+                for(var i=0;i<4;i++){
+                    searchKey += dit[Math.floor(Math.random()*36)]
+                    searchValue += dit[Math.floor(Math.random()*36)]
+                    // console.log(searchKey+":"+searchValue)
+                }
+                 window.location.assign(`${window.location.href}&${searchKey}=${searchValue}`)
+                console.log(window.location.href)
+            },
+
+            resetSearch:function(){
+                var searchValue=this.getSearch(),
+                target=""
+                target=searchValue.replace(/value2=\w*[^&]/g,'value2=hello')
+                console.log(target)
+                window.location.assign(`${window.location.origin}${window.location.pathname}?${target}`)
+                console.log(window.location.href)
+            }
+
+        }
+
+        nodeSend.addEventListener('click',function(){
+                $.dom.sendSearch()
+        },false)
+
+        nodeGetSearch.addEventListener('click',function(){
+                $.dom.getSearch()
+        },false)
+
+        nodeAddSearch.addEventListener('click',function(){
+                $.dom.addSearch()
+        })
+
+        nodeResetSearch.addEventListener('click',function(e){
+                $.dom.resetSearch()
+        })
+        
+    </script>
+    </body>
+</html>
