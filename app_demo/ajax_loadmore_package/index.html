@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ajax_package</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="" rel="stylesheet">
+        <style>
+        body,div,ul,li{
+            margin:0px;
+            padding:0px;
+        }
+        .container{
+            width: 800px;
+            margin: 0 auto;
+            text-align:center;
+        }
+
+        ul,li{
+            list-style: none;
+        }
+
+        ul{
+            padding:10px;
+        }
+
+        .ct{
+            text-align:center;
+            line-height:50px;
+        }
+        li{
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin:5px 0px;
+        }
+
+        li:hover{
+            background-color:lightseagreen;
+            transition:background-color 0.5s
+        }
+
+        a{
+            border:1px solid #ccc;
+            padding:5px;
+            text-decoration:none;
+            color:#000;
+            border-radius:5px;
+        }
+
+
+
+        a:hover{
+            background-color:indianred;
+            transition:background-color 0.5s;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <ul class="ct">
+                <li>数据1</li>
+                <li>数据2</li>
+            </ul>
+            <a href="#" class="onload">加载更多</a>
+        </div>
+
+        <script>
+
+        var nodeLoad=document.querySelector(".onload"),
+            nodeCt=document.querySelector(".ct"),
+            loading=false/*tips4：设置状态，初始值为false表示没有处于加载中*/
+
+            function ajax(options){
+                var xhr=new XMLHttpRequest()
+                xhr.responseType='document' /*tips1:设置返回信息格式为document*/
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState===4){
+                        if(xhr.status >= 200 && xhr.status < 400 || xhr.status === 304){
+                            var content=xhr.responseXML; /*tips1:返回信息格式为XML*/
+                            options.onSuccess(content)
+                        } else {
+                            options.onError()
+                        }
+                    }
+                }
+
+                var searchValue=`?`
+                for(key in options.search){
+                    searchValue +=`${key}=${options.search[key]}&`
+                }
+
+                xhr.open(options.method,`${options.url}${searchValue.substr(0,searchValue.length-1)}`,true)/*tips3:截取查询字符串不要最后一位&否则发生错误*/
+                xhr.send()
+
+            }
+
+            function renderNode(content){
+                console.log(content)
+                var contentNew=content.querySelectorAll("li")
+                var fragment=document.createDocumentFragment()
+                for(var i=0;i<contentNew.length;i++){
+                    fragment.appendChild(contentNew[i])
+                }
+                nodeCt.appendChild(fragment)
+                loading=false/*tips4:渲染完以后将状态更新为未加载*/
+            }
+
+
+            function loadMore(renderNode){
+                loading=true;/*tips4:数据加载时将状态更新为加载中*/
+                var idx=document.querySelectorAll("ul li").length;
+                ajax({
+                    method:'GET',
+                    url:'/loadmore',
+                    search:{
+                        index:idx,
+                        length:5
+                    },
+                    onSuccess:renderNode,
+                    onError:function(){
+                        console.log('error')
+                    }
+                })
+            }
+
+            nodeLoad.addEventListener('click',function(e){
+                 e.preventDefault() /*tips2:取消a标签点击默认跳动页首的动作*/
+                if(loading===true){/*tips4:点击执行动作前先判断是否在加载中*/
+                    return
+                }
+                loadMore(renderNode)
+            },false)
+
+            
+        </script>
+    </body>
+</html>
