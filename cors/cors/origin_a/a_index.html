@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>origin_a_index</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+    <h1>这里是A页面</h1>
+    <p>当前页面所在的origin是</p>
+    <input type="text">
+    <p>请求的目标页面的origin是www.bbb.com:8881</p>
+    <button id="btn">点击向B页面发起跨域请求</button>
+    <script>
+        var btnNode=document.querySelector("#btn"),
+        inputNode=document.querySelector("input"),
+        thisOrigin=document.location.origin
+        inputNode.value=thisOrigin
+        
+
+
+        btnNode.addEventListener("click",function(){
+            var xhr=new XMLHttpRequest();
+            xhr.open('get','http://www.bbb.com:8881/b_index.html',true);
+            xhr.send();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState===4){
+                    if(xhr.status===200){
+                    console.log(xhr.responseText)
+                    }
+                } else {
+                    console.log(xhr.statusText)
+                }
+            }
+
+            
+        },false)
+
+
+
+    </script>
+    </body>
+</html>
