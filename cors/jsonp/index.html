@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>jsonp跨域请求</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+        img{
+            width:300px;
+            height:200px;
+        }
+        #container{
+            width:600px;
+            border:1px solid #ccc;
+            margin:0 auto;   
+        }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <button id="btn">点击获取唱片信息</button>
+            <h2>随机获取的专辑封面</h2>
+            <div>
+                <img src="" alt="">
+            </div>
+            <h3></h3>
+            <h6></h6>
+        </div>
+        
+        <script>
+            var btnNode=document.querySelector("#btn"),
+                h3Node=document.querySelector("h3"),
+                h6Node=document.querySelector("h6"),
+                imgNode=document.querySelector("img")
+
+            function jsonp(url,_callback){/*封装jsonp函数*/
+                var scriptNode=document.createElement("script")
+                scriptNode.setAttribute("type","text/javascript")
+                scriptNode.setAttribute("src",`${url}?callback=${_callback}`)
+                document.head.appendChild(scriptNode)
+                }
+            
+            function getMusic(content){/*预先定义好数据返回时执行的回调函数*/
+                console.log(content.song[0])
+                var comeMusic=content.song[0],
+                    musicTitle=comeMusic.title,
+                    musicArtist=comeMusic.artist,
+                    imgSrc=comeMusic.picture,
+                    _src=imgSrc.match(/.[^@]*/g)[0] /*正则匹配返回的图片地址*/
+                    console.log(_src)
+
+                    imgNode.src=_src
+                    h3Node.innerText=musicTitle
+                    h6Node.innerText=musicArtist
+                }
+
+
+            btnNode.addEventListener("click",function(){
+                jsonp('http://api.jirengu.com/fm/getSong.php','getMusic')/*将定义好的回调函数作为查询字符串发起请求*/
+            },false)
+            
+        </script>
+    </body>
+</html>
