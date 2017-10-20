@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>origin_b_index</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+    <h1>这里是BBB页面</h1>
+    <input type="text" class="revmsg">AAA页面发来的消息
+    <br>
+    <input type="text" class="msg" placeholder="输入要发送的内容">
+    <button id="btn">点击回复AAA页面</button>
+    <script>
+    var msgNode=document.querySelector(".revmsg"),
+        btnNode=document.querySelector("#btn")
+        
+        window.addEventListener('message',function(event){
+            console.log(event.data) /*由AAA页面发送来的消息*/
+            console.log(event.origin) /*发送消息的窗口的源，这里即AAA页面的源*/
+            console.log(event.source) /*发送消息的窗口对象，这里即AAA窗口*/
+            if(event.origin !=="http://www.aaa.com:8888"){/*判断消息是否来自AAA页面所在的源*/
+                return
+            }
+            
+            msgNode.value=event.data
+            event.source.postMessage("BBB收到了消息",event.origin)
+
+            btnNode.addEventListener("click",function(){
+
+            var msg=document.querySelector(".msg").value
+            event.source.postMessage(`${msg}`,event.origin)
+            //window.opener.postMessage(`${msg}`,"http://www.aaa.com:8888") /*向aaa页面发起消息*/
+             /*window.opener 打开本窗口的对象的引用即谁打开了本窗口*/
+            //window.opener.postMessage(`${msg}`,"*") /*向所有页面发起消息*/
+
+        })
+
+
+        },false)
+
+        
+        
+    </script>
+    </body>
+</html>

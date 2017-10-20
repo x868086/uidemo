@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>origin_a_index</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+    <h1>这里是A页面</h1>
+    <p>当前页面所在的origin是</p>
+    <input type="text">
+    <p>请求的目标页面的origin是www.bbb.com:8881</p>
+    <input type="text" class="msg" placeholder="输入要发送的内容">
+    <button id="btn">点击向B页面发起跨域消息</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <input type="text" class="recvmsg">来自BBB页面回复的消息
+    <script>
+        var btnNode=document.querySelector("#btn"),
+            inputNode=document.querySelector("input"),
+            msgNode=document.querySelector(".recvmsg")
+            thisOrigin=document.location.origin
+            inputNode.value=thisOrigin
+        
+
+        
+
+
+        btnNode.addEventListener("click",function(){
+            var msgNode=document.querySelector(".msg").value
+            var openWindow=window.open("http://www.bbb.com:8881/b_index.html","title");//指定位置打开一个新页面"left=800,top=200,width=600,height=600"
+            console.log(openWindow)
+            setTimeout(function(){
+                openWindow.postMessage(`${msgNode}`,'http://www.bbb.com:8881/b_index.html')
+            },200)
+           
+        },false)
+
+
+        window.addEventListener('message',function(event){
+            msgNode.value=event.data
+        })
+
+
+
+
+    </script>
+    </body>
+</html>
