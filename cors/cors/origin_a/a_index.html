@@ -27,14 +27,19 @@
                 if(xhr.readyState===4){
                     if(xhr.status===200){
                     console.log(xhr.responseText)
+                    onSuccess(xhr.responseText)
                     }
                 } else {
                     console.log(xhr.statusText)
                 }
-            }
-
-            
+            }            
         },false)
+
+        function onSuccess(content){
+            var pNode=document.createElement("p");
+            pNode.innerText=content
+            document.body.appendChild(pNode)
+        }
 
 
 

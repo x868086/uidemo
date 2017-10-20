@@ -15,7 +15,9 @@ var server=http.createServer(function(request,response){
 
     if(path==='/b_index.html'){
         response.setHeader('Content-Type','text/html;charset="utf-8"')
-        response.setHeader('Access-Control-Allow-Origin','http://www.aaa.com:8888')
+        response.setHeader('Access-Control-Allow-Origin','http://www.aaa.com:8888') /*只允许来自www.aaa.com:8888源的请求*/
+        // response.setHeader('Access-Control-Allow-Origin','*') /*允许来自所有源的请求*/
+        //  response.setHeader('Access-Control-Allow-Origin','http://www.ccc.com:8888') /*只允许来自www.ccc.com:8888源的请求*/
         var stringIndex=fs.readFileSync('./b_index.html','utf-8')
         response.end(stringIndex)
     }
