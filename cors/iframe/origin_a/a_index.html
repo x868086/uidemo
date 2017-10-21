@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>origin_a_index</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            div{
+                margin:0px;
+                padding:0px;
+            }
+            .container{
+                width:900px;
+                margin:0 auto;
+            }
+            input{
+                margin:10px;
+                width:260px;
+            }
+            .newpage{
+                border:1px dashed red;
+                position:absolute;
+                left:600px;
+                top:0px;
+            }
+
+            iframe{
+                width:500px;
+                height:300px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>这是AAA页面</h1>
+            <input type="text" class="thisori">
+            <br>
+            <input type="text" class="msg">
+    
+            <div class="newpage">
+                <iframe src="http://bbs.aaa.com:8881/c_index.html" frameborder="0"></iframe>
+            </div>
+        </div>
+        
+        
+    
+    <script>
+        var oriNode=document.querySelector(".thisori"),
+            sendNode=document.querySelector(".msg"),
+            oriInfor=window.location.origin
+            oriNode.setAttribute("placeholder",`AAA页面的源${oriInfor}`)
+
+        sendNode.addEventListener("input",function(){/*给本页中的输入框添加文本输入事件*/
+            var sendMsg=sendNode.value
+            window.frames[0].document.querySelector(".msg").value=sendMsg/*将本页文本输入内容改写到嵌套页面的文本框中*/
+        },false)
+
+        document.domain="aaa.com" /*降域后才能访问，否则会提示跨域错误*/
+    </script>
+    </body>
+</html>
