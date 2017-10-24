@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        div,ul,li{
+            margin:0px;
+            padding:0px;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        #container{
+            width:600px;
+            border:1px solid #ccc;
+            margin:0 auto;
+        }
+
+        li{
+            border:1px solid #ddd;
+            padding:10px;
+        }
+
+        .shades>li p{
+            display:none;
+        }
+        </style>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js">
+        </script>
+
+        <script>
+        $(document).ready(function(){
+            $(".shades").on("click","li",function(event){
+                $(event.target).find("p").fadeToggle(1000) //DOM对象转换成jQuery对象
+                console.log($(event.target).siblings().find("p"))
+                $(event.target).siblings().find("p").hide(1000)
+            })
+        })
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <ul class="shades">
+                <li>点击标签1
+                    <p>内容1</p>
+                </li>
+                <li>点击标签2
+                    <p>内容2</p>
+                </li>
+                <li>点击标签3
+                    <p>内容3</p>
+                </li>
+                <li>点击标签4
+                    <p>内容4</p>
+                </li>
+                <li>点击标签5
+                    <p>内容5</p>
+                </li>
+                <li>点击标签6
+                    <p>内容6</p>
+                </li>
+                <li>点击标签7
+                    <p>内容7</p>
+                </li>
+                <li>点击标签8
+                    <p>内容8</p>
+                </li>
+                <li>点击标签9
+                    <p>内容9</p>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
