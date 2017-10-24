@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        div,ul,li{
+            margin:0px;
+            padding:0px;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        #container{
+            position:relative;
+        }
+
+        .clearfix:after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+
+        .tab-wrap li{
+            text-align:center;
+            line-height:30px;
+            width:200px;
+            height:30px;
+            border:1px solid #ccc;
+            background-color:#fff;
+            border-right:none;/*浮动后右边框会和上一个左边框贴在一起,要去掉所有右边框*/
+            float:left;
+        }
+
+        .tab-wrap li:nth-child(3){
+            border-right:1px solid #ccc /*最后一个li加右边框，因为前面去掉了所有右边框*/
+        }
+
+        .content-wrap li{
+            width:602px;
+            height:300px;
+        }
+
+        .content-wrap li:nth-child(1){
+            background-color:green;
+        }
+
+        .content-wrap li:nth-child(2){
+            background-color:yellow;
+        }
+
+        .content-wrap li:nth-child(3){
+            background-color:blue;
+        }
+        
+        </style>
+        <script src="//code.jquery.com/jquery-1.9.1.min.js">
+        </script>
+        
+        <script>
+        $(document).ready(function(){
+            $(".tab-wrap").on("click","li",function(event){
+                var idx=$(event.target).index(), /*获取当前点击元素在同类兄弟元素中的索引*/
+                    heightLi=$(".tab-wrap li").eq(0).height(),
+                    heightCt=$(".content-wrap li").eq(0).height()
+                console.log("元素索引号:"+idx+"--li元素高:"+heightLi+"--内容元素高:"+heightCt)
+                $(".content-wrap").css({
+                    "position":"absolute",
+                    "top":-240*idx,
+                    "z-index":"-2"
+                })
+            })
+        })
+        </script>
+    </head>
+    <body>
+    <div id="container">
+        <ul class="tab-wrap clearfix">
+            <li>tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <ul class="content-wrap">
+            <li>内容1</li>
+            <li>内容2</li>
+            <li>内容3</li>
+        </ul>
+    </div>
+    </body>
+</html>
