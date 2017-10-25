@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            div,ul,li{
+                margin:0px;
+                padding:0px;
+                box-sizing:border-box;
+            }
+
+            ul,li{
+                list-style:none;
+            }
+
+            #container{
+                width:902px;
+                margin:0 auto;
+            }
+
+            .tab-wrap{
+                font-size:0px;/*tips1:display:inline-block后元素之间有空隙，父元素设置字体大小0*/
+            }
+
+            .tab-wrap li{
+                font-size:16px;/*tips1:display:inline-block后元素之间有空隙，子元素重设字体大小去除空隙*/
+                height:30px;
+                line-height:30px;
+                text-align:center;
+                width:300px;
+                border:1px solid #ccc;
+                border-right:none;
+                display:inline-block;
+            }
+
+            .tab-wrap li:nth-child(3){
+                border-right:1px solid #ccc;
+            }
+
+            .content-wrap{
+                position:relative;
+                width:900px;
+                height:200px;
+                overflow:hidden;
+            }
+
+            .content-wrap ul{
+                font-size:0px;
+                position:absolute;
+                height:200px;
+                width:2700px;
+            }
+
+            .content-wrap ul li{
+                display:inline-block;
+                width:900px;
+                height:200px;
+                font-size:16px;
+                border:1px solid #ccc;
+            }
+
+            .content-wrap ul li:nth-child(1){
+                background-color:green;
+            }
+
+            .content-wrap ul li:nth-child(2){
+                background-color:pink;
+            }
+
+            .content-wrap ul li:nth-child(3){
+                background-color:cyan;
+            }
+
+        </style>
+        <script tyle="text/javasript" src="//code.jquery.com/jquery-1.9.1.min.js">
+        </script>
+        <script>
+            $(document).ready(function(){
+                $(".tab-wrap").on("click","li",function(event){
+                    var idx=$(event.target).index()
+                    console.log(idx)
+                    $(".content-wrap ul").animate({
+                        "left":-900*idx
+                    },500)
+                })
+            })
+        </script>
+    </head>
+    <body>
+    <div id="container">
+        <ul class="tab-wrap">
+            <li>tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <div class="content-wrap">
+            <ul>
+                <li>内容1</li>
+                <li>内容2</li>
+                <li>内容3</li>
+            </ul>
+        </div>
+    </div>
+    </body>
+</html>
