@@ -14,8 +14,14 @@
             list-style:none;
         }
 
-        #container{
+        .content-wrap{
             position:relative;
+            height:300px;
+            overflow:hidden;
+        }
+
+        .content-wrap ul{
+            position:absolute;
         }
 
         .clearfix:after{
@@ -39,7 +45,7 @@
             border-right:1px solid #ccc /*最后一个li加右边框，因为前面去掉了所有右边框*/
         }
 
-        .content-wrap li{
+        .content-wrap ul li{
             width:602px;
             height:300px;
         }
@@ -64,14 +70,12 @@
         $(document).ready(function(){
             $(".tab-wrap").on("click","li",function(event){
                 var idx=$(event.target).index(), /*获取当前点击元素在同类兄弟元素中的索引*/
-                    heightLi=$(".tab-wrap li").eq(0).height(),
-                    heightCt=$(".content-wrap li").eq(0).height()
-                console.log("元素索引号:"+idx+"--li元素高:"+heightLi+"--内容元素高:"+heightCt)
-                $(".content-wrap").css({
-                    "position":"absolute",
-                    "top":-240*idx,
+                    heightCt=$(".content-wrap ul li").eq(0).height()
+                console.log("元素索引号:"+idx+"--内容元素高:"+heightCt)
+                $(".content-wrap ul").animate({
+                    "top":-heightCt*idx,
                     "z-index":"-2"
-                })
+                },500)
             })
         })
         </script>
@@ -83,11 +87,14 @@
             <li>tab2</li>
             <li>tab3</li>
         </ul>
-        <ul class="content-wrap">
-            <li>内容1</li>
-            <li>内容2</li>
-            <li>内容3</li>
-        </ul>
+        <div class="content-wrap">
+            <ul>
+                <li>内容1</li>
+                <li>内容2</li>
+                <li>内容3</li>
+            </ul>
+        </div>
+        
     </div>
     </body>
 </html>
