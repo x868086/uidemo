@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        div,ul,li{
+            margin:0px;
+            padding:0px;
+        }
+
+        ul,li{
+            list-style:none;
+            font-size:14px;
+        }
+
+        a{
+            text-decoration:none;
+            color:#fff;
+        }
+
+        span{
+            color:#fff;
+            padding-left:100px;
+        }
+
+        .ul-wrap{
+            width:190px;
+            background-color:#D20000;
+        }
+
+        .ul-wrap>li{
+            padding:10px;
+            border-bottom:1px dashed red;
+        }
+
+        .content-wrap{
+            position:relative;
+        }
+
+        .content-wrap>ul{
+            position:absolute;
+            border:1px solid #ccc;
+            width:190px;
+            display:none;
+        }
+
+        .content-wrap>ul>li{
+            display:inline-block;
+            width:80px;
+            padding:10px 0px 10px 10px;
+        }
+
+        .content-wrap>ul>li>a{
+            color:#000;
+        }
+
+        .ul-wrap>li:nth-child(1)>ul{
+            top:0px;
+            left:190px;
+        }
+
+        .ul-wrap>li:nth-child(2)>ul{
+            top:0px;
+            left:190px;
+        }
+
+        .ul-wrap>li:nth-child(3)>ul{
+            top:0px;
+            left:190px;
+        }
+
+        .ul-wrap>li:nth-child(4)>ul{
+            top:0px;
+            left:190px;
+        }
+
+        .ul-wrap>li:nth-child(5)>ul{
+            top:0px;
+            left:190px;
+        }
+
+        .ul-wrap>li:nth-child(2)>ul{
+            top:0px;
+            left:190px;
+        }
+
+        
+        </style>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js">
+        </script>
+        <script>
+        $(document).ready(function(){
+            $(".ul-wrap>li").on("mouseenter",function(event){
+                $(event.target).find(".active-ul").show() 
+                // console.log($(this))
+                // console.log($(event.target))
+                // console.log($(event.currentTarget))
+                /*tips1:鼠标进入mouseenter动作发生时，event.target指向鼠标穿越的最外层元素，这里指向.ul-wrap>li，
+                这里this和target,currentTarget指向的对象一致*/
+            })
+
+            $(".ul-wrap>li").on("mouseleave",function(event){
+                $(event.currentTarget).find(".active-ul").hide()
+                console.log($(this))
+                console.log($(event.target))
+                console.log($(event.currentTarget))
+                /*tips1:鼠标mouseleave动作发生时，如果从display:block的ul元素上移出，event.target指向的是这个ul元素，
+                也有可能指向的是这个ul元素里面的li元素，所以用.find(".active-ul")无法继续找到子集。这里只能使用event.currentTarget
+                来指向最外面的.ul-wrap>li元素（即事件当前所处的元素）*/
+            })
+
+        })
+        </script>
+    </head>
+    <body>
+    <div id="container">
+        <ul class="ul-wrap">
+            <li class="content-wrap">
+                <a href="">珠宝玉器</a>
+                <span>></span>
+                <ul class="active-ul">
+                    <li><a href="#">翡翠</a></li>
+                    <li><a href="#">玉石</a></li>
+                    <li><a href="#">宝石</a></li>
+                    <li><a href="#">水晶</a></li>
+                    <li><a href="#">玛瑙</a></li>
+                    <li><a href="#">珍珠</a></li>
+                    <li><a href="#">钻石</a></li>
+                    <li><a href="#">琥珀</a></li>
+                    <li><a href="#">和田</a></li>
+                    <li><a href="#">琥珀</a></li>
+                </ul>
+            </li>
+            <li class="content-wrap">
+                <a href="">珠宝玉器</a>
+                <span>></span>
+                <ul class="active-ul">
+                    <li><a href="#">翡翠</a></li>
+                    <li><a href="#">玉石</a></li>
+                    <li><a href="#">宝石</a></li>
+                    <li><a href="#">水晶</a></li>
+                    <li><a href="#">玛瑙</a></li>
+                    <li><a href="#">珍珠</a></li>
+                </ul>
+            </li>
+            <li class="content-wrap">
+                <a href="">珠宝玉器</a>
+                <span>></span>
+                <ul class="active-ul">
+                    <li><a href="#">翡翠</a></li>
+                    <li><a href="#">玉石</a></li>
+                    <li><a href="#">宝石</a></li>
+                    <li><a href="#">水晶</a></li>
+                </ul>   
+            </li>
+            <li class="content-wrap">
+                <a href="">珠宝玉器</a>
+                <span>></span>
+                <ul class="active-ul">
+                    <li><a href="#">翡翠</a></li>
+                    <li><a href="#">玉石</a></li>
+                    <li><a href="#">宝石</a></li>
+                    <li><a href="#">水晶</a></li>
+                </ul>
+            </li>
+            <li class="content-wrap">
+                <a href="">珠宝玉器</a>
+                <span>></span>
+                <ul class="active-ul">
+                    <li><a href="#">翡翠</a></li>
+                    <li><a href="#">玉石</a></li>
+                    <li><a href="#">宝石</a></li>
+                    <li><a href="#">水晶</a></li>
+                    <li><a href="#">玛瑙</a></li>
+                </ul>
+            </li>
+        </ul>
+        
+    </div>
+    </body>
+</html>
