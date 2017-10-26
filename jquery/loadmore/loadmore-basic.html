@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        div,ul,li,a{
+            margin:0px;
+            padding:0px;
+            box-sizing:border-box;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        a{
+            text-decoration:none;
+            color:#aaa;
+        }
+
+        h2{
+            border:1px solid #ccc;
+            border-radius:3px;
+            width:176px;
+        }
+
+        .tab-head>li{
+            display:inline-block;
+            padding:8px;
+            font-size:14px;
+        }
+
+        .content-wrap{
+            width:754px;
+            border:1px solid #ccc;
+        }
+
+        .clearfix:after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+
+        .content-wrap>ul>li{
+            width:240px;
+            float:left;
+            border:1px solid #eee;
+            font-size:12px;
+            margin:15px 0px 0px 15px;
+        }
+
+        .content-wrap>ul{
+            margin-left:-15px;
+            margin-top:-15px;
+        }
+
+        .list-wrap{
+            width:240px;
+            height:200px;
+            text-align:center;
+            position:relative;
+        }
+
+        .pd-name,.pd-type,.pd-price{
+            text-align:left;
+            padding-left:16px;
+        }
+
+        .pd-price{
+            color:#D70715;
+            font-weight:bold;
+        }
+
+        .buy-active{
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            background:rgba(0, 0, 0, 0.3);
+            opacity:1;
+            display:none;
+        }
+
+        .buy-active>a{
+           border:1px solid #D70715;
+            padding:8px;
+            border-radius:3px;
+            background:#fff;
+             position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            color:#D70715;
+        }
+
+        .add-node a{
+            border:1px solid #D70715;
+            padding:9px;
+            border-radius:3px;
+            color:#D70715;
+            font-size:12px;
+        }
+
+        .add-node{
+            margin-top:20px;
+        }
+
+        </style>
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js">
+        </script>
+        <script>
+        $(document).ready(function(){
+
+            var products = [
+                    {
+                        img: 'http://img10.360buyimg.com/N3/jfs/t2242/92/1446546284/374195/9196ac66/56af0958N1a723458.jpg',
+                        name: '珂兰 黄金手 猴哥款',
+                        price: '￥405.00'
+                    },{
+                        img: 'http://img10.360buyimg.com/N3/jfs/t2242/92/1446546284/374195/9196ac66/56af0958N1a723458.jpg',
+                        name: '珂兰 黄金转运珠 猴哥款',
+                        price: '￥100.00'
+                    },{
+                        img: 'http://img10.360buyimg.com/N3/jfs/t2242/92/1446546284/374195/9196ac66/56af0958N1a723458.jpg',
+                        name: '珂兰 黄金手链 3D猴哥款',
+                        price: '￥45.00'
+                    }
+                ];
+
+            
+
+            $(".add-node").on("click",function(event){
+                    var newNode=""
+                for(var key in products){
+                    console.log(key)
+                    console.log(products[key])
+                    newNode +=`<li>
+                        <div class="list-wrap">
+                            <img src=${products[key].img} alt="">
+                            <div class="pd-name">${products[key].name}</div>
+                            <div class="pd-price">${products[key].price}</div>
+                            <div class="buy-active">
+                                <a href="#">立即购买</a>
+                            </div>
+                        </div>
+                    </li>`
+                    console.log(newNode)
+                }
+
+                $(".content-wrap .clearfix").append(newNode)
+
+                $("a").on("click",function(event){
+                    event.preventDefault()
+                })    
+            })
+
+            $(".content-wrap").on("mouseenter","li",function(event){//!!!坑
+            var $target=$(event.currentTarget)
+            $target.find(".list-wrap>.buy-active").show()
+            })
+
+            $(".content-wrap").on("mouseleave","li",function(event){
+                var $target=$(event.currentTarget)
+                $target.find(".list-wrap>.buy-active").hide()
+            })
+                
+        })
+        </script>
+    </head>
+    <body>
+    <div class="container">
+        <h2 class="tab-head">
+            珠宝首饰
+        </h2>
+        <div class="content-wrap">
+            <ul class="clearfix">
+                <li>
+                    <div class="list-wrap">
+                        <img src="http://img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+                        <div class="pd-name">藏美千足金和田玉金镶玉路路通</div>
+                        <div class="pd-type">吊坠</div>
+                        <div class="pd-price">￥1699</div>
+                        <div class="buy-active">
+                            <a href="#">立即购买</a>
+                        </div>
+                    </div>
+                </li>                        
+                <li>
+                    <div class="list-wrap">
+                        <img src="http://img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+                        <div class="pd-name">藏美千足金和田玉金镶玉路路通</div>
+                        <div class="pd-type">吊坠</div>
+                        <div class="pd-price">￥1699</div>
+                        <div class="buy-active">
+                            <a href="#">立即购买</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list-wrap">
+                        <img src="http://img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+                        <div class="pd-name">藏美千足金和田玉金镶玉路路通</div>
+                        <div class="pd-type">吊坠</div>
+                        <div class="pd-price">￥1699</div>
+                        <div class="buy-active">
+                            <a href="#">立即购买</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list-wrap">
+                        <img src="http://img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+                        <div class="pd-name">藏美千足金和田玉金镶玉路路通</div>
+                        <div class="pd-type">吊坠</div>
+                        <div class="pd-price">￥1699</div>
+                        <div class="buy-active">
+                            <a href="#">立即购买</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list-wrap">
+                        <img src="http://img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+                        <div class="pd-name">藏美千足金和田玉金镶玉路路通</div>
+                        <div class="pd-type">吊坠</div>
+                        <div class="pd-price">￥1699</div>
+                        <div class="buy-active">
+                            <a href="#">立即购买</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="list-wrap">
+                        <img src="http://img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+                        <div class="pd-name">藏美千足金和田玉金镶玉路路通</div>
+                        <div class="pd-type">吊坠</div>
+                        <div class="pd-price">￥1699</div>
+                        <div class="buy-active">
+                            <a href="#">立即购买</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="add-node"><a href="#">添加</a></div>
+    </div>
