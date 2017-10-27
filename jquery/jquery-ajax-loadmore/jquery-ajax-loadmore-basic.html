@@ -4,8 +4,114 @@
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        div,ul,li,a{
+            margin:0px;
+            padding:0px;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        a{
+            text-decoration:none;
+            color:#EC616D;
+            padding:9px;
+        }
+
+        .container{
+            width:600px;
+            margin:0 auto;
+        }
+
+        .ul-container>li{
+            border:1px solid #ccc;
+            border-radius:3px;
+            padding:9px;
+            margin-top:5px;
+            background-color:green;
+            color:#fff;
+        }
+
+        .ul-container>li:hover{
+            background-color:yellowgreen;
+            transform:0.3s background-color;
+        }
+
+        .load{
+            border:1px solid #EC616D;
+            border-radius:3px;
+            width:90px;
+            height:30px;
+            margin:0 auto;
+            margin-top:9px;
+            text-align:center;
+        }
+
+        .load img{
+            width:30px;
+            height:30px;
+        }
+
+        .active{
+            display:none;
+        }
+        </style>
     </head>
     <body>
-    
+        <div class="container">
+            <ul class="ul-container">
+                <li>数据1</li>
+                <li>数据2</li>
+            </ul>
+            <div class="load">
+                <img class="active" src="http://jrgzuoye.applinzi.com/%E4%BD%9C%E4%B8%9A%E5%AE%89%E6%8E%92/jscode/JS9-jqueryajax/loading.gif" alt="">
+                <a href="#">加载更多</a>
+            </div>
+        </div>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js">
+        </script>
+        <script>
+        $(document).ready(function(){
+
+            $(".load a").on("click",function(event){
+                event.preventDefault()
+                $(".load img").removeClass("active")
+                $(".load a").addClass("active")
+                var ctNodes=$(".ul-container li").length,
+                $ctContainer=$(".ul-container")
+
+                setTimeout(function(){/*模拟延迟加载显示gif图片加载效果*/
+                        $.ajax(
+                            {
+                                url:"/getmore",
+                                method:"GET",
+                                dataType:"json",
+                                data:{'ctnodes':ctNodes,'length':5}
+                            }
+                        ).done(
+                                function(res){
+                                    console.log(res)
+                                    var newNode=""
+                                    for(var key in res){
+                                        newNode += `<li>数据${res[key]}</li>`
+                                    }
+                                    $ctContainer.append($(newNode))
+                                }
+                        ).fail(function(){
+                            console.log(arguments[1])
+                        }).always(function(){
+                            $(".load img").addClass("active")
+                            $(".load a").removeClass("active")
+                            console.log(arguments[2].statusText)
+                        })
+                },1000)
+
+            })
+            
+        })
+        </script>
     </body>
 </html>
+<!-- http://jrgzuoye.applinzi.com/%E4%BD%9C%E4%B8%9A%E5%AE%89%E6%8E%92/jscode/JS9-jqueryajax/loading.gif -->
