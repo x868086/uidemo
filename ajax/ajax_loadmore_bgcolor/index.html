@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="#" rel="stylesheet">
+        <style>
+            ul,li{
+                margin:0px;
+                padding:0px;
+            }
+            button{
+                cursor:pointer;
+            }
+
+            ul,li{
+                list-style:none;
+            }
+
+            li{
+                height: 50px;
+                border:1px solid #ccc;
+                border-radius:5px;
+                margin:5px 0px;
+                line-height:50px;
+            }
+
+            li:hover{
+                background-color:#00cc99;
+                transition:background-color 0.6s
+            }
+
+            body,ul{
+                text-align:center;
+            }
+    
+        </style>
+    </head>
+    <body>
+        <button class="random-color">获取随机背景色</button>
+            <ul class="ct">
+                    <li>数据1</li>
+                    <li>数据2</li>
+                </ul>
+            <button class="load">加载更多</button>
+        
+
+        
+        <script>
+            var randomNode=document.querySelector(".random-color"),
+            bodyNode=document.querySelector("body"),
+            url=window.location.origin,
+            ulNode=document.querySelector(".ct"),
+            loadNode=document.querySelector(".load")
+            
+
+            function ajax(method,url,ansyc){
+                var xhr=new XMLHttpRequest()
+                xhr.repsonseType='text'
+                xhr.timeout=4000
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState===4){
+                        if(xhr.status >= 200 && xhr.status <=300 || xhr.status===304 ){
+                            console.log(xhr.responseText)
+                            // console.log(bodyNode)
+                            bodyNode.setAttribute("style",`background:${xhr.responseText}`);
+                            
+                        }
+                    }
+                }
+            xhr.open(method,url,true)
+            xhr.send()
+            }
+
+            function renderLi(method,url,ansyc){
+                var xhr=new XMLHttpRequest()
+                xhr.responseType='document'
+                xhr.timeout=4000
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState===4){
+                        if(xhr.status >= 200 && xhr.status <=300 || xhr.status===304 ){
+                            // console.log(xhr.responseXML.querySelectorAll('li'))
+                            // console.log(ulNode)
+                            var nodeList=xhr.responseXML.querySelectorAll('li')
+                            for(var i=0;i<nodeList.length;i++){
+                                ulNode.appendChild(nodeList[i])
+                            }
+                        }
+                    }
+                }
+            xhr.open(method,url,true)
+            xhr.send()
+            }
+
+            randomNode.addEventListener('click',function(){
+                ajax('GET',url+'?color=random',true) 
+            },false)
+
+            loadNode.addEventListener('click',function(){
+                var index=document.querySelectorAll("ul li").length
+                renderLi('GET',url+`?index=${index}`)
+            },false)
+
+
+            
+            
+
+
+        </script>
+    </body>
+</html>
