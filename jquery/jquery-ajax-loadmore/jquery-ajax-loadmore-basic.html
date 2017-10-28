@@ -93,9 +93,14 @@
                         ).done(
                                 function(res){
                                     console.log(res)
+                                    if(res[0]==="full"){/*获取的数据量大于设定阀值时显示没数据了*/
+                                        $(".load img").addClass("active")
+                                        $(".load a").removeClass("active").text("没数据了")
+                                        return;
+                                    }
                                     var newNode=""
-                                    for(var key in res){
-                                        newNode += `<li>数据${res[key]}</li>`
+                                    for(var i=1;i<res.length;i++){
+                                        newNode += `<li>数据${res[i]}</li>`
                                     }
                                     $ctContainer.append($(newNode))
                                 }

@@ -24,9 +24,12 @@ var server=http.createServer(function(request,response){
         response.setHeader('Content-Type','text/html;charset="utf-8"')
         
         function resConten(index,length){
-            var resString=[]
+            var resString=[];
+            if(index>14){ /*前台传来已加载的数据达到阀值时回复full*/
+                resString[0]="full"
+            }else resString[0]="empty"
 
-            for(var i=0;i<length;i++){
+            for(var i=1;i<length;i++){
                 index ++
                 resString[i]=index
             }
