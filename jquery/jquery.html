@@ -21,6 +21,17 @@
         .active{
             display:none;
         }
+
+        .mth12div{
+            width:200px;
+            height:60px;
+            background:greenyellow;
+            position:fixed;
+            right:10px;
+            top:500px;
+            display:none;
+        }
+
         </style>
         <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js">
         </script>
@@ -164,6 +175,89 @@
                     $(".method.mth9 span").text(meth9String)
 
                 })
+
+                /*10.DOM选择*/
+                $(".method.mth10 .btn1").on("click",function(){
+                    var meth10String=$(".method.mth10 .ct9").length
+                    console.log(meth10String)
+                    $(".mth10 .mth10panel").text(`class为.ct9的$对象的length:${meth10String}`)
+                })
+
+                $(".method.mth10 .btn2").on("click",function(){
+                    var meth10String=$(".method.mth10 .ct9").children()
+                    console.log(meth10String)
+                    $(".mth10 .mth10panel").text(`class为.ct9的$对象的子元素length:${meth10String.length}`)
+                })
+
+                $(".method.mth10 .btn3").on("click",function(){
+                    var meth10Node=$(".ct9").parent(".mth10").children(".mth10panel")
+                    console.log(meth10Node)
+                    $(".mth10 .mth10panel").text(`class为.ct9的$对象的父元素中找class为.mth10pannel的子元素:${meth10Node.length}`)
+                })
+
+                $(".method.mth10 .btn4").on("click",function(){
+                    var meth10Node=$(".method.mth10").children()
+                    console.log(meth10Node)
+                    $(".mth10 .mth10panel").text(`mth10中子元素数量:${meth10Node.length}`)
+                })
+
+                $(".method.mth10 .btn5").on("click",function(){
+                    var meth10Node=$(".method.mth10 .mth10panel").index()
+                    console.log(meth10Node)
+                    $(".mth10 .mth10panel").text(`class为mth10pannel在兄弟元素中的索引:${meth10Node}`)
+                })
+
+                /*11.点击按钮改变背景色*/
+                $(".method.mth11 .btn1").on("click",function(event){
+                    $(event.currentTarget).css({"background":"red"})
+                    setTimeout(function(){
+                        $(event.currentTarget).css({"background":"blue"})
+                    },1000)
+                })
+
+                /*12.当窗口滚动时，获取垂直滚动距离*/
+                $(".method.mth12 .btn1").on("click",function(){
+                    $(".mth12div").show();
+                    $(window).on("scroll",function(event){
+                        var scrollY=$(window).scrollTop()
+                        $(".mth12div").text(`scrollTop:${scrollY}px`)
+                    })
+                })
+
+                /*13.当鼠标放置到$div 上，把$div 背景色改为红色，移出鼠标背景色变为白色*/
+                $(".method.mth13").on("mouseenter",function(event){
+                    $(event.currentTarget).css({"background":"red"}).text("mouseenter")
+                })
+
+                $(".method.mth13").on("mouseleave",function(event){
+                    $(event.currentTarget).css({"background":"white"}).text("mouseleave")
+                })
+
+                /*14.当鼠标激活 input 输入框时让输入框边框变为蓝色，当输入框内容改变时把输入
+                框里的文字小写变为大写，当输入框失去焦点时去掉边框蓝色，控制台展示输入框里的文字*/
+                $(".method.mth14").on("focusin",function(event){
+                    $(event.target).css({"outline":"blue solid 2px"})
+                    $(event.target).on("keyup",function(event){
+                        var inputValue=$(event.target).val()
+                        console.log(inputValue)
+                        $(event.target).val(inputValue.toUpperCase())
+                    })
+
+                    $(event.target).on("focusout",function(event){
+                        $(event.target).css({"outline":"none"})
+                        console.log($(event.target).val())
+                    })
+                })
+
+                /*15.当选择 select 后，获取用户选择的内容*/
+                $(".method.mth15 select").on("change",function(event){
+                    var mth15String=$(event.target).val()
+                    console.log(mth15String)
+                    $(".method.mth15 p").text(`选中的内容是:${mth15String}`)
+                    })
+
+                
+
                 
             })
 
@@ -264,15 +358,52 @@
             <div class="method mth10" style="height:300px;">
                 <button class="btn1">查找class为ct9的元素</button>
                 <button class="btn2">查找class为ct9的所有子元素</button>
-                <button class="btn3">查找class为ct9的父元素为mth9，在其中找到calss为mth9panel的子元素</button>
-                <button class="btn4">获取mth9中子元素数量</button>
-                <button class="btn5">获取class为mth9pannel在兄弟元素中的索引</button>
+                <button class="btn3">查找class为ct9的父元素为mth10，在其中找到calss为mth10panel的子元素</button>
+                <button class="btn4">获取mth10中子元素数量</button>
+                <button class="btn5">获取class为mth10pannel在兄弟元素中的索引</button>
                 <div class="ct9">
                     <div class="item9"></div>
                     <div class="item10"></div>
                     <div class="item11"></div>
                 </div>
                 <span class="mth10panel"></span>        
+            </div>
+
+            <br>
+            <h5>11.当点击时，让按钮的背景色变为红色再变为蓝色</h5>
+            <div class="method mth11">
+                <button class="btn1">变色</button>        
+            </div>
+
+            <br>
+            <h5>12.当窗口滚动时，获取垂直滚动距离</h5>
+            <div class="method mth12">
+                <button class="btn1">点击显示滚动</button>
+                <div class="mth12div"></div>        
+            </div>
+
+            <br>
+            <h5>13.当鼠标放置到$div 上，把$div 背景色改为红色，移出鼠标背景色变为白色</h5>
+            <div class="method mth13">       
+            </div>
+
+            <br>
+            <h5>14.当鼠标激活 input 输入框时让输入框边框变为蓝色，当输入框内容改变时把输入
+                框里的文字小写变为大写，当输入框失去焦点时去掉边框蓝色，控制台展示输入框里的文字</h5>
+            <div class="method mth14">
+                <input type="text">      
+            </div>
+
+            <br>
+            <h5>15.当选择 select 后，获取用户选择的内容</h5>
+            <div class="method mth15">
+                <select name="" id="">
+                    <option value="沃尔沃">沃尔沃</option>
+                    <option value="雪铁龙" selected="selected">雪铁龙</option>
+                    <option value="雷克萨斯">雷克萨斯</option>
+                    <option value="DS">DS</option>   
+                </select>
+                <p></p>   
             </div>
 
             
