@@ -75,40 +75,55 @@
         4.当返回数据为空时在ul底部插入p标签显示数据加载完了
         5.用visibility:hidden隐藏加载更多标签，因为用display:none元素会脱离文档流始终处于window可视窗口*/
     $(window).ready(function(){
-        var $node=$(".load-flag")
+        var $node=$(".load-flag"),
+            idx=0;
 
-        getNews();
-
-        function getNews(){
-            if(isShow($node)){
-                $.ajax({
+        $node.on("click",function(){
+            $.ajax({
                     url:"/getmore",
                     method:"GET",
-                    data:{"pageIndex":index},
-                    dataType:"json"}).done(function(res){
-                        renderHtml(res)
-                }).fail(function(){
-                    alert("数据请求错误")
-                })
-            }
-        }
+                    data:{"pageIndex":idx},
+                    success:function(res){
+                        console.log(JSON.parse(res))
+                    },
+                    error:function(){
+                        console.log(arguments)
+                    }
+            
+            // getNews();
+        })
+
+        // function getNews(){
+        //     if(isShow($node)){
+        //         $.ajax({
+        //             url:"/getmore",
+        //             method:"GET",
+        //             data:{"pageIndex":idx},
+        //         dataType:"json"}).done(function(res){
+        //                 renderHtml(res)
+        //                 console.log("ddd")
+        //         })
+        //     }
+        // }
         
 
-        function isShow($node){
-            var scrollY=$(window).scrollTop(),
-                windowHeight=$(window).height(),
-                offsetY=$node.offset().top
-            if(offsetY < scrollY + windowHeight && offsetY > scrollY){
-                return true;
-            }else{
-                return false;
-            }
-        }
+        // function isShow($node){
+        //     var scrollY=$(window).scrollTop(),
+        //         windowHeight=$(window).height(),
+        //         offsetY=$node.offset().top
+        //     if(offsetY < scrollY + windowHeight && offsetY > scrollY){
+        //         return true;
+        //     }else{
+        //         return false;
+        //     }
+        // }
 
-        function renderHtml(res){
-            console.log(res)
-        }
+        // function renderHtml(res){
+        //     console.log(res)
+        //     idx ++;
+        // }
     })
+})
     </script>
     </body>
 </html>

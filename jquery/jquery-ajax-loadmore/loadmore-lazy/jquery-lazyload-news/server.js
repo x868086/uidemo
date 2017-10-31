@@ -125,33 +125,14 @@ var server=http.createServer(function(request,response){
         response.end(stringIndex)
     }
 
-    // if(query.color==='random'){
-    //     response.setHeader('Content-Type','text/html;charset="utf-8"')
-    //     function getRandColor(){
-    //         var colorDict='0123456789abcdef';
-    //         var color='#'
-    //         for(var i=0;i<6;i++){
-    //           var index=Math.floor(Math.random()*16);
-    //           color=color+colorDict[index];
-    //         }
-    //         return color;
-    //       }
-    //       var content=getRandColor()//返回生成的随机色
-    //     response.end(content)
-    // }
+var length=5;
 
-    // if(query.index){
-    //     response.setHeader('Content-Type','text/html;charset="utf-8"')
-    //     function renderLi(index){
-    //         var string=``;
-    //         for(var i=0;i<5;i++){
-    //             string += `<li>数据${++index}</li>`
-    //         }
-    //         return string
-    //     }
-    //     var content=renderLi(query.index)
-    //     response.end(content)
-    // }
+    if(path==='/getmore'){
+        response.setHeader('Content-Type','text/html;charset="utf-8"')
+        var content=JSON.stringify(news.slice(1,3))
+        
+        response.end(content)
+    }
 
     
 })
