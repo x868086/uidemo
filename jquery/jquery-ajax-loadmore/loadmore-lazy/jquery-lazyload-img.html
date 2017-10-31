@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>jquery-lazyload-img</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style type="text/css">
+        div,ul,li,p,span{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        a{
+            text-decoration:none;
+            color:black;
+        }
+
+        #container{
+            margin:0 auto;
+            width:660px;
+            /* border:1px solid green; */
+            padding:5px;
+        }
+
+        ul{
+            width:660px;
+            /* border:1px solid red; */
+            font-size:0px;
+        }
+
+        li{
+            /* border:1px solid #ccc; */
+            display:inline-block;
+            margin-left:20px;
+            margin-top:20px;
+        }
+
+        img{
+            width:300px;
+            height:200px;
+        }
+        </style>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js">
+        </script>
+        <script>
+            /*tips思路：1.页面上img标签src属性设置成data-src预定义属性后加载图片，减少同一事件http请求
+            2.img标签出现在window窗口中(window上下边界范围类)，而且data-src属性还没写入src属性时加载
+            3.scroll滚动事件是一次滚轮会触发多次scroll事件，需要将滚轮这种连续事件通过延迟取最后一次事件*/
+        $(document).ready(function(){
+            lazyLoad(); /*tips4:页面打开时先执行一次以显示初始页面的几张图片*/
+            
+            var loading;
+            $(window).on("scroll",function(){
+                if(loading){
+                    clearTimeout(loading) /*tips5:如果前一次滚轮事件没完又发生滚动则清除延时执行动作*/
+                }
+                loading=setTimeout(function(){
+                    lazyLoad();
+                },500)
+            })
+
+            function lazyLoad(){
+                console.log("加载")
+                $(".img-container li img").each(function(index,element){/*index是元素在集合中的索引号，$element是每次遍历的DOM元素即$this*/
+                    if(isShow($(this)) && !isLoaded($(this))){ /*tips1:img出现在视窗范围内且data-src属性没写入src属性时执行加载图片的动作*/
+                        renderImg($(this))
+                    }
+                })
+            }
+            
+
+            function isShow($img){/*tips2:判断img元素是否处于window视窗范围类*/
+                var scrollY=$(window).scrollTop(),
+                    windowHeight=$(window).height(),
+                    offsetY=$img.offset().top/*元素相对于根节点元素的位置*/
+                if(offsetY < scrollY + windowHeight && offsetY > scrollY){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            function isLoaded($img){/*tips3:判断img元素的data-src属性是否已经写入到src属性*/
+                if($img.attr("src")===$img.attr("data-src")){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            function renderImg($img){
+                $img.attr("src",$img.attr("data-src"))
+            }
+                
+        })
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <ul class="img-container">
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/5.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/6.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/7.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/8.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/9.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/10.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/11.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/12.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/13.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/14.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/15.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/16.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/17.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/18.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/19.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/20.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/21.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/22.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/23.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/24.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/25.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg"></a></li>
+                <li><a href="#"><img src="http://kejian.jirengu.com/data/fe/%E8%AF%BE%E4%BB%B6/32-%E6%87%92%E5%8A%A0%E8%BD%BD/code/blank.jpg" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg"></a></li>
+            </ul>  
+        </div>
+    </body>
+</html>
