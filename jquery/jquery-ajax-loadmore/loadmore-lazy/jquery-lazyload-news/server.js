@@ -129,12 +129,13 @@ var server=http.createServer(function(request,response){
     }
 
 	var length=5,
-		idx=parseInt(query.pageIndex)
+		idx=query.pageIndex,
+		liveCode=1,
+		content=JSON.stringify(news.slice(idx*length,idx*length+length))
 
     if(path==='/getmore'){
         response.setHeader('Content-Type','text/html;charset="utf-8"')
-        var content=JSON.stringify(news.slice(idx*length,idx*length+length))
-        response.end(content)
+        response.end(`{"status":${liveCode},"data":${content}}`)
     }
 
     
