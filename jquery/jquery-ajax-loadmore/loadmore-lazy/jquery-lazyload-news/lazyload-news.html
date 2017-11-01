@@ -73,94 +73,100 @@
         空时，执行载入图片的函数
         2.载入图片函数执行发起ajax请求，发送页数，目标获取后台返回固定个数的新闻清单+数据状态码，状态码标识数据返回是否出错
         3.获取到后台传来的数据后执行html渲染函数拼装成DOM元素插入到ul底部，此时先判断传回数据是否为空，为空则在ul底部插入p标签显示数据加载完了
-        4。用visibility:hidden隐藏加载更多标签，因为用display:none元素会脱离文档流始终处于window可视窗口*/
+        4.用visibility:hidden隐藏加载更多标签，因为用display:none元素会脱离文档流始终处于window可视窗口*/
     $(window).ready(function(){
-        var $node=$(".load-flag"),
-            idx=0,
-            isover=false
+        var $flag=$(".load-flag"),
+            idx=0,/*tips0:每次请求的页码*/
+            isover=false,/*tips0:标记后台数据是否没有了*/
+            clock /*tips0:定时器优化scroll*/
 
-            lazyLoad();
+            lazyLoad();/*tips1:初始页面时先执行一次懒加载*/
 
-        var loading
-            $(window).on("scroll",function(){
-                if(loading){
-                    clearTimeout(loading)
+        $(window).on("scroll",function(){
+            if(clock){
+                clearTimeout(clock)
+            }
+
+            clock=setTimeout(function(){
+                lazyLoad()
+                console.log("加载计数")
+            },1000)
+            
+            
+        })
+
+        function lazyLoad(){
+            if(isShow($flag) && !isover){/*tips1:标记元素出现在window可视范围内且后台还有数据可加载时执行*/
+                loadImg()
+            }
+        }
+        
+
+        function isShow($flag){
+            var scrollY=$(window).scrollTop(),
+                windowHeight=$(window).height(),
+                offsetY=$flag.offset().top;
+
+            if(offsetY < scrollY + windowHeight && offsetY >scrollY){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function loadover(len){/*tips3:返回数据为空时将isover置为true*/
+            if(len===0){
+                isover=true;
+            }
+        }
+
+        function loadImg(){
+            $.ajax({
+                url:"/getmore",
+                method:"GET",
+                data:{pageIndex:idx},
+                dataType:"html"
+            }).done(function(res){
+                var dataObj=JSON.parse(res)
+                if(dataObj.livecode===1){/*tips3:判断返回数据的状态是否正常，正常时执行html渲染函数*/
+                    renderHtml(dataObj)
+                    console.log(dataObj)
+                }else{
+                    return;
                 }
-                loading=setTimeout(function(){
-                    lazyLoad();
-                },1000)
+            }).fail(function(){
+                console.log("加载出错")
+            })
+        }
+
+        function renderHtml(dataObj){
+            idx ++;/*tips2:拼装html元素时将页码+1*/
+            loadover(dataObj.data.length); /*tips3:判断返回数据是否为空*/
+            if(dataObj.data.length===0){ /*tips4:返回数据为空是页面底部加p标签提示后台没数据了*/
+                $("#container").append($(`<p>没有数据了</p>`))
+                return
+            }
+            var $html=""
+            dataObj.data.forEach(function(e,i,a){
+                $html +=
+                `<li class="newsview">
+                    <a href=${e.link} class="clearfix">
+                        <img src=${e.img} alt="">
+                        <h5>${e.title}</h5>
+                        <p>${e.brif}</p>
+                    </a>
+                </li>`
             })
 
-        // $node.on("click",function(){
-        //    lazyLoad(); 
-        // })
+            $("#container ul").append($($html))
+            lazyLoad()/*tips1:从初始条件开始每次渲染html后再执行一次懒加载，在初始条件情况下充满屏幕让window产生滚动条，在有滚动条的情况
+            下继续执行时会通过isShow()和isover来判断是否加载*/
+        }
 
-            function lazyLoad(){
-                if(isShow($node) && !isover){ /*tips1:标记元素出现在window视窗范围内，且返回的数据没有为空（还有内容时）执行加载图片函数*/
-                    loadImg();
-                }
-            }
-            
 
-            function isShow($node){
-                var scrollY=$(window).scrollTop(),
-                    windowHeight=$(window).height(),
-                    offsetY=$node.offset().top
-                if(offsetY < scrollY +windowHeight && offsetY >scrollY){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
 
-            
 
-            function loadImg(){
-                $.ajax({
-                    url:"/getmore",
-                    method:"GET",
-                    data:{"pageIndex":idx},
-                    dataType:"html"})
-                    .done(function(res){
-                        var newsArr=JSON.parse(res)
-                        if(newsArr.status===1){ /*tips2:返回的数据状态为1是即正常，将页码+1且执行html渲染函数*/
-                            idx ++
-                            renderHtml(newsArr.data) 
-                        }                      
-                        
-                    })
-                    .fail(function(){
-                            console.log("加载出错")
-                        })
-            }
-
-            function renderHtml(newsArr){
-                if(newsArr.length===0){/*tips3:如果返回内容为空则表示后台数据没有了，这时候插入提示p标签*/
-                    isover=true;
-                    $("#container").append($(`<p>没有数据了</p>`))
-                        return
-                }
-
-                var newsHtml=""
-                newsArr.forEach(function(e,i,a){
-                            newsHtml += 
-                                `<li class="newsview">
-                                    <a href=${e.link} class="clearfix">
-                                    <img src=${e.img} alt="">
-                                    <h5>${e.title}</h5>
-                                    <p>${e.brif}</p>
-                                    </a>
-                                </li>`
-                        })
-                // console.log(newsHtml)
-                console.log("加载成功")
-                $("#container ul").append($(newsHtml))
-                        
-                lazyLoad() /*tips4:页面初始环境下加载一次且数据渲染后内容太少，无法滚动所以要在渲染html执行完成后再执行一次lazyLoad判断并加载*/
-            }
-            
-
-})
+    })
     </script>
     </body>
 </html>

@@ -9,8 +9,6 @@ var server=http.createServer(function(request,response){
     var path=temp.pathname
     var query=temp.query
     var method=request.method;
-    // console.log(`请求原始内容是:${request}`)
-    // console.log(`请求内容格式化后:${path}`)
     console.log(query.pageIndex)
 
     var news = [
@@ -128,16 +126,16 @@ var server=http.createServer(function(request,response){
         response.end(stringIndex)
     }
 
-	var length=5,
-		idx=query.pageIndex,
-		liveCode=1,
+
+	var length=5,/*每次取新闻的条数*/
+		idx=query.pageIndex, /*前台请求传来的页码*/
+		statecode=1, 
 		content=JSON.stringify(news.slice(idx*length,idx*length+length))
-
-    if(path==='/getmore'){
-        response.setHeader('Content-Type','text/html;charset="utf-8"')
-        response.end(`{"status":${liveCode},"data":${content}}`)
-    }
-
+		resdata=`{"livecode":${statecode},"data":${content}}`
+	if(path==='/getmore'){
+		response.setHeader('Content-Type','text/html;charset="utf-8"')
+		response.end(resdata)
+	}
     
 })
 
