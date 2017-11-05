@@ -135,7 +135,7 @@
         ulCt=$(".img-ct"),
         bullet=$(".bullet"),
         imgWidth=ulCt.find("li img").eq(0).width(),
-        clickLock=false/*tips1:设置状态锁，阻止连续点击*/
+        clickLock=false
 
         /*tips1:初始状态,前后插入克隆元素，默认展示第1个元素而不是克隆产生的第0个假元素*/        
         var firstLi=ulCt.find("li").first().clone(),
@@ -152,25 +152,25 @@
         }
 
         function playNext(){
-            clickLock=true/*tips2:加载动画前先锁定*/
+            clickLock=true
             ulCt.animate({"left":`-=${imgWidth}`},function(){
                 idx++
                 console.log(idx)
 
-                if(idx===imgLength){/*tips3:当显示到克隆的最后一个假元素idx=4时用CSS跳到第一个真元素上idx=0*/
+                if(idx===imgLength){
                     $(ulCt).css({"left":-imgWidth})
                     idx=0
                 }
 
                 setBullet()
-                clickLock=false/*tips2:动画加载完后开锁*/
+                clickLock=false
             })
             
         }
 
         nextBtn.on("click",function(){
             clearInterval(pageView)
-            if(clickLock){/*tips2:点击前先判断是否有锁定状态，避免多次点击*/
+            if(clickLock){
                return 
             }
             playNext() 
@@ -182,7 +182,7 @@
                 idx--
                 console.log(idx)
 
-                if(idx<0){/*tips3:当显示到克隆的第-1个假元素时用CSS跳到最后一个真元素上idx=3*/
+                if(idx<0){
                     $(ulCt).css({"left":-imgLength*imgWidth})
                     idx=3
                 }
