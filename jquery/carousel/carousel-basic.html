@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style type="text/css">
+        div,ul,li,a{
+            margin:0px;
+            padding:0px;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        a{
+            text-decoration:none;
+            color:#ccc;
+        }
+
+        .clearfix:after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+
+        .carousel{
+            width:420px;
+            height:300px;
+            overflow:hidden;
+            position:relative;
+        }
+
+        .img-ct{
+            width:2520px;
+            position:absolute;
+        }
+
+        .img-ct img{
+            width:420px;
+            height:300px;
+        }
+
+        .img-ct li{
+            float:left;
+        }
+
+        .play{
+            position:absolute;
+            z-index:1;
+            border:1px solid #aaa;
+            border-radius:50%;
+            width:30px;
+            height:30px;
+            top:50%;
+            transform:translate(0,-50%);/* margin-top:-15px; */
+            text-align:center;
+            line-height:30px;
+            background-color:rgba(0,0,0,0.8);
+            opacity:0.5;
+        }
+
+        .play:hover{
+            opacity:0.7;
+        }
+
+        .pre{
+            left:10px;
+        }
+
+        .next{
+            right:10px;
+        }
+
+        .bullet{
+            position:absolute;
+            z-index:1;
+            width:100%;
+            bottom:20px;
+            text-align:center;
+            line-height:5px;
+        }
+
+        .bullet li{
+            display:inline-block;
+            border:1px solid #fff;
+            background-color:#fff;
+            border-radius:3px;
+            width:30px;
+            height:5px;
+            cursor:pointer;
+        }
+
+        .bullet li.active{
+            background-color:rgba(0,0,0,0.8);
+            opacity:0.5;or:black;
+        }
+
+        </style>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js">
+        </script>
+        <!-- <script>
+            $(document).ready(function(){
+                var nodes=$(".img-ct").children()
+                console.log(nodes)
+            })
+            
+        </script> -->
+    </head>
+    <body>
+    <div id="container">
+        <div class="carousel">
+            <ul class="img-ct clearfix">
+                <li order="0"><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+                <li order="1"><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+                <li order="2"><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+                <li order="3"><img src="http://cdn.jirengu.com/book.jirengu.com/img/33.jpg" alt=""></li>
+            </ul>
+            <a href="#" class="play pre"><</a>
+            <a href="#" class="play next">></a>
+            <ul class="bullet">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var idx=0,
+        imgLength=$(".img-ct li").length,
+        nextBtn=$(".next"),
+        preBtn=$(".pre"),
+        ulCt=$(".img-ct"),
+        bullet=$(".bullet"),
+        imgWidth=ulCt.find("li img").eq(0).width()
+
+        var firstLi=ulCt.find("li").first().clone(),
+            lastLi=ulCt.find("li").last().clone()
+
+        
+        /*tips:初始状态*/
+        ulCt.append(firstLi);
+        ulCt.prepend(lastLi);
+        ulCt.css({"left":-imgWidth}) 
+
+
+        nextBtn.on("click",function(){
+            ulCt.animate({"left":`-=${imgWidth}`},function(){
+                idx++
+                console.log(idx)
+
+                if(idx===imgLength){
+                    $(ulCt).css({"left":-imgWidth})
+                    idx=0
+                }
+
+                bullet.find("li").eq(idx)
+                                .addClass("active")
+                                .siblings().removeClass("active")
+            })
+            
+        })
+
+        preBtn.on("click",function(){
+            ulCt.animate({"left":`+=${imgWidth}`},function(){
+                idx--
+                console.log(idx)
+
+                if(idx<0){
+                    $(ulCt).css({"left":-imgLength*imgWidth})
+                    idx=3
+                }
+
+                bullet.find("li").eq(idx)
+                                .addClass("active")
+                                .siblings()
+                                .removeClass("active")
+            })
+        })
+
+        bullet.find("li").on("click",function(event){
+            console.log($(event.currentTarget).index())
+            idx=$(event.currentTarget).index()
+            ulCt.animate({"left":-(idx+1)*imgWidth})
+            
+            bullet.find("li").eq(idx)
+                                .addClass("active")
+                                .siblings()
+                                .removeClass("active")
+        })
+
+
+            
+
+    </script>
+    </body>
+</html>
