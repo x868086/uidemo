@@ -128,25 +128,31 @@
         </div>
     </div>
     <script>
-        var idx=0,
-        imgLength=$(".img-ct li").length,
+        var idx=0, /*tips1:idx记录数值操作bullet*/
+        imgLength=$(".img-ct li").length,/*tips1:初始状态下li的数量，4个，该值因为是缓存的值，所以后面克隆元素插入后该值不会变*/
         nextBtn=$(".next"),
         preBtn=$(".pre"),
         ulCt=$(".img-ct"),
         bullet=$(".bullet"),
-        imgWidth=ulCt.find("li img").eq(0).width()
+        imgWidth=ulCt.find("li img").eq(0).width(),
+        clickLock=false
 
+        /*tips1:初始状态,前后插入克隆元素，默认展示第1个元素而不是克隆产生的第0个假元素*/        
         var firstLi=ulCt.find("li").first().clone(),
             lastLi=ulCt.find("li").last().clone()
+            ulCt.append(firstLi);
+            ulCt.prepend(lastLi);
+            ulCt.css({"left":-imgWidth})
 
         
-        /*tips:初始状态*/
-        ulCt.append(firstLi);
-        ulCt.prepend(lastLi);
-        ulCt.css({"left":-imgWidth}) 
+        function setBullet(){
+            bullet.find("li").eq(idx)
+                                .addClass("active")
+                                .siblings().removeClass("active")
+        }
 
-
-        nextBtn.on("click",function(){
+        function playNext(){
+            clickLock=true
             ulCt.animate({"left":`-=${imgWidth}`},function(){
                 idx++
                 console.log(idx)
@@ -156,14 +162,22 @@
                     idx=0
                 }
 
-                bullet.find("li").eq(idx)
-                                .addClass("active")
-                                .siblings().removeClass("active")
+                setBullet()
+                clickLock=false
             })
             
+        }
+
+        nextBtn.on("click",function(){
+            clearInterval(pageView)
+            if(clickLock){
+               return 
+            }
+            playNext() 
         })
 
-        preBtn.on("click",function(){
+        function playPre(){
+            clickLock=true
             ulCt.animate({"left":`+=${imgWidth}`},function(){
                 idx--
                 console.log(idx)
@@ -173,23 +187,29 @@
                     idx=3
                 }
 
-                bullet.find("li").eq(idx)
-                                .addClass("active")
-                                .siblings()
-                                .removeClass("active")
-            })
+                setBullet()
+                clickLock=false
+                })
+        }
+
+        preBtn.on("click",function(){
+            clearInterval(pageView)
+            if(clickLock){
+               return 
+            }
+            playPre()
         })
 
         bullet.find("li").on("click",function(event){
-            console.log($(event.currentTarget).index())
+            clearInterval(pageView)
+            console.log($(event.Target).index())
             idx=$(event.currentTarget).index()
             ulCt.animate({"left":-(idx+1)*imgWidth})
-            
-            bullet.find("li").eq(idx)
-                                .addClass("active")
-                                .siblings()
-                                .removeClass("active")
+
+            setBullet()
         })
+
+        var pageView=setInterval(playNext,2000)
 
 
             
