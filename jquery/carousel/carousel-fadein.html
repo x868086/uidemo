@@ -94,19 +94,12 @@
 
         .bullet li.active{
             background-color:rgba(0,0,0,0.8);
-            opacity:0.5;or:black;
+            opacity:0.5;
         }
 
         </style>
         <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js">
         </script>
-        <!-- <script>
-            $(document).ready(function(){
-                var nodes=$(".img-ct").children()
-                console.log(nodes)
-            })
-            
-        </script> -->
     </head>
     <body>
     <div id="container">
@@ -128,91 +121,66 @@
         </div>
     </div>
     <script>
-        var idx=0, /*tips1:idx记录数值操作bullet*/
-        imgLength=$(".img-ct li").length,/*tips1:初始状态下li的数量，4个，该值因为是缓存的值，所以后面克隆元素插入后该值不会变*/
-        nextBtn=$(".next"),
-        preBtn=$(".pre"),
-        ulCt=$(".img-ct"),
-        bullet=$(".bullet"),
-        imgWidth=ulCt.find("li img").eq(0).width(),
-        clickLock=false
+        var idx=0,
+        btnNext=$(".next"),
+        btnPre=$(".pre"),
+        bulletCt=$(".bullet"),
+        imgCt=$(".img-ct"),
+        imgLength=$(".img-ct").find("li").length
 
-        /*tips1:初始状态,前后插入克隆元素，默认展示第1个元素而不是克隆产生的第0个假元素*/        
-        var firstLi=ulCt.find("li").first().clone(),
-            lastLi=ulCt.find("li").last().clone()
-            ulCt.append(firstLi);
-            ulCt.prepend(lastLi);
-            ulCt.css({"left":-imgWidth})
-
-        
-        function setBullet(){
-            bullet.find("li").eq(idx)
-                                .addClass("active")
-                                .siblings().removeClass("active")
-        }
 
         function playNext(){
-            clickLock=true
-            ulCt.animate({"left":`-=${imgWidth}`},function(){
-                idx++
-                console.log(idx)
+            idx++
+            if(idx===imgLength){
+                idx=0;
+            }
+            console.log(idx)            
+            imgCt.find("li").eq(idx).fadeIn(300)
+                            .siblings().fadeOut(300)
+            setBullet(idx)
+        }
 
-                if(idx===imgLength){
-                    $(ulCt).css({"left":-imgWidth})
-                    idx=0
-                }
-
-                setBullet()
-                clickLock=false
-            })
+        function playPre(){
+            idx--
+            if(idx<0){
+                idx=3;
+            }
+            console.log(idx)
+            imgCt.find("li").eq(idx).fadeIn(300)
+                            .siblings().fadeOut(300)
+            setBullet(idx)
             
         }
 
-        nextBtn.on("click",function(){
-            clearInterval(pageView)
-            if(clickLock){
-               return 
-            }
-            playNext() 
-        })
-
-        function playPre(){
-            clickLock=true
-            ulCt.animate({"left":`+=${imgWidth}`},function(){
-                idx--
-                console.log(idx)
-
-                if(idx<0){
-                    $(ulCt).css({"left":-imgLength*imgWidth})
-                    idx=3
-                }
-
-                setBullet()
-                clickLock=false
-                })
+        function setBullet(len){
+            bulletCt.find("li").eq(len).addClass("active")
+                            .siblings().removeClass("active")
         }
 
-        preBtn.on("click",function(){
+
+        btnNext.on("click",function(){
+            clearInterval(pageView);
+            playNext();
+        })
+
+        btnPre.on("click",function(){
             clearInterval(pageView)
-            if(clickLock){
-               return 
-            }
             playPre()
         })
 
-        bullet.find("li").on("click",function(event){
+        bulletCt.find("li").on("click",function(){
             clearInterval(pageView)
-            console.log($(event.Target).index())
-            idx=$(event.currentTarget).index()
-            ulCt.animate({"left":-(idx+1)*imgWidth})
-
-            setBullet()
+            var bulletIdx=$(this).index()
+            console.log(bulletIdx)
+            imgCt.find("li").eq(bulletIdx).fadeIn(300)
+                            .siblings().fadeOut(300)
+            setBullet(bulletIdx)
         })
 
-        var pageView=setInterval(playNext,2000)
+        var pageView=setInterval(function(){
+            playNext()
+        },2000)
 
-
-            
 
     </script>
     </body>
