@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        div,ul,li{
+            margin:0px;
+            padding:0px;
+            list-style:none;
+        }
+
+        /* #container{
+            width:900px;
+            border:1px solid red;
+            margin:0 auto;
+        } */
+
+        #container ul{
+            position:relative;
+        }
+
+        #container ul li{
+            position:absolute;
+            transition:all 1s;
+        }
+
+        .item{
+            width:200px;
+            height:300px;
+            margin-left:10px;
+            margin-top:10px;
+            background-color:cadetblue;
+        }
+
+        #container ul li:nth-child(2){
+            height:100px;
+            background-color:aquamarine;
+        }
+
+        #container ul li:nth-child(4){
+            height:120px;
+            background-color:forestgreen;
+        }
+
+        #container ul li:nth-child(6){
+            height:160px;
+            background-color:gold;
+        }
+
+        #container ul li:nth-child(7){
+            height:60px;
+            background-color:hotpink;
+        }
+
+        #container ul li:nth-child(9){
+            height:300px;
+            background-color:lightcoral;
+        }
+
+        #container ul li:nth-child(12){
+            height:300px;
+            background-color:skyblue;
+        }
+
+
+        #container ul li:nth-child(15){
+            height:220px;
+            background-color:chartreuse;
+        }
+
+        </style>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js">
+        </script>
+    </head>
+    <body>
+    <div id="container">
+        <ul>
+            <li class="item">1</li>
+            <li class="item">2</li>
+            <li class="item">3</li>
+            <li class="item">4</li>
+            <li class="item">5</li>
+            <li class="item">6</li>
+            <li class="item">7</li>
+            <li class="item">8</li>
+            <li class="item">9</li>
+            <li class="item">10</li>
+            <li class="item">11</li>
+            <li class="item">12</li>
+            <li class="item">13</li>
+            <li class="item">14</li>
+            <li class="item">15</li>
+            <li class="item">16</li>
+            <li class="item">17</li>
+            <li class="item">18</li>
+            <li class="item">19</li>
+            <li class="item">20</li>
+        </ul>
+    </div>
+    <script>
+        var init=(function(){
+            function waterfall(){
+                var itemWidth=$(".item").eq(0).outerWidth(true),
+                arrLength=Math.floor($("#container").width()/itemWidth),
+                arrItem=[]
+                for(var i=0;i<arrLength;i++){
+                    arrItem.push(0)
+                }
+
+                $(".item").each(function(i,element){
+                    var minHeight=Math.min.apply(null,arrItem),/*tips1:每次遍历一个元素先找出当前数组中的最小值*/
+                        minIdx=arrItem.indexOf(minHeight)/*tips1:每次遍历一个元素找出数组中最小值的索引号*/
+                    $(element).css({
+                        left:minIdx*itemWidth,/*tips2:将遍历到的元素放到当前页面中垂直位置上高度最小的那一行，水平位置放在位于高度最小位置元素的第几列*/
+                        top:arrItem[minIdx]
+                    })
+                    arrItem[minIdx]=arrItem[minIdx]+$(element).outerHeight(true) /*tips3:每次遍历元素且操作元素位置后将数组更新，将数组成员中
+                    高度最小的那个值加上当前操作元素的高度*/
+                })
+            }
+                
+            function render(){
+                waterfall()
+                $(window).on("resize",function(){
+                    init.render()
+                })
+            }
+
+            return {
+                render:render
+            }
+
+        })()
+
+        
+        init.render() /*初始条件下运行，页面打开是就开始渲染*/
+
+        
+    </script>
+    </body>
+</html>
