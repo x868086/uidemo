@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style type="text/css">
+            div,ul,li,h4,p{
+                margin:0px;
+                padding:0px;
+            }
+
+            ul,li{
+                list-style:none;
+            }
+
+            ul{
+                position:relative;
+            }
+
+            li{
+                width:260px;
+                border:1px solid #ccc;
+                border-radius:3px;
+                margin-left:10px;
+                margin-top:10px;
+                padding:10px;
+            }
+
+            li img{
+                width:260px;
+                cursor:pointer;
+            }
+
+            h4{
+                border-bottom:1px solid #ccc;
+                padding-top:5px;
+            }
+
+            p{
+                font-size:12px;
+                color:grey;
+            }
+
+            .item.flag{
+                display:none;
+            }
+
+            .show-flag{
+                visibility:hidden;
+            }
+        </style>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js">
+        </script>
+    </head>
+    <body>
+    <div id="container">
+        <div class="news-ct">
+            <ul>
+                <li calss="item">
+                    <img src="http://n.sinaimg.cn/tech/transform/20171109/1gTf-fynshiq8269850.jpg" alt="">
+                    <h4>标题</h4>
+                    <p>德国埃登科本，摄影师Michael Unna清晨出门拍到了令人震惊的画面，一棵树上的椋鸟一起飞向天空，看上去就像树叶“哗”地一下被吹散，画面一致，让人看得入了迷。</p>
+                </li>
+                <li class="item flag">这是个参考元素</li>
+            </ul>
+        </div>
+        <div class="show-flag">曝光加载</div>
+    </div>
+    <script>
+        /*
+        1.获取数据
+        2.数据到来后,数据数组遍历拼装dom并放入到页面底部
+        3.dom元素放入到页面底部后适用瀑布流布局重置元素位置，修改父容器高度，让曝光加载标记元素始终位于下方。
+        4.窗口滚动且flag曝光后执行获取数据并布局dom的操作
+        */
+    var perPageCount=10,
+        pageIdx=1
+    function getData(callback){
+        $.ajax({
+            url:'http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4',
+            dataType:'jsonp',
+            jsonp:'jsoncallback',/*tips1:与后端约定好的在查询字符串中请求的回调函数名*/
+            data:{
+                app_key: '1271687855',
+				num: perPageCount,
+				page: pageIdx
+            }
+        }).done(function(ret){
+            if(ret && ret.status && ret.status.code==='0'){
+                callback(ret)
+            }else{
+                console.log("获取数据出错")
+            }
+        }).always(function(){
+            console.log("请求已完成")
+        })
+    }
+
+    function buildDom(ret){
+        $.each(ret,function(i,element){
+
+            var newsNode="";
+            newsNode +=`<li calss="item">
+                    <img src="${element.img_url}" alt="">
+                    <h4>${element.short_name}</h4>
+                    <p>${element.short_intro}</p>
+                </li>`
+                console.log(newsNode)
+        })
+    }
+    </script>
+    </body>
+</html>
