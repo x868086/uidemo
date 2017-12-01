@@ -88,7 +88,8 @@
             }
         }).done(function(ret){
             if(ret && ret.status && ret.status.code==='0'){
-                callback(ret)
+                console.log(ret)
+                callback(ret.data)
             }else{
                 console.log("获取数据出错")
             }
@@ -98,15 +99,16 @@
     }
 
     function buildDom(ret){
+ 
         $.each(ret,function(i,element){
-
-            var newsNode="";
+            var newsNode="";           
             newsNode +=`<li calss="item">
                     <img src="${element.img_url}" alt="">
                     <h4>${element.short_name}</h4>
                     <p>${element.short_intro}</p>
                 </li>`
                 console.log(newsNode)
+                return $(newsNode)
         })
     }
     </script>
