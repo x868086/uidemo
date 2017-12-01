@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js">
+        </script>
+        <style>
+        div,p,ul,li{
+            list-style:none;
+            margin:0px;
+            padding:0px;
+        }
+
+        li{
+            width:300px;
+            border:1px solid #ccc;
+            padding:10px;
+            margin:0 auto;
+        }
+
+        #ct{
+            width:100px;
+            height:30px;
+            border:1px solid green;
+            position:fixed;
+            top:200px;
+            right:10px;
+            text-align:center;
+            cursor:pointer;
+        }
+        </style>
+    </head>
+    <body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+        <li>13</li>
+        <li>14</li>
+        <li>15</li>
+        <li>16</li>
+        <li>17</li>
+        <li>18</li>
+        <li>19</li>
+        <li>20</li>
+        <li>21</li>
+        <li>22</li>
+        <li>23</li>
+        <li>24</li>
+        <li>25</li>
+    </ul>
+    <!-- <div id="ct">
+        <p>回到顶部</p>
+    </div> -->
+
+    <script>
+        
+        $(document).ready(function(){
+            function Backtop(){
+            this.ct=$('<div id="ct" class="hidden"></div>')
+            this.btn=$('<p>回到顶部</p>')
+            this.init()
+            this.bind()
+        }
+
+        Backtop.prototype={
+            constructor:Backtop,
+            init:function(){
+                this.ct.append(this.btn)
+                $("body").append(this.ct)
+            },
+            bind:function(){
+                var that=this;
+                $(window).on("scroll",function(){
+                    if(this.scrollY>100){
+                        that.ct.show()
+                    } else if(this.scrollY<100){
+                        that.ct.hide()
+                    }
+                    that.ct.on("click",function(){
+                        window.scrollTo(0,0)
+                    })
+                })
+            }
+        }
+
+        new Backtop()
+        })
+        
+    </script>
+    </body>
+</html>
