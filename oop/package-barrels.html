@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js">
+        </script>
+        <style type="text/css">
+            div,img{
+                margin:0px;
+                padding:0px;
+            }
+
+            #container{
+                width:1000px;
+                border:1px solid #ccc;
+                margin:0 auto;
+            }
+
+            .img-ct{
+                margin-bottom:10px;
+            }
+
+            .img-ct:after{
+                content:"";
+                display:block;
+                clear:both;
+            }
+
+            .img-item{
+                float:left;
+            }
+
+            img{
+                margin-left:5px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div id="container">
+            <!--<div class="img-ct">
+                <div class="img-item"></div>
+            </div>-->
+        </div>
+
+        <script>
+            /*
+            0.初始环境，对象自身的空数组，对象自身的容器，对象自身的参考高度，对象自身的调用启动方法。
+            1.获取图片函数，获取随机大小的图片，以数组形式返回getList
+            2.遍历返回的图片数组comImgs，依次按数组comImgs内容创建图片元素设置src，并在图片加载后获取每张图片的宽、高及比例，
+            并将每张图片按图片自身宽高比参考基准高度等比缩放计算图片的大小，将其封装成一个对象，传入图片设置函数执行。
+            3.图片设置函数，依次将每张图片并依次放入一个初始环境空数组中this.imgList，
+            每次放入图片到this.imgList数组就遍历一次这个新数组中的图片，每次遍历时累加新数组中图片的宽度。图片宽度小于总容器宽度时继续遍历并累加宽度。
+            图片宽度累加到大于容器宽度时，取出最后放入新数组中的那个图片元素。保留当前新数组中的总宽度。
+            4.当前新数组中的总宽度已知，容器总宽度和总高度已知。可求出按容器宽度缩放图条时，图片条的高度（注意考虑css中预设的图片间的间隔）。
+            以图片条高度为基准，设置当前新数组中的每张图片的高度。将图片条的高度传入图片渲染函数执行。
+            5.渲染渲染函数执行时，依次遍历设置每行图片条的高度（一次设置一条图片），渲染完成后，清空当前图片数组（this.imgList），
+            然后将上面取出的最后那个元素再放入到this.imgList中，继续执行遍历数组的过程即上面第2条。
+            */
+
+                function Barrels(container,nums){
+                    this.container=container;
+                    this.nums=nums
+                    this.baseHeight=100;
+                    this.imgList=[];
+                    this.render(this.nums);
+                }
+
+                Barrels.prototype={
+                    render:function(nums){
+                        var getImgs=this.loadImg(nums)
+                        this.setImg(getImgs)
+                    },
+
+                    loadImg:function(nums){
+                        var randomImgs=[]
+                        var height
+                        var width
+                        for(var i=0;i<nums;i++){
+                            width=Math.floor(Math.random()*100+90)
+                            height=Math.floor(Math.random()*60+60)
+                            randomImgs.push(`https://picsum.photos/${width}/${height}/?random`)
+                        }
+                        return randomImgs
+                    },
+
+                    setImg:function(getImgs){
+                        var _this=this
+                        $.each(getImgs,function(idx,url){
+                            var imgItem=new Image()
+                                imgItem.src=url
+                                $(imgItem).on("load",function(){
+                                    var imgWidth=imgItem.width,
+                                        imgHeight=imgItem.height,
+                                        ratio=imgWidth/imgHeight,
+                                        imgsSetSize={
+                                            width:ratio*_this.baseHeight,
+                                            height:_this.baseHeight,
+                                            imgs:$(this)
+                                        }
+                                        _this.setArrImg(imgsSetSize)
+                                })
+                                
+                        })
+                    },
+
+                    setArrImg:function(imgsSetSize){
+                        var _this=this,
+                            rowWidth=0,
+                            rowHeight=0
+                        var lastOne=imgsSetSize;/*最后一个放入数组的成员*/
+                        var ctWidth=this.container.width()
+                        var counts /*记录当前数组中个元素个数*/
+                            _this.imgList.push(imgsSetSize)
+                        $.each(_this.imgList,function(idx,imgs){
+                            rowWidth += imgs.width
+                            if(rowWidth>ctWidth){
+                                _this.imgList.pop()
+                                counts=_this.imgList.length
+                                rowWidth=rowWidth-imgsSetSize.width + (counts * 6)/*这里是减去最后放入数组的成员的宽度,还要加上css预留的margin-left*/
+                                rowHeight= ctWidth * _this.baseHeight / rowWidth
+                                _this.layoutImg(rowHeight)
+                                _this.imgList=[]
+                                _this.imgList.push(lastOne)
+                            }
+                            
+                        })
+                    },
+
+                    layoutImg:function(rowHeight){
+                        var _this=this
+                        var $imgCt=$('<div class="img-ct"></div>')
+                            $imgBox=$('<div class="img-item"></div>')
+                         $.each(_this.imgList,function(idx,items){
+                            items.imgs.height(rowHeight)
+                            $imgBox.append(items.imgs)
+                        })
+                        $imgCt.append($imgBox);
+                        _this.container.append($imgCt)
+                    }
+
+
+                }
+
+                var node=new Barrels($("#container"),90)
+        </script>
+    </body>
+</html>
