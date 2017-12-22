@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+	<style>
+	div,img{
+	margin:0px;
+	padding:0px;
+}
+
+img{
+    float:left;
+}
+
+#ct1{
+	width:1000px;
+	height:1000px;
+	border:1px solid #ccc;
+}
+
+#ct2{
+	width:800px;
+	height:220px;
+	border:1px solid green;
+}
+
+#ct2:after,#ct3:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+
+#ct3{
+    margin-top:20px;
+    width:800px;
+    border:1px solid blue;
+}
+
+#ct3>img{
+    height:220px;
+}
+
+/* #img1{
+    width:300px;
+    height:220px;
+} */
+	</style>
+</head>
+<body>
+<div id="ct1">
+  <div id="ct2" class="clearfix">
+		<img src="001.jpeg" alt="" id="img1">
+		<img src="002.jpeg" alt="" id="img2">
+    </div>
+    <span>在控制台中修改蓝色框中图片的高度，整个图条宽度会自适应缩放，当高度达到293px时，整条图片按上面绿色框中参考宽度等比缩放</span>
+    <div id="ct3" class="clearfix">
+		<img src="001.jpeg" alt="" id="img1">
+		<img src="002.jpeg" alt="" id="img2">
+	</div>
+</div>
+</body>
+<!-- 图片：300*220 -->
+</html>
