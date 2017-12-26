@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            div,ul,li{
+                margin:0px;
+                padding:0px;
+            }
+
+            ul,li{
+                list-style:none;
+            }
+
+            #container{
+                width:900px;
+                margin:0 auto;
+            }
+            .tab-switch{
+                margin:0 auto;
+                margin-top:20px;
+                width:600px;
+                border:1px solid #ccc;
+                border-radius:3px;
+                padding:15px;
+            }
+
+            .tab-pannel{
+                padding:15px;
+                height:90px;
+            }
+            .tab-switch ul li{
+                display:inline-block;
+                padding:10px 20px;
+            }
+
+            .tab-head{
+                font-size:0px;
+            }
+
+            .tab-head li{
+                font-size:16px;
+                color:brown;
+                cursor:pointer;
+            }
+            .head-active{
+                color:#ccc;
+                border:1px solid #ccc;
+                border-top-left-radius:3px;
+                border-top-right-radius:3px;
+                border-bottom:none;
+            }
+            .head-switch{
+                border:none;
+                border-bottom:1px solid #ccc;
+            }
+
+            .tab-pannel div{
+                display:none;
+            }
+
+            .tab-pannel .active{
+                display:block;
+            }
+
+        
+        </style>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    </head>
+    <body>
+    <div id="container">
+        <div class="tab-switch">
+            <ul class="tab-head">
+                <li class="head-active">选项1</li>
+                <li class="head-switch">选项2</li>
+                <li class="head-switch">选项3</li>
+            </ul>
+            <div class="tab-pannel">
+                <div class="active">内容1</div>
+                <div>内容2</div>
+                <div>内容3</div>
+            </div>
+            
+        </div>
+
+        <div class="tab-switch">
+                <ul class="tab-head">
+                    <li class="head-active">选项1</li>
+                    <li class="head-switch">选项2</li>
+                    <li class="head-switch">选项3</li>
+                    <li class="head-switch">选项4</li>
+                </ul>
+                <div class="tab-pannel">
+                    <div class="active">内容1</div>
+                    <div>内容2</div>
+                    <div>内容3</div>
+                    <div>内容4</div>
+                </div>
+                
+        </div>
+
+        <div class="tab-switch">
+                <ul class="tab-head">
+                    <li class="head-active">选项1</li>
+                    <li class="head-switch">选项2</li>
+                    <li class="head-switch">选项3</li>
+                    <li class="head-switch">选项4</li>
+                    <li class="head-switch">选项5</li>
+                </ul>
+                <div class="tab-pannel">
+                    <div class="active">内容1</div>
+                    <div>内容2</div>
+                    <div>内容3</div>
+                    <div>内容4</div>
+                    <div>内容5</div>
+                </div>
+                
+        </div>
+
+
+    </div>
+    <script>
+            // /*原始脚本*/
+            // var tabHead=$(".tab-head")
+            //     tabPannel=$(".tab-pannel>div")
+            // tabHead.on("click","li",function(e){
+            //     var liIndex=$(e.target).index()
+            //     $(e.target).siblings().attr("class","head-switch")
+            //     $(e.target).attr("class","head-active")
+            //     tabPannel.eq(liIndex).show()
+            //     tabPannel.eq(liIndex).siblings().hide()
+            // })
+
+            var Tab2=(function(){
+                
+                function Tab(node){
+                this.ct=node
+                this.init();
+                this.bind();
+            }
+
+            Tab.prototype.init=function(){
+                this.tabHead=this.ct.find(".tab-head")
+                this.tabPannel=this.ct.find(".tab-pannel>div")
+            }
+
+            Tab.prototype.bind=function(){
+                var _this=this
+                _this.tabHead.on("click","li",function(e){
+                    var liIndex=$(e.target).index()
+                    console.log(this)
+                    $(e.target).siblings().attr("class","head-switch")
+                    $(e.target).attr("class","head-active")
+                    _this.tabPannel.eq(liIndex).show()
+                    _this.tabPannel.eq(liIndex).siblings().hide()
+                })
+            }
+
+                return {
+                    tab:function(e){
+                        new Tab($(e))
+                    }
+                }
+            }())
+            
+
+            //调用时只需要按约定好的格式写好css和html结构就能实现tab功能
+             $(".tab-switch").each(function(i,e){
+                Tab2.tab($(e))
+            }) 
+
+            // /*分开调用*/
+            // Tab2.tab($(".tab-switch").eq(0))
+            // Tab2.tab($(".tab-switch").eq(1))
+            // Tab2.tab($(".tab-switch").eq(2))
+
+    </script>
+    </body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js">
+        </script>
+        <style>
+            div,ul,li{
+                margin:0px;
+                padding:0px;
+            }
+
+            ul,li{
+                list-style:none;
+            }
+
+            #container{
+                margin:0 auto;
+                width:600px;
+            }
+
+            .tab-switch ul{
+                font-size:0px;
+            }
+
+            li{
+                cursor:pointer;
+                display:inline-block;
+                font-size:16px;
+                padding:10px 15px;
+                color:brown;
+            }
+
+            .tab-switch{
+                width:600px;
+                border:1px solid #ccc;
+                padding:15px;
+                margin-top:10px;
+            }
+
+            .tab-pannel{
+                padding:15px;
+            }
+
+            .tab-head{
+                border-bottom:1px solid #ccc;
+            }
+
+            .head-active{
+                border:1px solid #ccc;
+                border-bottom-color:white;
+                margin-bottom:-1px;
+                border-radius:3px 3px 0px 0px;
+            }
+
+            .tab-pannel>div{
+                display:none;
+            }
+
+            .tab-pannel .active{
+                display:block;
+            }
+        </style>
+    </head>
+    <body>
+    
+            <div id="container">
+                <div class="tab-switch">
+                    <ul class="tab-head">
+                        <li class="head-active">选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                    </ul>
+                    <div class="tab-pannel">
+                        <div class="active">内容1</div>
+                        <div>内容2</div>
+                        <div>内容3</div>
+                    </div>
+                </div>
+
+                <div class="tab-switch">
+                        <ul class="tab-head">
+                            <li>选项1</li>
+                            <li class="head-active">选项2</li>
+                            <li>选项3</li>
+                            <li>选项4</li>
+                        </ul>
+                        <div class="tab-pannel">
+                            <div>内容1</div>
+                            <div class="active">内容2</div>
+                            <div>内容3</div>
+                            <div>内容4</div>
+                        </div>
+                </div>
+
+                <div class="tab-switch">
+                        <ul class="tab-head">
+                            <li>选项1</li>
+                            <li>选项2</li>
+                            <li>选项3</li>
+                            <li>选项4</li>
+                            <li class="head-active">选项5</li>
+                        </ul>
+                        <div class="tab-pannel">
+                            <div>内容1</div>
+                            <div>内容2</div>
+                            <div>内容3</div>
+                            <div>内容4</div>
+                            <div class="active">内容5</div>
+                        </div>
+                </div>
+
+            </div>
+
+        <script>
+            // tips1:原始代码
+            // var headList=$(".tab-head"),
+            //     pannelList=$(".tab-pannel>div")
+
+            //     headList.on("click","li",function(e){
+            //         var Idx=$(e.target).index()
+            //         $(e.target).attr("class","head-active")
+            //         $(e.target).siblings().removeAttr("class","head-active")
+            //         pannelList.eq(Idx).attr("class","active").siblings().removeAttr('class','active')
+            //     })
+
+
+        // tips2:构造函数重构代码
+        // function Tab(node){
+        //     this.ct=node;
+        //     this.init();
+        //     this.bind();
+        // }
+
+        // Tab.prototype.init=function(){
+        //     this.headList=this.ct.find(".tab-head")
+        //     this.pannelList=this.ct.find(".tab-pannel>div")
+        // }
+
+        // Tab.prototype.bind=function(){
+        //     var _this=this
+        //     _this.headList.on("click","li",function(e){
+        //         var Idx=$(this).index()
+        //         $(this).attr("class","head-active")
+        //         $(this).siblings().removeAttr("class","head-active")
+        //         _this.pannelList.eq(Idx).attr("class","active")
+        //         .siblings().removeAttr("class","active")
+        //     })
+        // }
+
+
+        // 单个调用
+        // new Tab($('.tab-switch').eq(0))
+        // new Tab($('.tab-switch').eq(1))
+
+
+        //tips3:闭包+面向对象方式封装组件
+        var Tab=(function(){
+
+            function Tab(node){
+                this.ct=node;
+                this.init();
+                this.bind();
+            }
+
+            Tab.prototype.init=function(){
+                this.headList=this.ct.find(".tab-head")
+                this.pannelList=this.ct.find(".tab-pannel>div")
+            }
+
+            Tab.prototype.bind=function(){
+                var _this=this
+                _this.headList.on("click","li",function(e){
+                    var Idx=$(this).index()
+                    $(this).attr("class","head-active")
+                    $(this).siblings().removeAttr("class","head-active")
+                    _this.pannelList.eq(Idx).attr("class","active")
+                    .siblings().removeAttr("class","active")
+                })
+            }
+
+            return{
+                tab:function(node){
+                    new Tab(node)
+                }
+            }
+        })()
+
+        // 单个调用
+        // Tab.tab($(".tab-switch").eq(0))
+        // Tab.tab($(".tab-switch").eq(1))
+        // Tab.tab($(".tab-switch").eq(2))
+
+        // $(".tab-switch").each(function(i,e){
+        //     Tab.tab($(e))
+        // })
+
+        $.each($(".tab-switch"),function(i,e){
+            Tab.tab($(e))
+        })
+        
+        </script>
+    </body>
+</html>
