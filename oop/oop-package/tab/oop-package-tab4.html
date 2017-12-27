@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js">
+        </script>
+        <style>
+            div,ul,li{
+                margin:0px;
+                padding:0px;
+            }
+
+            ul,li{
+                list-style:none;
+            }
+
+            .tab-head>li{
+                display:inline-block;
+                font-size:16px;
+                color:brown;
+                padding:15px;
+            }
+
+            #container{
+                border:1px solid #ccc;
+                padding:15px;
+                width:600px;
+                margin:0 auto;
+            }
+
+            .tab-head{
+                border-bottom:1px solid #ccc;
+                font-size:0px;
+            }
+
+            .tab-pannel{
+                padding:15px;
+            }
+
+            .head-active{
+                border:1px solid #ccc;
+                border-radius:3px 3px 0px 0px;
+                border-bottom-color:white;
+                margin-bottom:-1px;
+            }
+
+            .tab-pannel>div{
+                display:none;
+            }
+            .tab-pannel .active{
+                display:block
+            }
+
+            .tab-switch{
+                margin-top:15px;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="container">
+        <div class="tab-switch">
+            <ul class="tab-head">
+                <li class="head-active">选项1</li>
+                <li>选项2</li>
+                <li>选项3</li>
+            </ul>
+            <div class="tab-pannel">
+                <div class="active">内容1</div>
+                <div>内容2</div>
+                <div>内容3</div>
+            </div>
+        </div>
+
+        <div class="tab-switch">
+            <ul class="tab-head">
+                <li>选项1</li>
+                <li class="head-active">选项2</li>
+                <li>选项3</li>
+            </ul>
+            <div class="tab-pannel">
+                <div>内容1</div>
+                <div class="active">内容2</div>
+                <div>内容3</div>
+            </div>
+        </div>
+
+    <script>
+    // tips1原始代码
+        // var headList=$(".tab-head"),
+        //     pannelList=$(".tab-pannel>div")
+
+        //     headList.on("click","li",function(e){
+        //         var Idx=$(this).index()
+        //         $(this).attr("class","head-active")
+        //             .siblings().removeAttr("class","head-active")
+        //         pannelList.eq(Idx).attr("class","active")
+        //             .siblings().removeAttr("class","active")
+        //     })
+
+    // tips2 oop重构
+        // function Tab(node){
+        //     this.ct=node
+        //     this.init()
+        //     this.bind()
+        // }
+
+        // Tab.prototype.init=function(){
+        //     this.headList=this.ct.find(".tab-head")
+        //     this.pannelList=this.ct.find(".tab-pannel>div")
+        // }
+
+        // Tab.prototype.bind=function(){
+        //     var _this=this
+        //     _this.headList.on("click","li",function(e){
+        //         var Idx=$(this).index()
+        //         $(this).attr("class","head-active")
+        //             .siblings().removeAttr("class","head-active")
+        //         _this.pannelList.eq(Idx).attr("class","active")
+        //             .siblings().removeAttr("class","active")
+        //     })
+        // }
+
+        // $(".tab-switch").each(function(i,e){
+        //     new Tab($(e))
+        // })
+
+        // tips3 封装
+        var Tab=(function(){
+                function Tab(node){
+                    this.ct=node
+                    this.init()
+                    this.bind()
+                }
+
+                Tab.prototype.init=function(){
+                    this.headList=this.ct.find(".tab-head")
+                    this.pannelList=this.ct.find(".tab-pannel>div")
+                }
+
+                Tab.prototype.bind=function(){
+                    var _this=this
+                    _this.headList.on("click","li",function(e){
+                        var Idx=$(this).index()
+                        $(this).attr("class","head-active")
+                            .siblings().removeAttr("class","head-active")
+                        _this.pannelList.eq(Idx).attr("class","active")
+                            .siblings().removeAttr("class","active")
+                    })
+                }            
+
+
+
+            return{
+                tab:function(node){
+                    node.each(function(i,e){
+                        new Tab($(e))
+                    })
+                }
+            }
+        }())
+
+        Tab.tab($(".tab-switch"))
+    </script>
+    </div>
+    </body>
+</html>
