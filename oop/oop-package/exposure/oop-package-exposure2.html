@@ -177,49 +177,122 @@
             // })
 
         // tips2:面向对象代码
-        function Exposure($el,callback){
-            this.el=$el
-            this.callback=callback
-            this.bind(this.el)
-        }
+    //     function Exposure($el,callback){
+    //         this.el=$el
+    //         this.callback=callback
+    //         this.bind(this.el)
+    //     }
 
-        Exposure.prototype.isShow=function($el){
-            var windowHeight=$(window).height(),
-                scrolly=$(window).scrollTop(),
-                offsety=$el.offset().top
-                if(offsety<windowHeight+scrolly && offsety>scrolly){
-                    return true
-                }else{
-                    return false
-                }
-        }
+    //     Exposure.prototype.isShow=function($el){
+    //         var windowHeight=$(window).height(),
+    //             scrolly=$(window).scrollTop(),
+    //             offsety=$el.offset().top
+    //             if(offsety<windowHeight+scrolly && offsety>scrolly){
+    //                 return true
+    //             }else{
+    //                 return false
+    //             }
+    //     }
 
-        Exposure.prototype.renderNode=function($el){
-            if(this.isShow($el)){
-                this.callback($el)
-            }
-        }
+    //     Exposure.prototype.renderNode=function($el){
+    //         if(this.isShow($el)){
+    //             this.callback($el)
+    //         }
+    //     }
 
-        Exposure.prototype.lazyLoad=function($el){
-            var _this=this
-            _this.renderNode($el)
-            var loading
-            $(window).on("scroll",function(){
-                if(loading){
-                    clearTimeout(loading)
-                }
-                loading=setTimeout(function(){
-                        _this.renderNode($el)
-                },1000)
+    //     Exposure.prototype.lazyLoad=function($el){
+    //         var _this=this
+    //         _this.renderNode($el)
+    //         var loading
+    //         $(window).on("scroll",function(){
+    //             if(loading){
+    //                 clearTimeout(loading)
+    //             }
+    //             loading=setTimeout(function(){
+    //                     _this.renderNode($el)
+    //             },1000)
                 
-            })
-        }
+    //         })
+    //     }
 
-        Exposure.prototype.bind=function($el){
-            this.lazyLoad($el)
-        }
+    //     Exposure.prototype.bind=function($el){
+    //         this.lazyLoad($el)
+    //     }
 
         
+    //     function loadImg($node){
+    //         if($node.attr("src")===$node.attr("data-src")){
+    //             return 
+    //         }else{
+    //             var dataSrc=$node.attr("data-src")
+    //                 $node.attr("src",dataSrc)
+    //                 console.log("loading")
+    //         }
+
+    //     }
+
+
+    // $(".img-wrap>li>a>img").each(function(idx,el){
+    //     new Exposure($(el),function(el){
+    //         loadImg($(el))
+    //     })
+    // })
+
+        //tips3:封装代码
+        var Exposure=(function(){
+            function Exposure($el,callback){
+                this.el=$el
+                this.callback=callback
+                this.bind(this.el)
+            }
+
+            Exposure.prototype.isShow=function($el){
+                var windowHeight=$(window).height(),
+                    scrolly=$(window).scrollTop(),
+                    offsety=$el.offset().top
+                    if(offsety<windowHeight+scrolly && offsety>scrolly){
+                        return true
+                    }else{
+                        return false
+                    }
+            }
+
+            Exposure.prototype.renderNode=function($el){
+                if(this.isShow($el)){
+                    this.callback($el)
+                }
+            }
+
+            Exposure.prototype.lazyLoad=function($el){
+                var _this=this
+                _this.renderNode($el)
+                var loading
+                $(window).on("scroll",function(){
+                    if(loading){
+                        clearTimeout(loading)
+                    }
+                    loading=setTimeout(function(){
+                            _this.renderNode($el)
+                    },1000)
+                    
+                })
+            }
+
+            Exposure.prototype.bind=function($el){
+                this.lazyLoad($el)
+            }
+
+            return {
+                exposure:function($nodelist,callback){
+                    $nodelist.each(function(idx,el){
+                        new Exposure($(el),function(node){
+                            callback(node)
+                        })
+                    })
+                }
+            }
+        }())
+
         function loadImg($node){
             if($node.attr("src")===$node.attr("data-src")){
                 return 
@@ -231,15 +304,18 @@
 
         }
 
+        function fontShack($node){
+            $node.text("LOADED").css({"color":"black","font-weight":"bolder"})
+        }
 
-    $(".img-wrap>li>a>img").each(function(idx,el){
-        new Exposure($(el),function(el){
-            loadImg($(el))
+        Exposure.exposure($(".img-wrap>li>a>img"),function($node){
+            loadImg($node)
         })
-    })
 
-        //tips3:封装代码
-        var Exposure=function(){}
+        Exposure.exposure($("p"),function($node){
+            fontShack($node)
+        })
+
 
 
 
