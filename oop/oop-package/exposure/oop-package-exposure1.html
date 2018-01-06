@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            div,ul,li,a,p{
+                margin:0px;
+                padding:0px;
+            }
+
+            ul,li{
+                list-style:none;
+            }
+
+            a{
+                text-decoration:none;
+                text-align:center;
+                color:#ccc;
+            }
+            
+            #container{
+                width:990px;
+                margin:0 auto;
+            }
+
+            .img-wrap{
+                font-size:0px;
+            }
+
+            .img-wrap>li{
+                display:inline-block;
+                margin-left:10px;
+                margin-top:20px;
+                font-size:16px;
+                width:480px;
+                height:360px;
+            }
+
+        </style>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+    </head>
+    <body>
+    <div id="container">
+        <ul class="img-wrap">
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/5.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/6.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/7.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/8.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/9.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/10.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/11.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/12.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/13.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/14.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/15.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/16.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/17.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/18.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/19.jpg"><p>LOADING</p></a></li>
+            <li><a href=""><img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/20.jpg"><p>LOADING</p></a></li>
+        </ul>
+    </div>
+
+    <script>
+
+    // tips1:原始代码
+        // function isShow($node){
+        //     var scrolly=$(window).scrollTop(),
+        //         windowHeight=$(window).height(),
+        //         offsety=$node.offset().top
+        //         if(offsety<windowHeight+scrolly && offsety>scrolly){
+        //             return true
+        //         }else{
+        //             return false
+        //         }
+        // }
+
+
+        // function renderNode($node){
+        //     if(isShow($node)){
+        //         loadImg($node)
+        //     }
+        // }
+
+        // function loadImg($node){
+        //     var dataSrc=$node.attr("data-src")
+        //     $node.attr("src",dataSrc)
+        //     console.log("loading")
+        // }
+
+        // $(".img-wrap>li>a>img").each(function(idx,el){
+        //     renderNode($(el))
+        //     var loading 
+        //     $(window).on("scroll",function(){
+        //         if($(el).attr("src")==$(el).attr("data-src")){
+        //             return
+        //         }else{
+        //             if(loading){
+        //                 clearTimeout(loading)
+        //             }
+        //         loading=setTimeout(function(){
+        //                 renderNode($(el))
+        //             },1000)
+        //         }
+        //     })
+        // })
+
+// tips2:面向对象代码
+        // function Exposure($node,callback){
+        //     this.node=$node
+        //     this.callback=callback
+        //     this.bind(this.node)
+        // }
+
+
+        // Exposure.prototype.isShow=function($node){
+        //     var scrolly=$(window).scrollTop(),
+        //         windowHeight=$(window).height(),
+        //         offsety=$node.offset().top
+        //         if(offsety<windowHeight+scrolly && offsety>scrolly){
+        //             return true
+        //         }else{
+        //             return false
+        //         }
+        // }
+
+        // Exposure.prototype.renderNode=function($node){
+        //         if(this.isShow($node)){
+        //             this.callback($node)
+        //             console.log("loading")
+        //         }
+        // }
+
+
+
+        // Exposure.prototype.bind=function($node){
+        //     var _this=this
+        //     var loading
+        //     _this.renderNode($node)
+        //     $(window).on("scroll",function(){
+        //         if(loading){
+        //             clearTimeout(loading)
+        //         }
+        //         loading=setTimeout(function(){
+        //             _this.renderNode($node)
+        //         },1000)
+        //     })
+        // }
+
+        // function loadImg($node){
+        //     if($node.attr("src")===$node.attr("data-src")){
+        //         return true
+        //     }
+        //     var dataSrc=$node.attr("data-src")
+        //     $node.attr("src",dataSrc)
+        // }
+
+        // function loadinfo($node){
+        //     $node.text("LOADED").css({"color":"black","font-weight":"bolder"})
+        // }
+
+        // $(".img-wrap>li>a>img").each(function(idx,el){
+        //     new Exposure($(el),function(){
+        //         loadImg($(el))
+        //     })
+        // })
+
+        // $("p").each(function(idx,el){
+        //     new Exposure($(el),function(){
+        //         loadinfo($(el))
+        //     })
+        // })
+
+
+// tips3:代码封装  
+
+var lazyload=(function(){
+        function Exposure($node,callback){
+            this.node=$node
+            this.callback=callback
+            this.bind(this.node)
+        }
+
+
+        Exposure.prototype.isShow=function($node){
+            var scrolly=$(window).scrollTop(),
+                windowHeight=$(window).height(),
+                offsety=$node.offset().top
+                if(offsety<windowHeight+scrolly && offsety>scrolly){
+                    return true
+                }else{
+                    return false
+                }
+        }
+
+        Exposure.prototype.renderNode=function($node){
+                if(this.isShow($node)){
+                    this.callback($node)
+                    console.log("loading")
+                }
+        }
+
+
+
+        Exposure.prototype.bind=function($node){
+            var _this=this
+            var loading
+            _this.renderNode($node)
+            $(window).on("scroll",function(){
+                if(loading){
+                    clearTimeout(loading)
+                }
+                loading=setTimeout(function(){
+                    _this.renderNode($node)
+                },1000)
+            })
+        }
+
+
+    return {
+        exposure:function($nodelist,callback){
+            $nodelist.each(function(idx,el){
+                new Exposure($(el),function(node){
+                    callback($(node))
+                })
+            })
+        }
+    }
+}())
+
+
+        function loadImg($node){
+            if($node.attr("src")===$node.attr("data-src")){
+                return true
+            }
+            var dataSrc=$node.attr("data-src")
+            $node.attr("src",dataSrc)
+        }
+
+        function loadinfo($node){
+            $node.text("LOADED").css({"color":"black","font-weight":"bolder"})
+        }
+
+        lazyload.exposure($(".img-wrap>li>a>img"),function(node){
+            loadImg(node)
+        })
+
+        lazyload.exposure($("p"),function(node){
+            loadinfo(node)
+        })
+
+    </script>
+    </body>
+</html>
