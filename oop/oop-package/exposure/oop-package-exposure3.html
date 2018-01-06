@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div,ul,li,a,p{
+            margin:0px;
+            padding:0px;
+        }
+
+        a{
+            text-decoration:none;
+            color:#ccc;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        .clearfix:after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+
+        #container{
+            width:1000px;
+            margin:0 auto;
+        }
+
+        .img-wrap.clearfix>li{
+            width:480px;
+            height:360px;
+            float:left;
+            margin-left:10px;
+            margin-bottom:30px;
+            text-align:center;
+        }
+    </style>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <ul class="img-wrap clearfix">
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/5.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/6.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/7.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/8.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/9.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/10.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/11.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/12.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/13.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/14.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/15.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/16.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/17.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/18.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/19.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="" alt="" data-src="http://cdn.jirengu.com/book.jirengu.com/img/20.jpg">
+                    <p>LOADING</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        // tips1:原始代码
+        // function isShow($node){
+        //     var scrolly=$(window).scrollTop(),
+        //         windowHeight=$(window).height(),
+        //         offsety=$node.offset().top
+        //         if(offsety<windowHeight+scrolly && offsety>scrolly){
+        //             return true
+        //         }else{
+        //             return false
+        //         }
+        // }
+
+        // function loadImg($node){
+        //     if($node.attr("data-src")===$node.attr("src")){
+        //         return
+        //     }else{
+        //         var dataSrc=$node.attr("data-src")
+        //         $node.attr("src",dataSrc)
+        //         console.log("loading")
+        //     }
+            
+        // }
+
+        // function renderNode($node){
+        //     if(isShow($node)){
+        //         loadImg($node)
+        //     }
+        // }
+
+        //     $(".img-wrap>li>a>img").each(function(idx,el){
+        //         renderNode($(el))
+        //         var loading
+        //         $(window).on("scroll",function(){
+        //             if(loading){
+        //                 clearTimeout(loading)
+        //             }
+        //             loading=setTimeout(function(){
+        //                 renderNode($(el))
+        //             },1000)
+        //         })
+        //     })
+
+        // tips2:面向对象代码
+        // function Exposure($el,callback){
+        //     this.node=$el
+        //     this.callback=callback
+        //     this.bind(this.node)
+        // }
+
+        // Exposure.prototype.isShow=function($node){
+        //     var scrolly=$(window).scrollTop(),
+        //     windowHeight=$(window).height(),
+        //     offsety=$node.offset().top
+        //     if(offsety<windowHeight+scrolly && offsety>scrolly){
+        //         return true
+        //     }else{
+        //         return false
+        //     }    
+        // }
+
+        // Exposure.prototype.renderNode=function($node){
+        //     if(this.isShow($node)){
+        //         this.callback($node)
+        //     }
+        // }
+
+        // Exposure.prototype.bind=function($node){
+        //     var _this=this
+        //     _this.renderNode($node)
+        //     var loading
+        //     $(window).on("scroll",function(){
+        //         if(loading){
+        //             clearTimeout(loading)
+        //         }
+        //         loading=setTimeout(function(){
+        //             _this.renderNode($node)
+        //         },1000)
+        //     })
+        // }
+
+        // function loadImg($node){
+        //     if($node.attr("data-src")===$node.attr("src")){
+        //         return
+        //     }else{
+        //         var dataSrc=$node.attr("data-src")
+        //         $node.attr("src",dataSrc)
+        //         console.log("loading")
+        //     }
+        // }
+
+        // function fontShack($node){
+        //     $node.text("LOADED").css({"color":"black","font-weight":"bolder"})
+        // }
+
+        // $(".img-wrap>li>a>img").each(function(idx,el){
+        //     new Exposure($(el),function(){
+        //         loadImg($(el))
+        //     })
+        // })
+
+        // $("p").each(function(idx,el){
+        //     new Exposure($(el),function(){
+        //         fontShack($(el))
+        //     })
+        // })
+// tips3:封装代码
+        var lazyload=(function(){
+            function Exposure($el,callback){
+                this.node=$el
+                this.callback=callback
+                this.bind(this.node)
+            }
+
+            Exposure.prototype.isShow=function($node){
+                var scrolly=$(window).scrollTop(),
+                windowHeight=$(window).height(),
+                offsety=$node.offset().top
+                if(offsety<windowHeight+scrolly && offsety>scrolly){
+                    return true
+                }else{
+                    return false
+                }    
+            }
+
+            Exposure.prototype.renderNode=function($node){
+                if(this.isShow($node)){
+                    this.callback($node)
+                }
+            }
+
+            Exposure.prototype.bind=function($node){
+                var _this=this
+                _this.renderNode($node)
+                var loading
+                $(window).on("scroll",function(){
+                    if(loading){
+                        clearTimeout(loading)
+                    }
+                    loading=setTimeout(function(){
+                        _this.renderNode($node)
+                    },1000)
+                })
+            }
+
+            return {
+                exposure:function(nodelist,callback){
+                    nodelist.each(function(idx,el){
+                        new Exposure($(el),function($node){
+                            callback($node)
+                        })
+                    })
+
+                }
+            }
+        }())
+
+
+        function loadImg($node){
+            if($node.attr("data-src")===$node.attr("src")){
+                return
+            }else{
+                var dataSrc=$node.attr("data-src")
+                $node.attr("src",dataSrc)
+                console.log("loading")
+            }
+        }
+
+        function fontShack($node){
+            $node.text("LOADED").css({"color":"black","font-weight":"bolder"})
+        }
+
+        lazyload.exposure($(".img-wrap>li>a>img"),loadImg)
+        lazyload.exposure($("p"),fontShack)
+
+
+    </script>
+</body>
+</html>
