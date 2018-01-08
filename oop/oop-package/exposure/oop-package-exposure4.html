@@ -128,16 +128,158 @@
             </div>
         </div>
         <script type="text/javascript">
-            function isShow($node){
-                var scrolly=$(window).scrollTop(),
-                    windowHeight=$(window).height(),
-                    offsety=$node.offset().top
-                    if(offsety<windowHeight+scrolly && offsety>scrolly){
-                        return true
-                    }else{
-                        return false
+            // tips1:原始代码
+            // function isShow($node){
+            //     var scrolly=$(window).scrollTop(),
+            //         windowHeight=$(window).height(),
+            //         offsety=$node.offset().top
+            //         if(offsety<windowHeight+scrolly && offsety>scrolly){
+            //             return true
+            //         }else{
+            //             return false
+            //         }
+            // }
+
+            // function loadImg($node){
+            //     if($node.attr("src") === $node.attr("data-src")){
+            //         return
+            //     }else{
+            //         var dataSrc=$node.attr("data-src")
+            //             $node.attr("src",dataSrc)
+            //             console.log("loading")
+            //     }
+
+            // }
+
+            // function renderNode($node){
+            //     if(isShow($node)){
+            //         loadImg($node)
+            //     }
+            // }
+
+            // $(".img-wrap>li>a>img").each(function(idx,el){
+            //     var loading
+            //     renderNode($(el))
+            //     $(window).on("scroll",function(){
+            //         if(loading){
+            //             clearTimeout(loading)
+            //         }
+            //         loading=setTimeout(function(){
+            //             renderNode($(el))
+            //         },1000)
+            //     })
+            // })
+
+            // tips2:面向对象代码
+            // function Exposure($el,callback){
+            //     this.el=$el
+            //     this.callback=callback
+            //     this.bind(this.el)
+            // }
+
+            // Exposure.prototype.isShow=function($el){
+            //     var scrolly=$(window).scrollTop(),
+            //         windowHeight=$(window).height(),
+            //         offsety=$el.offset().top
+            //         if(offsety<windowHeight+scrolly && offsety>scrolly){
+            //             return true
+            //         }else{
+            //             return false
+            //         }
+            // }
+
+            // Exposure.prototype.renderNode=function($el){
+            //     if(this.isShow($el)){
+            //         this.callback($el)
+            //     } 
+            // }
+
+            // Exposure.prototype.bind=function($el){
+            //     var loading
+            //     var _this=this
+            //     _this.renderNode($el)
+            //     $(window).on("scroll",function(){
+            //         if(loading){
+            //             clearTimeout(loading)
+            //         }
+            //         loading=setTimeout(function(){
+            //             _this.renderNode($el)
+            //         },1000)
+            //     })
+            // }
+
+            // function loadImg($node){
+            //     if($node.attr("src") === $node.attr("data-src")){
+            //         return
+            //     }else{
+            //         var dataSrc=$node.attr("data-src")
+            //             $node.attr("src",dataSrc)
+            //             console.log("loading")
+            //     }
+
+            // }
+
+            // function shackfont($node){
+            //     $node.text("LOADED").css({"color":"black","font-weight":"bolder"})
+            // }
+
+            // $(".img-wrap>li>a>img").each(function(idx,el){
+            //     new Exposure($(el),function(el){
+            //         loadImg($(el))
+            //     })
+            // })
+
+            // $("p").each(function(idx,el){
+            //     new Exposure($(el),function(el){
+            //         shackfont($(el))
+            //     })
+            // })
+
+            var Exposure=(function(){
+                function Exposure($el,callback){
+                    this.el=$el
+                    this.callback=callback
+                    this.bind(this.el)
+                }
+
+                Exposure.prototype.isShow=function($el){
+                    var scrolly=$(window).scrollTop(),
+                        windowHeight=$(window).height(),
+                        offsety=$el.offset().top
+                        if(offsety<windowHeight+scrolly && offsety>scrolly){
+                            return true
+                        }else{
+                            return false
+                        }
+                }
+
+                Exposure.prototype.renderNode=function($el){
+                    if(this.isShow($el)){
+                        this.callback($el)
+                    } 
+                }
+
+                Exposure.prototype.bind=function($el){
+                    var loading
+                    var _this=this
+                    _this.renderNode($el)
+                    $(window).on("scroll",function(){
+                        if(loading){
+                            clearTimeout(loading)
+                        }
+                        loading=setTimeout(function(){
+                            _this.renderNode($el)
+                        },1000)
+                    })
+                }
+                return {
+                    exposure:function($nodelist,callback){
+                        $nodelist.each(function(idx,el){
+                            new Exposure($(el),callback)
+                        })
                     }
-            }
+                }
+            }())
 
             function loadImg($node){
                 if($node.attr("src") === $node.attr("data-src")){
@@ -150,24 +292,13 @@
 
             }
 
-            function renderNode($node){
-                if(isShow($node)){
-                    loadImg($node)
-                }
+            function shackfont($node){
+                $node.text("LOADED").css({"color":"black","font-weight":"bolder"})
             }
 
-            $(".img-wrap>li>a>img").each(function(idx,el){
-                var loading
-                renderNode($(el))
-                $(window).on("scroll",function(){
-                    if(loading){
-                        clearTimeout(loading)
-                    }
-                    loading=setTimeout(function(){
-                        renderNode($(el))
-                    },1000)
-                })
-            })
+            Exposure.exposure($(".img-wrap>li>a>img"),loadImg)
+            Exposure.exposure($("p"),shackfont)
+
         </script>
     </body>
 </html>
