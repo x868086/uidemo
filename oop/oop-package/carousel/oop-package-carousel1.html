@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div,ul,li,img,a{
+            margin:0px;
+            padding:0px;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        a{
+            text-decoration:none;
+            color:#ccc;
+        }
+
+        #container{
+            width:600px;
+            margin: 0 auto;
+        }
+
+        .carousel{
+            width:480px;
+            height:360px;
+            position:relative;
+            overflow:hidden;
+            margin-bottom:10px;
+        }
+
+        .img-wrap{
+            font-size:0px;
+            position:absolute;
+        }
+
+        .img-wrap li{
+            display:inline-block;
+            font-size:16px;
+        }
+
+        .img-wrap li img{
+            width:480px;
+            height:360px;
+        }
+
+        .play{
+            position:absolute;
+            top:50%;
+            width:30px;
+            height:30px;
+            border:1px solid #ccc;
+            border-radius:50%;
+            transform:translate(0,-50%);
+            text-align:center;
+            line-height:30px;
+            font-size:30px;
+            background-color:rgba(0,0,0,0.8);
+            opacity:0.5;
+        }
+
+        .play:hover{
+            background-color:rgba(0,0,0,0.9);
+        }
+
+        .prev{
+            left:10px;
+        }
+
+        .next{
+            right:10px;
+        }
+
+        .bullet{
+            position:absolute;
+            bottom:20px;
+            width:100%;
+            text-align:center;
+        }
+
+        .bullet li{
+            width:30px;
+            height:5px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            background-color:white;
+            display:inline-block;
+            cursor:pointer;
+        }
+
+        .bullet .active{
+            background-color:rgba(0,0,0,0.8)
+        }
+
+
+    </style>
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div class="carousel">
+            <ul class="img-wrap">
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
+            </ul>
+            <a class="play prev" href="#"><</a>
+            <a class="play next" href="#">></a>
+            <ul class="bullet">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+
+        <div class="carousel">
+            <ul class="img-wrap">
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
+            </ul>
+            <a class="play prev" href="#"><</a>
+            <a class="play next" href="#">></a>
+            <ul class="bullet">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // tips1:原始代码
+        // var $imgWrap=$(".img-wrap"),
+        //     $imgWidth=$(".img-wrap img").eq(0).width(),
+        //     $imgLength=$imgWrap.find("li").length,
+        //     $prev=$(".prev"),
+        //     $next=$(".next"),
+        //     $bullet=$(".bullet"),
+        //     $firstNode=$imgWrap.find("li").first().clone(),
+        //     $lastNode=$imgWrap.find("li").last().clone(),
+        //     idx=0
+        //     $imgWrap.append($firstNode).prepend($lastNode)
+        //     $imgWrap.css({"width":$imgWidth*$imgWrap.find("li").length,"left":-$imgWidth})
+
+            // var lock=false
+            // $prev.on("click",function(){
+            //     clearInterval(view)
+            //     if(lock){
+            //         return
+            //     }
+            //     playprev()
+            // })
+
+            // $next.on("click",function(){
+            //     clearInterval(view)
+            //     if(lock){
+            //         return
+            //     }
+            //     playnext()
+            // })
+
+            // function playprev(){
+            //     lock=true
+            //     $imgWrap.animate({"left":`+=${$imgWidth}`},function(){
+            //         idx--
+            //         if(idx<0){
+            //             $imgWrap.css({"left":-$imgLength*$imgWidth})
+            //             idx=3
+            //         }
+            //         setbullet(idx)
+            //         lock=false
+            //     })
+            // }
+
+            // function playnext(){
+            //     lock=true
+            //     $imgWrap.animate({"left":`-=${$imgWidth}`},function(){
+            //         idx++
+            //         if(idx===$imgLength){
+            //             $imgWrap.css({"left":-$imgWidth})
+            //             idx=0
+            //         }
+            //         setbullet(idx)
+            //         lock=false
+            //     })
+            // }
+
+            // function setbullet(idx){
+            //     $bullet.find("li").eq(idx).addClass("active").siblings().removeClass("active")
+            // }
+
+            // $bullet.on("click","li",function(event){
+            //     clearInterval(view)
+            //     var idx=$(event.target).index()
+            //     setbullet(idx)
+            //     $imgWrap.animate({"left":-(idx+1)*$imgWidth})
+            // })
+
+            // var view=setInterval(function(){
+            //     playnext()
+            // },2000)
+
+
+
+// tips2:面向对象代码
+            // function Carousel($node){
+            //     this.$imgWrap=$node.find(".img-wrap")
+            //     this.$imgWidth=this.$imgWrap.find("img").eq(0).width()
+            //     this.$imgLength=this.$imgWrap.find("li").length
+            //     this.$prev=$node.find(".prev")
+            //     this.$next=$node.find(".next")
+            //     this.$bullet=$node.find(".bullet")
+            //     this.idx=0
+            //     this.lock=false
+            //     this.view()
+            //     this.init()
+            //     this.bind()
+            // }
+
+            // Carousel.prototype.init=function(){
+            //     var $firstNode=this.$imgWrap.find("li").first().clone(),
+            //         $lastNode=this.$imgWrap.find("li").last().clone()
+            //     this.$imgWrap.append($firstNode).prepend($lastNode)
+            //     this.$imgWrap.css({"width":this.$imgWidth*this.$imgWrap.find("li").length,"left":-this.$imgWidth})
+            // }
+
+            // Carousel.prototype.playprev=function(){
+            //     var _this=this
+            //     _this.lock=true
+            //     _this.$imgWrap.animate({"left":`+=${_this.$imgWidth}`},function(){
+            //         _this.idx--
+            //         if(_this.idx<0){
+            //             _this.$imgWrap.css({"left":-_this.$imgLength*_this.$imgWidth})
+            //             _this.idx=3
+            //         }
+            //         _this.setbullet(_this.idx)
+            //         _this.lock=false
+            //     })
+            // }
+
+            // Carousel.prototype.playnext=function(){
+            //     var _this=this
+            //     _this.lock=true
+            //     _this.$imgWrap.animate({"left":`-=${_this.$imgWidth}`},function(){
+            //         _this.idx++
+            //         if(_this.idx===_this.$imgLength){
+            //             _this.$imgWrap.css({"left":-_this.$imgWidth})
+            //             _this.idx=0
+            //         }
+            //         _this.setbullet(_this.idx)
+            //         _this.lock=false
+            //     })
+            // }
+
+            // Carousel.prototype.setbullet=function(idx){
+            //     this.$bullet.find("li").eq(idx).addClass("active").siblings().removeClass("active")
+            // }
+
+            // Carousel.prototype.bind=function(){
+            //     var _this=this
+            //     _this.$prev.on("click",function(event){
+            //         event.preventDefault()
+            //     clearInterval(_this.timer)
+            //     if(_this.lock){
+            //         return
+            //     }
+            //     _this.playprev()
+            // })
+
+            //     _this.$next.on("click",function(){
+            //         event.preventDefault()
+            //         clearInterval(_this.timer)
+            //         if(_this.lock){
+            //             return
+            //         }
+            //         _this.playnext()
+            //     })
+
+            //     _this.$bullet.on("click","li",function(event){
+            //     clearInterval(_this.timer)
+            //     var idx=$(event.target).index()
+            //     _this.setbullet(idx)
+            //     _this.$imgWrap.animate({"left":-(idx+1)*_this.$imgWidth})
+            // })
+            // }
+
+            // Carousel.prototype.view=function(){
+            //     var _this=this
+            //     _this.timer=setInterval(function(){
+            //         _this.playnext()
+            //     },2000)
+            // }
+
+
+            // $(".carousel").each(function(idx,el){
+            //     new Carousel($(el))
+            // })
+
+            var Carousel=(function(){
+                function Carousel($node){
+                this.$imgWrap=$node.find(".img-wrap")
+                this.$imgWidth=this.$imgWrap.find("img").eq(0).width()
+                this.$imgLength=this.$imgWrap.find("li").length
+                this.$prev=$node.find(".prev")
+                this.$next=$node.find(".next")
+                this.$bullet=$node.find(".bullet")
+                this.idx=0
+                this.lock=false
+                this.view()
+                this.init()
+                this.bind()
+            }
+
+            Carousel.prototype.init=function(){
+                var $firstNode=this.$imgWrap.find("li").first().clone(),
+                    $lastNode=this.$imgWrap.find("li").last().clone()
+                this.$imgWrap.append($firstNode).prepend($lastNode)
+                this.$imgWrap.css({"width":this.$imgWidth*this.$imgWrap.find("li").length,"left":-this.$imgWidth})
+            }
+
+            Carousel.prototype.playprev=function(){
+                var _this=this
+                _this.lock=true
+                _this.$imgWrap.animate({"left":`+=${_this.$imgWidth}`},function(){
+                    _this.idx--
+                    if(_this.idx<0){
+                        _this.$imgWrap.css({"left":-_this.$imgLength*_this.$imgWidth})
+                        _this.idx=3
+                    }
+                    _this.setbullet(_this.idx)
+                    _this.lock=false
+                })
+            }
+
+            Carousel.prototype.playnext=function(){
+                var _this=this
+                _this.lock=true
+                _this.$imgWrap.animate({"left":`-=${_this.$imgWidth}`},function(){
+                    _this.idx++
+                    if(_this.idx===_this.$imgLength){
+                        _this.$imgWrap.css({"left":-_this.$imgWidth})
+                        _this.idx=0
+                    }
+                    _this.setbullet(_this.idx)
+                    _this.lock=false
+                })
+            }
+
+            Carousel.prototype.setbullet=function(idx){
+                this.$bullet.find("li").eq(idx).addClass("active").siblings().removeClass("active")
+            }
+
+            Carousel.prototype.bind=function(){
+                var _this=this
+                _this.$prev.on("click",function(event){
+                    event.preventDefault()
+                clearInterval(_this.timer)
+                if(_this.lock){
+                    return
+                }
+                _this.playprev()
+            })
+
+                _this.$next.on("click",function(){
+                    event.preventDefault()
+                    clearInterval(_this.timer)
+                    if(_this.lock){
+                        return
+                    }
+                    _this.playnext()
+                })
+
+                _this.$bullet.on("click","li",function(event){
+                clearInterval(_this.timer)
+                var idx=$(event.target).index()
+                _this.setbullet(idx)
+                _this.$imgWrap.animate({"left":-(idx+1)*_this.$imgWidth})
+            })
+            }
+
+            Carousel.prototype.view=function(){
+                var _this=this
+                _this.timer=setInterval(function(){
+                    _this.playnext()
+                },2000)
+            }
+
+                return {
+                    carousel:function(nodelist){
+                        $(nodelist).each(function(idx,el){
+                            new Carousel($(el))
+                        })
+                    }
+                }
+
+            }())
+
+            Carousel.carousel($(".carousel"))
+    </script>
+</body>
+</html>
