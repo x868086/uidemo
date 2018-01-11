@@ -1,0 +1,310 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div,ul,li,img,a{
+            margin:0px;
+            padding:0px;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        a{
+            text-decoration:none;
+            color:#ccc;
+        }
+        
+        /* #container{
+            width:600px;
+            margin:0 auto;
+        } */
+
+        .carousel{
+            position:relative;
+            width:480px;
+            height:360px;
+            overflow:hidden;
+        }
+
+        .img-wrap{
+            position:absolute;
+            font-size:0px;
+        }
+
+        .img-wrap li{
+            display:inline-block;
+            font-size:16px;
+        }
+
+        .play{
+            position:absolute;
+            top:50%;
+            transform:translate(0,-50%);
+            width:30px;
+            height:30px;
+            border:1px solid #ccc;
+            border-radius:50%;
+            text-align:center;
+            line-height:30px;
+            font-size:30px;
+            background-color:rgba(0,0,0,0.8);
+            opacity:0.5;
+        }
+
+        .play:hover{
+            opacity:0.8;
+        }
+
+        .next{
+            right:10px;
+        }
+
+        .prev{
+            left:10px;
+        }
+
+        .bullet{
+            position:absolute;
+            bottom:30px;
+            width:100%;/*!!!!!!宽度必须设定后text-align才能生效，凡是对齐和居中的设置都必须有明确长度或宽度的父容器*/
+            text-align:center;
+            font-size:0px;
+        }
+
+        .bullet{
+            position:absolute;
+            bottom:10px;
+            width:100%;
+            text-align:center;
+        }
+
+        .bullet li{
+            display:inline-block;
+            opacity:0.3;
+            cursor:pointer;
+        }
+
+        .bullet li img{
+            width:90px;
+            height:70px;
+        }
+
+        .bullet .active{
+            opacity:1;
+            border:3px solid #ccc;
+        }
+
+    </style>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div class="carousel">
+            <ul class="img-wrap">
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
+            </ul>
+            <a href="#" class="play prev"><</a>
+            <a href="#" class="play next">></a>
+            <ul class="bullet">
+                    <li class="active"><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+                    <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+                    <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+                    <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
+                </ul>
+        </div>
+    </div>
+    <script>
+        // tips1:原始代码
+        // var $carousel=$(".carousel"),
+        //     $imgWrap=$carousel.find(".img-wrap"),
+        //     $prev=$carousel.find(".prev"),
+        //     $next=$carousel.find(".next"),
+        //     $bullet=$carousel.find(".bullet"),
+        //     idx=0,
+        //     imgLength=$imgWrap.find("li").length,
+        //     $imgWidth=$imgWrap.find("img").eq(0).width(),
+        //     $firstNode=$imgWrap.find("li").first().clone(),/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
+        //     $lastNode=$imgWrap.find("li").last().clone(),/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
+        //     lock=false
+
+        //     function cloneNode(imgWrap){
+        //         var imgs
+        //         imgWrap.append($firstNode)
+        //             .prepend($lastNode)
+        //             imgs=imgWrap.find("li").length
+        //         imgWrap.css({"width":imgs*$imgWidth,"left":-$imgWidth})
+        //     }
+
+        //     cloneNode($imgWrap)/*头尾克隆元素并设置元素总宽度*/
+
+        //     function playNext(){
+        //         lock=true
+        //         $imgWrap.animate({"left":`-=${$imgWidth}`},function(){/*css中设置某个值时可以写成-= 或者 +=*/
+        //             idx++
+        //             lock=false
+        //             if(idx>=imgLength){
+        //                 $imgWrap.css({"left":-$imgWidth})
+        //                 idx=0
+        //             }
+        //             setBullet(idx)
+        //         })
+        //     }
+
+        //     function playPrev(){
+        //         lock=true
+        //         $imgWrap.animate({"left":`+=${$imgWidth}`},function(){
+        //             idx--
+        //             lock=false
+        //             if(idx<0){
+        //                 $imgWrap.css({"left":-imgLength*$imgWidth})
+        //                 idx=3
+        //             }
+        //             setBullet(idx)
+        //         })
+        //     }
+
+        //     function setBullet(idx){
+        //         $bullet.find("li").eq(idx).addClass("active")
+        //             .siblings().removeClass("active")
+        //     }
+
+        //     $next.on("click",function(event){
+        //         clearInterval(timer)
+        //         event.preventDefault()
+        //         if(lock){
+        //             return
+        //         }
+        //         playNext()
+        //     })
+
+        //     $prev.on("click",function(event){
+        //         clearInterval(timer)
+        //         event.preventDefault()
+        //         if(lock){
+        //             return
+        //         }
+        //         playPrev()
+        //     })
+
+        //     $bullet.on("click","li",function(event){
+        //         clearInterval(timer)
+        //         var bulletIdx=$(event.currentTarget).index() /*使用currentTarget是因为li很小，*/
+        //         console.log(bulletIdx)/*如果用target则event指向触发元素img而没指向li，img在每个li中只有一个,所以idx会始终为0*/
+        //         $imgWrap.animate({"left":-(bulletIdx+1)*$imgWidth})
+        //         setBullet(bulletIdx)
+        //     })
+
+        //     var timer=setInterval(function(){
+        //         playNext()
+        //     },2000)
+
+        function Carousel($node){
+            this.$carousel=$node
+            this.$imgWrap=this.$carousel.find(".img-wrap")
+            this.$prev=this.$carousel.find(".prev")
+            this.$next=this.$carousel.find(".next")
+            this.$bullet=this.$carousel.find(".bullet")
+            this.idx=0
+            this.imgLength=this.$imgWrap.find("li").length
+            this.$imgWidth=this.$imgWrap.find("img").eq(0).width()
+            this.$firstNode=this.$imgWrap.find("li").first().clone()/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
+            this.$lastNode=this.$imgWrap.find("li").last().clone()/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
+            this.lock=false
+            this.cloneNode()
+            this.bind()
+            this.view()
+        }
+
+        Carousel.prototype.cloneNode=function(){
+            var imgs
+            this.$imgWrap.append(this.$firstNode)
+                .prepend(this.$lastNode)
+                imgs=this.$imgWrap.find("li").length
+            this.$imgWrap.css({"width":imgs*this.$imgWidth,"left":-this.$imgWidth})
+        }
+
+        Carousel.prototype.playNext=function(){
+            var _this=this
+            _this.lock=true
+            _this.$imgWrap.animate({"left":`-=${_this.$imgWidth}`},function(){/*css中设置某个值时可以写成-= 或者 +=*/
+                _this.idx++
+                _this.lock=false
+                if(_this.idx>=_this.imgLength){
+                    _this.$imgWrap.css({"left":-_this.$imgWidth})
+                    _this.idx=0
+                }
+                _this.setBullet(_this.idx)
+            })
+        }
+
+        Carousel.prototype.playPrev=function(){
+                var _this=this
+                _this.lock=true
+                _this.$imgWrap.animate({"left":`+=${_this.$imgWidth}`},function(){
+                    _this.idx--
+                    _this.lock=false
+                    if(_this.idx<0){
+                        _this.$imgWrap.css({"left":-_this.imgLength*_this.$imgWidth})
+                        _this.idx=3
+                    }
+                    _this.setBullet(_this.idx)
+                })
+        }
+
+        Carousel.prototype.setBullet=function(idx){
+                this.$bullet.find("li").eq(idx).addClass("active")
+            .siblings().removeClass("active")
+        }
+
+        Carousel.prototype.bind=function(){
+            var _this=this
+                _this.$next.on("click",function(event){
+                clearInterval(_this.timer)
+                event.preventDefault()
+                if(_this.lock){
+                    return
+                }
+                _this.playNext()
+            })
+
+            _this.$prev.on("click",function(event){
+                clearInterval(_this.timer)
+                event.preventDefault()
+                if(_this.lock){
+                    return
+                }
+                _this.playPrev()
+            })
+
+            _this.$bullet.on("click","li",function(event){
+                clearInterval(_this.timer)
+                var bulletIdx=$(event.currentTarget).index() /*使用currentTarget是因为li很小，*/
+                console.log(bulletIdx)/*如果用target则event指向触发元素img而没指向li，img在每个li中只有一个,所以idx会始终为0*/
+                _this.$imgWrap.animate({"left":-(bulletIdx+1)*_this.$imgWidth})
+                _this.setBullet(bulletIdx)
+            })
+        }
+
+        Carousel.prototype.view=function(){
+            var _this=this
+            _this.timer=setInterval(function(){
+                _this.playNext()
+            },2000)
+        }
+
+        new Carousel($(".carousel").eq(0))
+
+
+
+    </script>
+</body>
+</html>
