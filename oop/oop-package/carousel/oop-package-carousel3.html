@@ -1,0 +1,117 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div,ul,li,a,img{
+            margin:0px;
+            padding:0px;
+        }
+
+        ul,li{
+            list-style:none;
+        }
+
+        a{
+            text-decoration:none;
+            color:#ccc;
+        }
+
+        .clearfix:after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+
+        .carousel{
+            position:relative;
+            height:360px;
+            width:480px;
+            text-align:center;
+        }
+
+        .img-wrap{
+            position:absolute;
+            width:3000px;
+        }
+
+        .clearfix li{
+            float:left;
+        }
+
+        .play{
+            display:inline-block;
+            width:30px;
+            height:30px;
+            line-height:30px;
+            border:1px solid #ccc;
+            border-radius:50%;
+            text-align:center;
+            font-size:30px;
+            background-color:rgba(0,0,0,0.8);
+            opacity:0.5;
+            position:absolute;
+            top:50%;
+            z-index:9;
+            transform:translate(0,-50%);
+        }
+
+        .play:hover{
+            opacity:0.8;
+        }
+
+        .prev{
+            left:10px;
+        }
+
+        .next{
+            right:10px;
+        }
+
+        .view li img{
+            width:90px;
+            height:70px;
+        }
+
+        .view li{
+            display:inline-block;
+            opacity:0.3;
+        }
+
+        .view{
+            position:absolute;
+            bottom:5px;
+            width:100%;
+            text-align:center;
+        }
+
+        .carousel .view .active{
+            opacity:1;
+            border:3px solid #ccc;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="carousel">
+            <div class="img-wrap">
+                <ul class="clearfix">
+                    <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+                    <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+                    <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+                    <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
+                </ul>
+            </div>
+            <a href="" class="play prev"><</a>
+            <a href="" class="play next">></a>
+            <ul class="view">
+                <li class="active"><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
