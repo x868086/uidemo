@@ -207,104 +207,211 @@
         //         playNext()
         //     },2000)
 
-        function Carousel($node){
-            this.$carousel=$node
-            this.$imgWrap=this.$carousel.find(".img-wrap")
-            this.$prev=this.$carousel.find(".prev")
-            this.$next=this.$carousel.find(".next")
-            this.$bullet=this.$carousel.find(".bullet")
-            this.idx=0
-            this.imgLength=this.$imgWrap.find("li").length
-            this.$imgWidth=this.$imgWrap.find("img").eq(0).width()
-            this.$firstNode=this.$imgWrap.find("li").first().clone()/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
-            this.$lastNode=this.$imgWrap.find("li").last().clone()/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
-            this.lock=false
-            this.cloneNode()
-            this.bind()
-            this.view()
-        }
+        // tips2:面向对象代码
+        // function Carousel($node){
+        //     this.$carousel=$node
+        //     this.$imgWrap=this.$carousel.find(".img-wrap")
+        //     this.$prev=this.$carousel.find(".prev")
+        //     this.$next=this.$carousel.find(".next")
+        //     this.$bullet=this.$carousel.find(".bullet")
+        //     this.idx=0
+        //     this.imgLength=this.$imgWrap.find("li").length
+        //     this.$imgWidth=this.$imgWrap.find("img").eq(0).width()
+        //     this.$firstNode=this.$imgWrap.find("li").first().clone()/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
+        //     this.$lastNode=this.$imgWrap.find("li").last().clone()/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
+        //     this.lock=false
+        //     this.cloneNode()
+        //     this.bind()
+        //     this.view()
+        // }
 
-        Carousel.prototype.cloneNode=function(){
-            var imgs
-            this.$imgWrap.append(this.$firstNode)
-                .prepend(this.$lastNode)
-                imgs=this.$imgWrap.find("li").length
-            this.$imgWrap.css({"width":imgs*this.$imgWidth,"left":-this.$imgWidth})
-        }
+        // Carousel.prototype.cloneNode=function(){
+        //     var imgs
+        //     this.$imgWrap.append(this.$firstNode)
+        //         .prepend(this.$lastNode)
+        //         imgs=this.$imgWrap.find("li").length
+        //     this.$imgWrap.css({"width":imgs*this.$imgWidth,"left":-this.$imgWidth})
+        // }
 
-        Carousel.prototype.playNext=function(){
-            var _this=this
-            _this.lock=true
-            _this.$imgWrap.animate({"left":`-=${_this.$imgWidth}`},function(){/*css中设置某个值时可以写成-= 或者 +=*/
-                _this.idx++
-                _this.lock=false
-                if(_this.idx>=_this.imgLength){
-                    _this.$imgWrap.css({"left":-_this.$imgWidth})
-                    _this.idx=0
-                }
-                _this.setBullet(_this.idx)
-            })
-        }
+        // Carousel.prototype.playNext=function(){
+        //     var _this=this
+        //     _this.lock=true
+        //     _this.$imgWrap.animate({"left":`-=${_this.$imgWidth}`},function(){/*css中设置某个值时可以写成-= 或者 +=*/
+        //         _this.idx++
+        //         _this.lock=false
+        //         if(_this.idx>=_this.imgLength){
+        //             _this.$imgWrap.css({"left":-_this.$imgWidth})
+        //             _this.idx=0
+        //         }
+        //         _this.setBullet(_this.idx)
+        //     })
+        // }
 
-        Carousel.prototype.playPrev=function(){
+        // Carousel.prototype.playPrev=function(){
+        //         var _this=this
+        //         _this.lock=true
+        //         _this.$imgWrap.animate({"left":`+=${_this.$imgWidth}`},function(){
+        //             _this.idx--
+        //             _this.lock=false
+        //             if(_this.idx<0){
+        //                 _this.$imgWrap.css({"left":-_this.imgLength*_this.$imgWidth})
+        //                 _this.idx=3
+        //             }
+        //             _this.setBullet(_this.idx)
+        //         })
+        // }
+
+        // Carousel.prototype.setBullet=function(idx){
+        //         this.$bullet.find("li").eq(idx).addClass("active")
+        //     .siblings().removeClass("active")
+        // }
+
+        // Carousel.prototype.bind=function(){
+        //     var _this=this
+        //         _this.$next.on("click",function(event){
+        //         clearInterval(_this.timer)
+        //         event.preventDefault()
+        //         if(_this.lock){
+        //             return
+        //         }
+        //         _this.playNext()
+        //     })
+
+        //     _this.$prev.on("click",function(event){
+        //         clearInterval(_this.timer)
+        //         event.preventDefault()
+        //         if(_this.lock){
+        //             return
+        //         }
+        //         _this.playPrev()
+        //     })
+
+        //     _this.$bullet.on("click","li",function(event){
+        //         clearInterval(_this.timer)
+        //         var bulletIdx=$(event.currentTarget).index() /*使用currentTarget是因为li很小，*/
+        //         console.log(bulletIdx)/*如果用target则event指向触发元素img而没指向li，img在每个li中只有一个,所以idx会始终为0*/
+        //         _this.$imgWrap.animate({"left":-(bulletIdx+1)*_this.$imgWidth})
+        //         _this.setBullet(bulletIdx)
+        //     })
+        // }
+
+        // Carousel.prototype.view=function(){
+        //     var _this=this
+        //     _this.timer=setInterval(function(){
+        //         _this.playNext()
+        //     },2000)
+        // }
+
+        // new Carousel($(".carousel").eq(0))
+
+
+        // tips3:代码封装
+        var Carousel=(function(){
+            function Carousel($node){
+                this.$carousel=$node
+                this.$imgWrap=this.$carousel.find(".img-wrap")
+                this.$prev=this.$carousel.find(".prev")
+                this.$next=this.$carousel.find(".next")
+                this.$bullet=this.$carousel.find(".bullet")
+                this.idx=0
+                this.imgLength=this.$imgWrap.find("li").length
+                this.$imgWidth=this.$imgWrap.find("img").eq(0).width()
+                this.$firstNode=this.$imgWrap.find("li").first().clone()/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
+                this.$lastNode=this.$imgWrap.find("li").last().clone()/*这里必须使用clone方法复制元素，不使用clone就是移动元素了*/
+                this.lock=false
+                this.cloneNode()
+                this.bind()
+                this.view()
+            }
+
+            Carousel.prototype.cloneNode=function(){
+                var imgs
+                this.$imgWrap.append(this.$firstNode)
+                    .prepend(this.$lastNode)
+                    imgs=this.$imgWrap.find("li").length
+                this.$imgWrap.css({"width":imgs*this.$imgWidth,"left":-this.$imgWidth})
+            }
+
+            Carousel.prototype.playNext=function(){
                 var _this=this
                 _this.lock=true
-                _this.$imgWrap.animate({"left":`+=${_this.$imgWidth}`},function(){
-                    _this.idx--
+                _this.$imgWrap.animate({"left":`-=${_this.$imgWidth}`},function(){/*css中设置某个值时可以写成-= 或者 +=*/
+                    _this.idx++
                     _this.lock=false
-                    if(_this.idx<0){
-                        _this.$imgWrap.css({"left":-_this.imgLength*_this.$imgWidth})
-                        _this.idx=3
+                    if(_this.idx>=_this.imgLength){
+                        _this.$imgWrap.css({"left":-_this.$imgWidth})
+                        _this.idx=0
                     }
                     _this.setBullet(_this.idx)
                 })
-        }
+            }
 
-        Carousel.prototype.setBullet=function(idx){
-                this.$bullet.find("li").eq(idx).addClass("active")
-            .siblings().removeClass("active")
-        }
+            Carousel.prototype.playPrev=function(){
+                    var _this=this
+                    _this.lock=true
+                    _this.$imgWrap.animate({"left":`+=${_this.$imgWidth}`},function(){
+                        _this.idx--
+                        _this.lock=false
+                        if(_this.idx<0){
+                            _this.$imgWrap.css({"left":-_this.imgLength*_this.$imgWidth})
+                            _this.idx=3
+                        }
+                        _this.setBullet(_this.idx)
+                    })
+            }
 
-        Carousel.prototype.bind=function(){
-            var _this=this
-                _this.$next.on("click",function(event){
-                clearInterval(_this.timer)
-                event.preventDefault()
-                if(_this.lock){
-                    return
+            Carousel.prototype.setBullet=function(idx){
+                    this.$bullet.find("li").eq(idx).addClass("active")
+                .siblings().removeClass("active")
+            }
+
+            Carousel.prototype.bind=function(){
+                var _this=this
+                    _this.$next.on("click",function(event){
+                    clearInterval(_this.timer)
+                    event.preventDefault()
+                    if(_this.lock){
+                        return
+                    }
+                    _this.playNext()
+                })
+
+                _this.$prev.on("click",function(event){
+                    clearInterval(_this.timer)
+                    event.preventDefault()
+                    if(_this.lock){
+                        return
+                    }
+                    _this.playPrev()
+                })
+
+                _this.$bullet.on("click","li",function(event){
+                    clearInterval(_this.timer)
+                    var bulletIdx=$(event.currentTarget).index() /*使用currentTarget是因为li很小，*/
+                    console.log(bulletIdx)/*如果用target则event指向触发元素img而没指向li，img在每个li中只有一个,所以idx会始终为0*/
+                    _this.$imgWrap.animate({"left":-(bulletIdx+1)*_this.$imgWidth})
+                    _this.setBullet(bulletIdx)
+                })
+            }
+
+            Carousel.prototype.view=function(){
+                var _this=this
+                _this.timer=setInterval(function(){
+                    _this.playNext()
+                },2000)
+            }
+
+
+            return{
+                carousel:function($nodelist){
+                    $nodelist.each(function(idx,el){
+                        new Carousel($(el))
+                    })
                 }
-                _this.playNext()
-            })
+            }
+        }())
 
-            _this.$prev.on("click",function(event){
-                clearInterval(_this.timer)
-                event.preventDefault()
-                if(_this.lock){
-                    return
-                }
-                _this.playPrev()
-            })
-
-            _this.$bullet.on("click","li",function(event){
-                clearInterval(_this.timer)
-                var bulletIdx=$(event.currentTarget).index() /*使用currentTarget是因为li很小，*/
-                console.log(bulletIdx)/*如果用target则event指向触发元素img而没指向li，img在每个li中只有一个,所以idx会始终为0*/
-                _this.$imgWrap.animate({"left":-(bulletIdx+1)*_this.$imgWidth})
-                _this.setBullet(bulletIdx)
-            })
-        }
-
-        Carousel.prototype.view=function(){
-            var _this=this
-            _this.timer=setInterval(function(){
-                _this.playNext()
-            },2000)
-        }
-
-        new Carousel($(".carousel").eq(0))
-
-
-
+        Carousel.carousel($(".carousel"))
     </script>
 </body>
 </html>
