@@ -91,18 +91,17 @@
         }
 
     </style>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
 </head>
 <body>
     <div id="container">
         <div class="carousel">
-            <div class="img-wrap">
-                <ul class="clearfix">
+                <ul class="img-wrap clearfix">
                     <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
                     <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
                     <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
                     <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
                 </ul>
-            </div>
             <a href="" class="play prev"><</a>
             <a href="" class="play next">></a>
             <ul class="view">
@@ -113,5 +112,25 @@
             </ul>
         </div>
     </div>
+    <script type="text/javascript">
+        var $imgWrap=$(".img-wrap"),
+            $next=$(".next"),
+            $prev=$(".prev"),
+            $view=$(".view"),
+            $firstNode=$imgWrap.find("li").first().clone(),
+            $lastNode=$imgWrap.find("li").last().clone(),
+            imgLength=$(".img-wrap").find("li").length,
+            $imgWidth=$imgWrap.find("li").eq(0).width(),
+            lock,
+            idx=0
+
+        function init(){
+            $imgWrap.append($firstNode).prepend($lastNode)
+            $imgWrap.css({"left":-$imgWidth})
+        }
+
+        init()
+
+    </script>
 </body>
 </html>
