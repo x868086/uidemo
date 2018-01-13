@@ -28,6 +28,8 @@
             height:360px;
             width:480px;
             text-align:center;
+            overflow:hidden;
+            margin-bottom:20px;
         }
 
         .img-wrap{
@@ -76,6 +78,7 @@
         .view li{
             display:inline-block;
             opacity:0.3;
+            cursor:pointer;
         }
 
         .view{
@@ -111,25 +114,314 @@
                 <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
             </ul>
         </div>
+
+        <div class="carousel">
+            <ul class="img-wrap clearfix">
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+                <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
+            </ul>
+        <a href="" class="play prev"><</a>
+        <a href="" class="play next">></a>
+        <ul class="view">
+            <li class="active"><img src="http://cdn.jirengu.com/book.jirengu.com/img/26.jpg" alt=""></li>
+            <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/27.jpg" alt=""></li>
+            <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/28.jpg" alt=""></li>
+            <li><img src="http://cdn.jirengu.com/book.jirengu.com/img/29.jpg" alt=""></li>
+        </ul>
+    </div>
     </div>
     <script type="text/javascript">
-        var $imgWrap=$(".img-wrap"),
-            $next=$(".next"),
-            $prev=$(".prev"),
-            $view=$(".view"),
-            $firstNode=$imgWrap.find("li").first().clone(),
-            $lastNode=$imgWrap.find("li").last().clone(),
-            imgLength=$(".img-wrap").find("li").length,
-            $imgWidth=$imgWrap.find("li").eq(0).width(),
-            lock,
-            idx=0
 
-        function init(){
-            $imgWrap.append($firstNode).prepend($lastNode)
-            $imgWrap.css({"left":-$imgWidth})
-        }
+        //tips1:原始代码
+        // var $imgWrap=$(".img-wrap"),
+        //     $next=$(".next"),
+        //     $prev=$(".prev"),
+        //     $view=$(".view"),
+        //     $firstNode=$imgWrap.find("li").first().clone(),
+        //     $lastNode=$imgWrap.find("li").last().clone(),
+        //     imgLength=$(".img-wrap").find("li").length,
+        //     $imgWidth=$imgWrap.find("li").eq(0).width(),
+        //     lock=false,
+        //     idx=0,
+        //     timer;
 
-        init()
+        // function init(){
+        //     $imgWrap.append($firstNode).prepend($lastNode);
+        //     $imgWrap.css({"left":-$imgWidth});
+        // }
+
+        // init();
+
+        // function playNext(){
+        //     lock=true;
+        //     $imgWrap.animate({"left":`-=${$imgWidth}`},function(){
+        //         idx++;
+        //         if(idx===imgLength){
+        //             $imgWrap.css({"left":-$imgWidth});
+        //             idx=0;
+        //         }
+        //         lock=false;
+        //         setView(idx)
+        //     })
+        // }
+
+        // function playPrev(){
+        //     lock=true;
+        //     $imgWrap.animate({"left":`+=${$imgWidth}`},function(){
+        //         idx--;
+        //         if(idx<0){
+        //             $imgWrap.css({"left":-imgLength*$imgWidth});
+        //             idx=3;
+        //         }
+        //         lock=false;
+        //         setView(idx)
+        //     })
+        // }
+
+        // function setView(viewIdx){
+        //     $view.find("li").eq(viewIdx).addClass("active")
+        //         .siblings().removeClass("active")
+        //     idx=viewIdx
+        // }
+
+        // $next.on("click",function(event){
+        //     event.preventDefault();
+        //     clearInterval(timer)
+        //     if(lock){
+        //         return;
+        //     }
+        //     playNext();
+        // })
+
+        // $prev.on("click",function(event){
+        //     event.preventDefault();
+        //     clearInterval(timer)
+        //     if(lock){
+        //         return;
+        //     }
+        //     playPrev();
+        // })
+
+        // $view.on("click","li",function(event){
+        //     clearInterval(timer)
+        //     var viewIdx=$(event.currentTarget).index();
+        //         $imgWrap.animate({"left":-(viewIdx+1)*$imgWidth},function(){
+        //             setView(viewIdx)
+        //         })
+        // })
+
+        // timer=setInterval(function(){
+        //     playNext()
+        // },2000)
+
+        
+
+        //tips2:面向对象代码
+        // function Carousel($node){
+        //     this.$imgWrap=$node.find(".img-wrap");
+        //     this.$next=$node.find(".next");
+        //     this.$prev=$node.find(".prev");
+        //     this.$view=$node.find(".view");
+        //     this.$firstNode=this.$imgWrap.find("li").first().clone();
+        //     this.$lastNode=this.$imgWrap.find("li").last().clone();
+        //     this.imgLength=this.$imgWrap.find("li").length;
+        //     this.$imgWidth=this.$imgWrap.find("li").eq(0).width();
+        //     this.lock=false;
+        //     this.idx=0;
+        //     this.timer;
+        //     this.init();
+        //     this.bind();
+        //     this.setTimer();
+        // }
+
+        // Carousel.prototype.init=function(){
+        //     this.$imgWrap.append(this.$firstNode).prepend(this.$lastNode);
+        //     this.$imgWrap.css({"left":-this.$imgWidth});            
+        // }
+
+        // Carousel.prototype.playNext=function(){
+        //     var _this=this
+        //     _this.lock=true;
+        //     _this.$imgWrap.animate({"left":`-=${_this.$imgWidth}`},function(){
+        //         _this.idx++;
+        //         if(_this.idx===_this.imgLength){
+        //             _this.$imgWrap.css({"left":-_this.$imgWidth});
+        //             _this.idx=0;
+        //         }
+        //         _this.lock=false;
+        //         _this.setView(_this.idx)
+        //     })
+        // }
+
+        // Carousel.prototype.playPrev=function(){
+        //     var _this=this
+        //     _this.lock=true;
+        //     _this.$imgWrap.animate({"left":`+=${_this.$imgWidth}`},function(){
+        //         _this.idx--;
+        //         if(_this.idx<0){
+        //             _this.$imgWrap.css({"left":-_this.imgLength*_this.$imgWidth});
+        //             _this.idx=3;
+        //         }
+        //         _this.lock=false;
+        //         _this.setView(_this.idx)
+        //     })
+        // }
+
+        // Carousel.prototype.setView=function(viewIdx){
+        //     this.$view.find("li").eq(viewIdx).addClass("active")
+        //         .siblings().removeClass("active")
+        //     this.idx=viewIdx
+        // }
+
+        // Carousel.prototype.setTimer=function(){
+        //     var _this=this
+        //     _this.timer=setInterval(function(){
+        //         _this.playNext()
+        //         },2000)
+        // }
+
+        // Carousel.prototype.bind=function(){
+        //     var _this=this
+        //     _this.$next.on("click",function(event){
+        //     event.preventDefault();
+        //     clearInterval(_this.timer)
+        //     if(_this.lock){
+        //         return;
+        //     }
+        //     _this.playNext();
+        // })
+
+        // _this.$prev.on("click",function(event){
+        //     event.preventDefault();
+        //     clearInterval(_this.timer)
+        //     if(_this.lock){
+        //         return;
+        //     }
+        //     _this.playPrev();
+        // })
+
+        // _this.$view.on("click","li",function(event){
+        //     clearInterval(_this.timer)
+        //     var viewIdx=$(event.currentTarget).index();
+        //         _this.$imgWrap.animate({"left":-(viewIdx+1)*_this.$imgWidth},function(){
+        //             _this.setView(viewIdx)
+        //         })
+        // })
+        // }
+
+        
+        // $(".carousel").each(function(idx,el){
+        //     new Carousel($(el))
+        // })
+
+        // tips3:代码封装
+
+        var Carousel=(function(){
+            function Carousel($node){
+                this.$imgWrap=$node.find(".img-wrap");
+                this.$next=$node.find(".next");
+                this.$prev=$node.find(".prev");
+                this.$view=$node.find(".view");
+                this.$firstNode=this.$imgWrap.find("li").first().clone();
+                this.$lastNode=this.$imgWrap.find("li").last().clone();
+                this.imgLength=this.$imgWrap.find("li").length;
+                this.$imgWidth=this.$imgWrap.find("li").eq(0).width();
+                this.lock=false;
+                this.idx=0;
+                this.timer;
+                this.init();
+                this.bind();
+                this.setTimer();
+            }
+
+            Carousel.prototype.init=function(){
+                this.$imgWrap.append(this.$firstNode).prepend(this.$lastNode);
+                this.$imgWrap.css({"left":-this.$imgWidth});            
+            }
+
+            Carousel.prototype.playNext=function(){
+                var _this=this
+                _this.lock=true;
+                _this.$imgWrap.animate({"left":`-=${_this.$imgWidth}`},function(){
+                    _this.idx++;
+                    if(_this.idx===_this.imgLength){
+                        _this.$imgWrap.css({"left":-_this.$imgWidth});
+                        _this.idx=0;
+                    }
+                    _this.lock=false;
+                    _this.setView(_this.idx)
+                })
+            }
+
+            Carousel.prototype.playPrev=function(){
+                var _this=this
+                _this.lock=true;
+                _this.$imgWrap.animate({"left":`+=${_this.$imgWidth}`},function(){
+                    _this.idx--;
+                    if(_this.idx<0){
+                        _this.$imgWrap.css({"left":-_this.imgLength*_this.$imgWidth});
+                        _this.idx=3;
+                    }
+                    _this.lock=false;
+                    _this.setView(_this.idx)
+                })
+            }
+
+            Carousel.prototype.setView=function(viewIdx){
+                this.$view.find("li").eq(viewIdx).addClass("active")
+                    .siblings().removeClass("active")
+                this.idx=viewIdx
+            }
+
+            Carousel.prototype.setTimer=function(){
+                var _this=this
+                _this.timer=setInterval(function(){
+                    _this.playNext()
+                    },2000)
+            }
+
+            Carousel.prototype.bind=function(){
+                var _this=this
+                _this.$next.on("click",function(event){
+                event.preventDefault();
+                clearInterval(_this.timer)
+                if(_this.lock){
+                    return;
+                }
+                _this.playNext();
+            })
+
+            _this.$prev.on("click",function(event){
+                event.preventDefault();
+                clearInterval(_this.timer)
+                if(_this.lock){
+                    return;
+                }
+                _this.playPrev();
+            })
+
+            _this.$view.on("click","li",function(event){
+                clearInterval(_this.timer)
+                var viewIdx=$(event.currentTarget).index();
+                    _this.$imgWrap.animate({"left":-(viewIdx+1)*_this.$imgWidth},function(){
+                        _this.setView(viewIdx)
+                    })
+            })
+            }
+
+            return {
+                carousel:function($nodelists){
+                    $nodelists.each(function(idx,el){
+                        new Carousel($(el))
+                    })
+                }
+            }
+        }())
+
+        Carousel.carousel($(".carousel"))
+
 
     </script>
 </body>
