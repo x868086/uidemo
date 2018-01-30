@@ -5,30 +5,136 @@
 </head>
 <body>
     <script type="text/javascript">
+        // function Person(name,age){
+        //     this.name=name;
+        //     this.age=age;
+        // }
+
+        // Person.prototype.sayName=function(){
+        //     console.log(`my name is`+`${this.name}`);
+        // }
+
+        // function Student(name,age,score){
+        //     this.score=score;
+        //     Person.call(this,name,age);
+        // }
+
+        // Student.prototype=Object.create(Person.prototype);
+
+        // Student.prototype.sayScore=function(){
+        //     console.log(`score is `+`${this.score}`)
+        // }
+
+
+        // var p1=new Student("tiger",33,90);
+        // var p2=new Student("penny",29,95);
+        // var p3=new Person("json",22,60);
+
+        // tips1:
+        // function Person(name,age){
+        //     this.name=name;
+        //     this.age=age;
+        // }
+        // Person.prototype.sayName=function(){
+        //     console.log(`my name is ${this.name},age is ${this.age}`)
+        // }
+
+        // function Student(name,age,score){
+        //     this.score=score;
+        //     Person.call(this,name,age);
+        // }
+        // Student.prototype=Object.create(Person.prototype)
+        // Student.prototype.sayScore=function(){
+        //     console.log(this.score)
+        // }
+
+        // var p1=new Person("tiger",30);
+        // var p2=new Student("penny",25,100);
+        
+        // tips2:
+        // function Person(name,age){
+        //     this.name=name;
+        //     this.age=age;
+        // }
+        // Person.prototype.sayName=function(){
+        //     console.log(`my name is ${this.name},age is ${this.age}`)
+        // }
+
+        // function Student(name,age,score){
+        //     this.score=score;
+        //     Person.call(this,name,age);
+        // }
+        // Student.prototype=Object.create(Person.prototype);
+        // Student.prototype.sayScore=function(){
+        //     console.log(this.score)
+        // }
+
+        // var p1=new Person("tiger",30);
+        // var p2=new Student("penny",25,100);
+
+        // tips3:
+        // function Person(name,age){
+        //     this.name=name;
+        //     this.age=age;
+        // }
+        // Person.prototype.sayName=function(){
+        //     console.log(`my name is ${this.name}`)
+        // }
+
+        // function Student(name,age,score){
+        //     this.score=score;
+        //     Person.call(this,name,age);
+        // }
+
+        // Student.prototype=Object.create(Person.prototype);
+        // Student.prototype.sayScore=function(){
+        //     console.log(this.score)
+        // }
+
+        // var p1=new Person("hunger",100);
+        // var p2=new Student("tiger",20,100);
+
+        // tips4:
+        // function Person(name,age){
+        //     this.name=name;
+        //     this.age=age;
+        // }
+        // Person.prototype.sayName=function(){
+        //     console.log(`my name is ${this.name}`)
+        // }
+
+        // function Student(name,age,score){
+        //     this.score=score;
+        //     Person.call(this,name,age)
+        // }
+        // Student.prototype=Object.create(Person.prototype);
+        // Student.prototype.sayScore=function(){
+        //     console.log(this.score)
+        // }
+
+        // var p1=new Person("hunger",30);
+        // var p2=new Student("jason",25,100);
+
+        // tips5:
         function Person(name,age){
             this.name=name;
             this.age=age;
         }
-
         Person.prototype.sayName=function(){
-            console.log(`my name is`+`${this.name}`);
+            console.log(`my name is ${this.name}`)
         }
 
         function Student(name,age,score){
             this.score=score;
             Person.call(this,name,age);
         }
-
         Student.prototype=Object.create(Person.prototype);
-
         Student.prototype.sayScore=function(){
-            console.log(`score is `+`${this.score}`)
+            console.log(this.score)
         }
-
-
-        var p1=new Student("tiger",33,90);
-        var p2=new Student("penny",29,95);
-        var p3=new Person("json",22,60);
+        
+        var p1=new Person("hunger",100);
+        var p2=new Student("jason",25,145);
     </script>
 </body>
 </html>

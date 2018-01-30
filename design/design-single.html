@@ -1,0 +1,157 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+    // tips1:单例模式必须使用闭包，这样才能将实例驻留在内存中不被回收
+    //     var person=(function(){
+    //         var single;
+    //         function init(name,age){
+    //             return{
+    //                 name:name,
+    //                 age:age
+    //             }
+
+    //         }
+
+    //         return {
+    //             createSingle:function(name,age){
+    //                 if(single){
+    //                     return single;
+    //                 }else{
+    //                     single=init(name,age);
+    //                     return single;
+    //                 }
+    //             }
+    //         }
+
+    //     })()
+    
+    // var p1=person.createSingle("hunger",100);
+    // var p2=person.createSingle("jason",25);
+
+// tips2:单例模式必须使用闭包，这样才能将实例驻留在内存中不被回收
+// var person=(function(){
+//     var single;
+
+//     function init(name,age){
+//         return{
+//             name:name,
+//             age:age,
+//             sayName:function(){
+//                 console.log(`my name is ${name}`)
+//             }
+//         }
+//     }
+//     return{
+//         createSingle:function(name,age){
+//             if(single){
+//                 return single;
+//             }else{
+//                 single=init(name,age);
+//                 return single
+//             }
+//         }
+//     }
+// })()
+
+//     var p1=person.createSingle("hunger",100);
+//     var p2=person.createSingle("jason",25);
+
+// tips3:单例模式必须使用闭包，这样才能将实例驻留在内存中不被内存回收
+    // var person=(function(){
+    //     var single;
+    //     function init(name,age){
+    //         return {
+    //             name:name,
+    //             age:age,
+    //             sayName:function(){
+    //                 console.log(`my name is ${name}`)
+    //             }
+    //         }
+    //     }
+    //     return{
+    //         createSingle:function(name,age){
+    //             if(single){
+    //                 return single;
+    //             }else{
+    //                 single=init(name,age);
+    //                 return single;
+    //             }
+    //         }
+    //     }
+
+    // })()
+
+    // var p1=person.createSingle("hunger",100);
+    // var p2=person.createSingle("jason",25);
+
+    // tips4:单例模式必须使用闭包，这样才能让实例驻留在内存中，不会内存回收
+    // var person=(function(){
+    //     var single;
+    //     function init(name,age){
+    //         return{
+    //             name:name||'默认用户',/*默认参数，如果没有传入参数，则默认使用'默认用户'*/
+    //             age:age||28,
+    //             sayName:function(){
+    //                 console.log(`my name is ${name}`);
+    //             }
+    //         }
+    //     }
+    //     return{
+    //         createSingle:function(name,age){
+    //             if(single){
+    //                 return single;
+    //             }else{
+    //                 single=init(name,age);
+    //                 return single;
+    //             }
+    //         }
+    //     }
+
+    // })()
+
+    // var p1=person.createSingle();
+    // var p2=person.createSingle("hunger",100);
+
+    // tips5:单例模式必须使用闭包，让实例驻留在内存中，不被内存销毁
+
+    var person=(function(){
+        var single;
+
+        function init(name,age){
+            return {
+                    name:name||'默认用户',
+                    age:age||'默认年龄',
+                    sayName:function(){
+                        console.log(`my name is ${name}`)
+                    }
+            }
+        }
+
+        return{
+            createSingle:function(name,age){
+                if(single){
+                    return single;
+                }else{
+                    single=init(name,age);
+                    return single;
+                }
+            }
+        }
+
+    })()
+
+    var p2=person.createSingle();
+    var p1=person.createSingle("hunger",100);
+
+
+
+    
+    </script>
+</body>
+</html>
