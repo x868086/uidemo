@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script type="text/javascript">
+        function Person(name,age){
+            this.name=name;
+            this.age=age;
+        }
+
+        Person.prototype.sayName=function(){
+            console.log(`my name is`+`  ${this.name}`);
+        }
+
+        var student=new Person("tiger",33);
+    </script>
+</body>
+</html>

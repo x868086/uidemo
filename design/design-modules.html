@@ -1,0 +1,24 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var p1=(function(){
+            var name="hunger",
+            age=30;
+            return {
+                sayName:function(){
+                    console.log("my name is " +name);
+                    console.log(age);
+                },
+                changeInfo:function(newname){
+                    name=newname;
+                    age++;
+                }
+            }
+        })()
+    </script>
+</body>
+</html>
