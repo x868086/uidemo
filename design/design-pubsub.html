@@ -1,0 +1,225 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        // var EventCenter=(function(){
+        //     var events={};
+
+        //     function on(event,callback){
+        //         events[event]=events[event]||[];
+        //         events[event].push(callback);
+        //     }
+
+        //     function trigger(event,args){
+        //         if(events[event]){
+        //             for(var i=0;i<events[event].length;i++){
+        //                 events[event][i](args);
+        //             }
+        //         }else{
+        //             return;
+        //         }
+        //     }
+
+        //     function off(event){
+        //         delete events[event]
+        //     }
+
+        //     return{
+        //         on:on,
+        //         trigger:trigger,
+        //         off:off
+        //     }
+        // })();
+
+        // tips1:
+        // var EventCent=(function(){
+        //     var events={};
+
+        //     function on(event,callback){
+        //         events[event]=events[event]||[];
+        //         events[event].push(callback);
+        //     }
+
+        //     function trigger(event,arg){
+        //         if(events[event]){
+        //             for(var i=0;i<events[event].length;i++){
+        //                 events[event][i](arg);
+        //             }
+        //         }else{
+        //             console.log("no callback");
+        //         }
+        //     }
+
+        //     function off(event){
+        //         delete events[event]
+        //     }
+
+
+        //     return{
+        //         events:events,
+        //         on:on,
+        //         trigger:trigger,
+        //         off:off
+        //     }
+        // })()
+
+        // tips2:
+        // var EventCent=(function(){
+        //     var events={};
+
+        //     function on(event,callback){
+        //         events[event]=events[event]||[];
+        //         events[event].push(callback);
+        //     }
+
+        //     function trigger(event,arg){
+        //         if(events[event]){
+        //             for(var i=0;i<events[event].length;i++){
+        //                 events[event][i](arg);
+        //             }
+        //         }else{
+        //             console.log("no content push");
+        //             return;
+        //         }
+        //     }
+
+        //     function off(event){
+        //         delete events[event];
+        //     }
+
+        //     return{
+        //         on:on,
+        //         trigger:trigger,
+        //         off:off,
+        //         events:events
+        //     }
+        // })()
+
+
+        // tips3:
+        // var EventCent=(function(){
+        //     var events={};
+
+        //     function on(event,callback){
+        //         events[event]=events[event]||[];
+        //         events[event].push(callback);
+        //     }
+
+        //     function trigger(event,arg){
+        //         if(events[event]){
+        //             for(var i=0;i<events[event].length;i++){
+        //                 events[event][i](arg);
+        //             }
+        //         }else{
+        //             console.log("no callback");
+        //             return;
+        //         }
+        //     }
+
+        //     function off(event){
+        //         delete events[event]
+        //     }
+
+        //     return{
+        //         on:on,
+        //         trigger:trigger,
+        //         off:off,
+        //         events:events
+        //     }
+        // })()
+
+        // tips4:
+        // var EventCent=(function(){
+        //     var events={};
+
+        //     function on(event,callback){
+        //         events[event]=events[event]||[];
+        //         events[event].push(callback);
+
+        //     }
+
+        //     function trigger(event,arg){
+        //         if(events[event]){
+        //             for(var i=0;i<events[event].length;i++){
+        //                 events[event][i](arg);
+        //             }
+        //         }else{
+        //                 console.log("no callback")
+        //             }
+        //     }
+
+        //     function off(event){
+        //         delete events[event]
+        //     }
+
+        //     return{
+        //         on:on,
+        //         trigger:trigger,
+        //         off:off,
+        //         events:events
+        //     }
+        // })()
+
+        // tips5:
+        var EventCent=(function(){
+            var events={};
+
+            function on(event,callback){
+                events[event]=events[event]||[];
+                events[event].push(callback);
+            }
+
+            function trigger(event,arg){
+                if(events[event]){
+                    // events[event].forEach(element => {
+                    //     element(arg)
+                    // });
+                    
+                    // events[event].forEach(function(e,i,a){
+                    //     e(arg)
+                    // })
+
+                    for(var i=0;i<events[event].length;i++){
+                        events[event][i](arg);
+                    }
+                }else{
+                    console.log("no callback");
+                    return;
+                }
+            }
+
+            function off(event){
+                delete events[event];
+            }
+
+            return{
+                on:on,
+                trigger:trigger,
+                off,
+                events:events
+            }
+        })()
+
+        EventCent.on("click",function(val){
+            console.log("click done:" +val);
+        })
+
+        EventCent.on("aaa",function(){
+            console.log("aaa done");
+        })
+
+        EventCent.trigger("click",2);
+        EventCent.trigger("aaa");
+        EventCent.off("aaa");
+        EventCent.trigger("aaa");
+
+
+
+    </script>
+</body>
+</html>
